@@ -1,34 +1,34 @@
 {
-    "name": "netcrat-devops/payu-sdk-php",
-    "description": "PayU EMEA Secure Payments library in PHP",
-    "type": "library",
-    "homepage": "https://payu.co.za/",
-    "minimum-stability": "stable",
-    "keywords": [
-        "payu",
-        "payment processing",
-        "api"
-    ],
-    "require": {
-        "php": ">=5.3.3",
-        "ext-curl": "*",
-        "ext-soap": "*",
-        "ext-mbstring": "*",
-        "ext-json": "^1.3"
-    },    
-    "require-dev": {
-        "phpunit/phpunit": "~4.0",
-        "satooshi/php-coveralls": "~0.6.1",
-        "squizlabs/php_codesniffer": "~2.0"
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Kenneth Onah",
-            "email": "kenneth@netcraft-devops.com"
-        }
-    ],
-    "autoload": {
-        "psr-4": { "PayU\\" : "lib/" }
-    }
+	"name":"netcrat-devops/payu-sdk-php",
+	"description":"PayU EMEA Secure Payments library in PHP",
+	"type":"library",
+	"homepage":"https://payu.co.za/",
+	"minimum-stability":"stable",
+	"license":"MIT",
+	"keywords": [
+		"payu",
+		"payment processing",
+		"api"
+	],
+	"require": {
+		"php":">=5.3.3",
+		"ext-curl":"*",
+		"ext-soap":"*",
+		"ext-mbstring":"*",
+		"ext-json":"^1.3"
+	},
+	"require-dev": {
+		"phpunit/phpunit":"~4.0",
+		"satooshi/php-coveralls":"~0.6.1",
+		"squizlabs/php_codesniffer": "~2.0"
+	},
+	"authors": [ 
+		{
+			"name":"Kenneth Onah",
+			"email":"kenneth@netcraft-devops.com"
+		}
+	],
+		"autoload": {
+    		"psr-4": { "PayU\\" : "lib/" }
+  		}
 }

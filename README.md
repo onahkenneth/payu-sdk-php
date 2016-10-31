@@ -1,6 +1,9 @@
 # PayU EMEA PHP bindings
 
 [![Build Status](https://travis-ci.org/netcraft-devops/payu-sdk-php.svg?branch=master)](https://travis-ci.org/netcraft-devops/payu-sdk-php)
+[![Latest Stable Version](https://poser.pugx.org/netcrat-devops/payu-sdk-php/v/stable)](https://packagist.org/packages/netcrat-devops/payu-sdk-php)
+[![Total Downloads](https://poser.pugx.org/netcrat-devops/payu-sdk-php/downloads)](https://packagist.org/packages/netcrat-devops/payu-sdk-php)
+[![License](https://poser.pugx.org/netcrat-devops/payu-sdk-php/license)](https://packagist.org/packages/netcrat-devops/payu-sdk-php)
 [![Coverage Status](https://coveralls.io/repos/github/netcraft-devops/payu-sdk-php/badge.svg?branch=master)](https://coveralls.io/github/netcraft-devops/payu-sdk-php?branch=master)
 
 You can sign up for a PayU account at https://payu.co.za.
@@ -59,7 +62,7 @@ Please see http://help.payu.co.za/ for up-to-date documentation.
 
 ## Custom cURL Options (e.g. proxies)
 
-Need to set a proxy for your requests? Pass in the requisite `CURLOPT_*` array to the CurlClient constructor, using the same syntax as `curl_stopt_array()`. This will set the default cURL options for each HTTP request made by the SDK, though many more common options (e.g. timeouts; see above on how to set those) will be overridden by the client even if set here.
+Need to set a proxy for your requests? Pass in the requisite `CURLOPT_*` array to the CurlClient constructor, using the same syntax as `curl_setopt_array()`. This will set the default cURL options for each HTTP request made by the SDK, though many more common options will be overridden by the client even if set here.
 
 ```php
 // set up your tweaked Curl client
@@ -97,7 +100,7 @@ Or to run an individual test file:
 Are you writing a plugin that integrates PayU and embeds our library? Then please use the `setAppInfo` function to identify your plugin. For example:
 
 ```php
-\PayU\PayUEMEA::setAppInfo("MyAwesomePlugin", "1.1.2", "https://myawesomeplugin.info");
+\PayU\PayU::setAppInfo("MyAwesomePlugin", "1.1.2", "https://myawesomeplugin.info");
 ```
 
 The method should be called once, before any request is sent to the API. The second and third parameters are optional.

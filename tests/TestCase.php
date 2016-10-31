@@ -8,7 +8,9 @@ namespace PayU;
  */
 class TestCase extends \PHPUnit_Framework_TestCase
 {
-    const API_KEY = 'tGN0bIwXnHdwOa85VABjPdSn8nWY7G7I';
+    const SAFE_KEY = 'tGN0bIwXnHdwOa85VABjPdSn8nWY7G7I';
+    const API_USERNAME = '';
+    const API_PASSWORD = '';
 
     private $mock;
 
@@ -19,7 +21,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
             $apiKey = self::API_KEY;
         }
 
-        Stripe::setApiKey($apiKey);
+        PayU::setApiKey($apiKey);
     }
 
     protected function setUp()
@@ -34,7 +36,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $mock = $this->setUpMockRequest();
         $mock->expects($this->at($this->call++))
              ->method('request')
-             ->with(strtolower($method), 'https://api.stripe.com' . $path, $this->anything(), $params, false)
+             ->with(strtolower($method), 'https://staging.payu.co.za' . $path, $this->anything(), $params, false)
              ->willReturn(array(json_encode($return), $rcode, array()));
     }
 
@@ -42,7 +44,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
     {
         if (!$this->mock) {
             self::authorizeFromEnv();
-            $this->mock = $this->getMock('\Stripe\HttpClient\ClientInterface');
+            $this->mock = $this->getMock('\PayU\HttpClient\ClientInterface');
             ApiRequestor::setHttpClient($this->mock);
         }
         return $this->mock;
@@ -58,7 +60,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
         return Charge::create(
             $attributes + array(
                 'amount' => 2000,
-                'currency' => 'usd',
+                'currency' => 'ZAR',
                 'description' => 'Charge for test@example.com',
                 'card' => array(
                     'number' => '4242424242424242',
@@ -81,7 +83,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
         return Transfer::create(
             $attributes + array(
                 'amount' => 2000,
-                'currency' => 'usd',
+                'currency' => 'ZAR',
                 'description' => 'Transfer to test@example.com',
                 'recipient' => $recipient->id
             )

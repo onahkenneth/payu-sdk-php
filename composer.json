@@ -5,11 +5,17 @@
 	"homepage":"https://payu.co.za/",
 	"minimum-stability":"stable",
 	"license":"MIT",
+	"version": "1.0.0",
 	"keywords": [
 		"payu",
 		"payment processing",
 		"api"
 	],
+	"extra": [
+	    {
+	      "engine": "PHP SDK"
+	    }
+  	],
 	"require": {
 		"php":">=5.3.3",
 		"ext-curl":"*",
@@ -28,7 +34,10 @@
 			"email":"kenneth@netcraft-devops.com"
 		}
 	],
-		"autoload": {
-    		"psr-4": { "PayU\\" : "lib/" }
-  		}
+	"support": {
+    	"issues": "https://github.com/netcraft-devops/payu-sdk-php/issues"
+  	},
+	"autoload": {
+    	"psr-4": { "PayU\\" : "lib/" }
+  	}
 }

@@ -3,7 +3,7 @@
 namespace PayU;
 
 /**
- * Base class for Stripe test cases, provides some utility methods for creating
+ * Base class for PayU SDK test cases, provides some utility methods for creating
  * objects.
  */
 class TestCase extends \PHPUnit_Framework_TestCase
@@ -16,12 +16,19 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
     protected static function authorizeFromEnv()
     {
-        $apiKey = getenv('STRIPE_API_KEY');
-        if (!$apiKey) {
-            $apiKey = self::API_KEY;
+        $safeKey = getenv('SAFE_KEY');
+        $apiUsername = getenv('API_USERNAME');
+        $apiPassword = getenv('API_PASSWORD');
+
+        if (!$safeKey || !$apiUsername || !$apiPassword) {
+            $safeKey = self::SAFE_KEY;
+            $apiUsername = self::API_USERNAME;
+            $apiPassword = self::API_PASSWORD;
         }
 
-        PayU::setApiKey($apiKey);
+        PayU::setSafeKey($safeKey);
+        PayU::setApiUsername($apiUsername);
+        PayU::setApiPassword($apiPassword);
     }
 
     protected function setUp()
@@ -121,7 +128,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
                 'type' => 'individual',
                 'tax_id' => '000000000',
                 'bank_account' => array(
-                    'country'    => 'US',
+                    'country'    => 'ZA',
                     'routing_number' => '110000000',
                     'account_number'  => '000123456789'
                 ),
@@ -139,7 +146,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
         return Account::create(
             $attributes + array(
                 'managed' => false,
-                'country' => 'US',
+                'country' => 'ZA',
                 'email' => self::generateRandomEmail(),
             )
         );
@@ -160,7 +167,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
                 array(
                     'id' => $id,
                     'amount' => 0,
-                    'currency' => 'usd',
+                    'currency' => 'ZAR',
                     'interval' => 'month',
                     'name' => 'Gold Test Plan',
                 )
@@ -216,7 +223,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $receiver = BitcoinReceiver::create(
             array(
                 'amount' => 100,
-                'currency' => 'usd',
+                'currency' => 'ZAR',
                 'description' => 'some details',
                 'email' => $email
             )

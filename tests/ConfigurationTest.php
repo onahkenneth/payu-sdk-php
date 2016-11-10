@@ -11,7 +11,7 @@ namespace PayU;
  * @link http://help.payu.co.za/developers
  * @author Kenneth Onah <kenneth@netcraft-devops.com>
  */
-class PayUConfigurationTest extends TestCase
+class ConfigurationTest extends TestCase
 {
     const SAFE_KEY = '{CE62CE80-0EFD-4035-87C1-8824C5C46E7F}';
     const API_USERNAME = '100032';
@@ -22,7 +22,7 @@ class PayUConfigurationTest extends TestCase
     public function testValidApiVersion()
     {
         //then
-        $this->assertEquals(self::API_VERSION, PayUConfiguration::getApiVersion());
+        $this->assertEquals(self::API_VERSION, Configuration::getApiVersion());
     }
 
     public function getCorrectEnvironments()
@@ -39,115 +39,115 @@ class PayUConfigurationTest extends TestCase
     public function testSetValidEnvironment($environment)
     {
         //when
-        PayUConfiguration::setEnvironment($environment);
+        Configuration::setEnvironment($environment);
 
         //then
-        $this->assertEquals($environment, PayUConfiguration::getEnvironment());
+        $this->assertEquals($environment, Configuration::getEnvironment());
     }
 
     public function testSetValidSafeKey()
     {
         //when
-        PayUConfiguration::setSafeKey(self::SAFE_KEY);
+        Configuration::setSafeKey(self::SAFE_KEY);
 
         //then
-        $this->assertEquals(self::SAFE_KEY, PayUConfiguration::getSafeKey());
+        $this->assertEquals(self::SAFE_KEY, Configuration::getSafeKey());
     }
 
     public function testSetValidApiUsername()
     {
         //when
-        PayUConfiguration::setApiUsername(self::API_USERNAME);
+        Configuration::setApiUsername(self::API_USERNAME);
 
         //then
-        $this->assertEquals(self::API_USERNAME, PayUConfiguration::getApiUsername());
+        $this->assertEquals(self::API_USERNAME, Configuration::getApiUsername());
     }
 
     public function testSetValidApiPassword()
     {
         //when
-        PayUConfiguration::setApiPassword(self::API_PASSWORD);
+        Configuration::setApiPassword(self::API_PASSWORD);
 
         //then
-        $this->assertEquals(self::API_PASSWORD, PayUConfiguration::getApiPassword());
+        $this->assertEquals(self::API_PASSWORD, Configuration::getApiPassword());
     }
 
     /**
-     * @expectedException PayU\Exception\PayUConfigurationException
+     * @expectedException \PayU\Exception\ConfigurationException
      * @expectedExceptionMessage Safe key cannot be empty
      */
     public function testSetInvalidSafeKey()
     {
         //when
-        PayUConfiguration::setSafeKey('');
+        Configuration::setSafeKey('');
     }
 
     /**
-     * @expectedException PayU\Exception\PayUConfigurationException
+     * @expectedException \PayU\Exception\ConfigurationException
      * @expectedExceptionMessage API username cannot be empty
      */
     public function testSetInvalidApiUsername()
     {
         //when
-        PayUConfiguration::setApiUsername('');
+        Configuration::setApiUsername('');
     }
 
     /**
-     * @expectedException PayU\Exception\PayUConfigurationException
+     * @expectedException \PayU\Exception\ConfigurationException
      * @expectedExceptionMessage API password cannot be empty
      */
     public function testSetInvalidApiPassword()
     {
         //when
-        PayUConfiguration::setApiPassword('');
+        Configuration::setApiPassword('');
     }
 
     /**
-     * @expectedException PayU\Exception\PayUConfigurationException
+     * @expectedException \PayU\Exception\ConfigurationException
      * @expectedExceptionMessage environment - is not valid environment
      */
     public function testSetInvalidEnvironment()
     {
         //when
-        PayUConfiguration::setEnvironment('environment');
+        Configuration::setEnvironment('environment');
     }
 
     public function testSecureServiceUrl()
     {
         //when
-        PayUConfiguration::setEnvironment('secure');
+        Configuration::setEnvironment('secure');
 
         //then
-        $this->assertEquals('https://secure.payu.co.za/service/PayUAPI', PayUConfiguration::getServiceUrl());
+        $this->assertEquals('https://secure.payu.co.za/service/PayUAPI', Configuration::getServiceUrl());
     }
 
     public function testSandboxServiceUrl()
     {
         //when
-        PayUConfiguration::setEnvironment('staging');
+        Configuration::setEnvironment('staging');
 
         //then
-        $this->assertEquals('https://staging.payu.co.za/service/PayUAPI', PayUConfiguration::getServiceUrl());
+        $this->assertEquals('https://staging.payu.co.za/service/PayUAPI', Configuration::getServiceUrl());
     }
 
 
     public function testSetValidHashAlgorithm()
     {
         //when
-        PayUConfiguration::setHashAlgorithm('SHA');
+        Configuration::setHashAlgorithm('SHA');
 
         //then
-        $this->assertEquals('SHA', PayUConfiguration::getHashAlgorithm());
+        $this->assertEquals('SHA', Configuration::getHashAlgorithm());
     }
 
     /**
-     * @expectedException PayU\Exception\PayUConfigurationException
+     * @expectedException \PayU\Exception\ConfigurationException
      * @expectedExceptionMessage Hash algorithm "MD5"" is not available
      */
     public function testSetInvalidHashAlgorithm()
     {
         //when
-        PayUConfiguration::setHashAlgorithm('MD5');
+    Configuration::setHashAlgorithm('MD5');
     }
 
     /**
@@ -156,7 +156,7 @@ class PayUConfigurationTest extends TestCase
     public function shouldReturnValidSDKVersionWhenComposerFileIsGiven()
     {
         //then
-        $this->assertEquals(self::PHP_SDK_VERSION, PayUConfiguration::getSdkVersion());
+        $this->assertEquals(self::PHP_SDK_VERSION, Configuration::getSdkVersion());
     }
 
     /**
@@ -165,6 +165,6 @@ class PayUConfigurationTest extends TestCase
     public function shouldDefaultSDKVersionAndFromJsonIsTheSame()
     {
         //then
-        $this->assertEquals(PayUConfiguration::DEFAULT_SDK_VERSION, PayUConfiguration::getSdkVersion());
+        $this->assertEquals(Configuration::DEFAULT_SDK_VERSION, Configuration::getSdkVersion());
     }
 }

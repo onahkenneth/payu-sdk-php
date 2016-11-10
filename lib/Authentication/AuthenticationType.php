@@ -1,6 +1,6 @@
 <?php
 
-namespace PayU\Exception;
+namespace PayU\Authentication;
 
 /**
  * PayU PHP SDK Library
@@ -11,6 +11,11 @@ namespace PayU\Exception;
  * @link http://help.payu.co.za/developers
  * @author Kenneth Onah <kenneth@netcraft-devops.com>
  */
-class PayUServerException extends PayUException
+interface AuthenticationType
 {
+
+    /**
+     * @return array
+     */
+    public function getHeaders();
 }

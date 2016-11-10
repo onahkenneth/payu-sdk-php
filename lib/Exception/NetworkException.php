@@ -11,6 +11,6 @@ namespace PayU\Exception;
  * @link http://help.payu.co.za/developers
  * @author Kenneth Onah <kenneth@netcraft-devops.com>
  */
-class PayUServerMaintenanceException extends PayUException
+class NetworkException extends PayUException
 {
 }

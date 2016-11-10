@@ -11,12 +11,21 @@
  */
 
 // PayU config singleton
-require(dirname(__FILE__) . '/lib/PayUConfiguration.php');
+require(dirname(__FILE__) . '/lib/Configuration.php');
 
 // Exceptions
 require(dirname(__FILE__) . '/lib/Exception/PayUException.php');
-require(dirname(__FILE__) . '/lib/Exception/PayUServerException.php');
-require(dirname(__FILE__) . '/lib/Exception/PayUNetworkException.php');
-require(dirname(__FILE__) . '/lib/Exception/PayUConfigurationException.php');
-require(dirname(__FILE__) . '/lib/Exception/PayUAuthorizationException.php');
-require(dirname(__FILE__) . '/lib/Exception/PayUServerMaintenanceException.php');
+require(dirname(__FILE__) . '/lib/Exception/ServerException.php');
+require(dirname(__FILE__) . '/lib/Exception/NetworkException.php');
+require(dirname(__FILE__) . '/lib/Exception/ConfigurationException.php');
+require(dirname(__FILE__) . '/lib/Exception/AuthorizationException.php');
+require(dirname(__FILE__) . '/lib/Exception/ServerMaintenanceException.php');
+
+// Http clients
+require(dirname(__FILE__) . '/lib/HttpClient/Client.php');
+require(dirname(__FILE__) . '/lib/HttpClient/CurlClient.php');
+require(dirname(__FILE__) . '/lib/HttpClient/ClientInterface.php');
+
+// Authentication
+require(dirname(__FILE__) . '/lib/Authentication/AuthenticationType.php');
+require(dirname(__FILE__) . '/lib/Authentication/BasicAuthentication.php');

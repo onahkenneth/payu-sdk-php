@@ -2,7 +2,7 @@
 
 namespace PayU;
 
-use PayU\Exception\PayUConfigurationException;
+use PayU\Exception\ConfigurationException;
 
 /**
  * PayU PHP SDK Library
@@ -13,7 +13,7 @@ use PayU\Exception\PayUConfigurationException;
  * @link http://help.payu.co.za/developers
  * @author Kenneth Onah <kenneth@netcraft-devops.com>
  */
-class PayUConfiguration
+class Configuration
 {
     
     const API_VERSION = '1.0';
@@ -45,7 +45,7 @@ class PayUConfiguration
     public static function setSafeKey($safeKey)
     {
         if (empty($safeKey)) {
-            throw new PayUConfigurationException('Safe key cannot be empty');
+            throw new ConfigurationException('Safe key cannot be empty');
         }
 
         self::$safeKey = $safeKey;
@@ -66,7 +66,7 @@ class PayUConfiguration
     public static function setApiUsername($apiUsername)
     {
         if (empty($apiUsername)) {
-            throw new PayUConfigurationException('API username cannot be empty');
+            throw new ConfigurationException('API username cannot be empty');
         }
 
         self::$apiUsername = $apiUsername;
@@ -87,7 +87,7 @@ class PayUConfiguration
     public static function setApiPassword($apiPassword)
     {
         if (empty($apiPassword)) {
-            throw new PayUConfigurationException('API password cannot be empty');
+            throw new ConfigurationException('API password cannot be empty');
         }
 
         self::$apiPassword = $apiPassword;
@@ -108,7 +108,7 @@ class PayUConfiguration
     public static function setHashAlgorithm($value)
     {
         if (!in_array($value, self::$_availableHashAlgorithm)) {
-            throw new PayUConfigurationException('Hash algorithm "' . $value . '"" is not available');
+            throw new ConfigurationException('Hash algorithm "' . $value . '"" is not available');
         }
 
         self::$hashAlgorithm = $value;
@@ -135,7 +135,7 @@ class PayUConfiguration
         $domain = strtolower($domain) . '/';
 
         if (!in_array($environment, self::$_availableEnvironment)) {
-            throw new PayUConfigurationException($environment . ' - is not valid environment');
+            throw new ConfigurationException($environment . ' - is not valid environment');
         }
 
         self::$env = $environment;

@@ -13,6 +13,8 @@
 // PayU config singleton
 require(dirname(__FILE__) . '/lib/Configuration.php');
 
+require(dirname(__FILE__) . '/lib/ResponseError.php');
+
 // Exceptions
 require(dirname(__FILE__) . '/lib/Exception/PayUException.php');
 require(dirname(__FILE__) . '/lib/Exception/ServerException.php');

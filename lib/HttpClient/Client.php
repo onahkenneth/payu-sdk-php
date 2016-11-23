@@ -2,6 +2,7 @@
 
 namespace PayU\HttpClient;
 
+use PayU\ResponseError;
 use PayU\Exception\PayUException;
 use PayU\Exception\ServerException;
 use PayU\Exception\NetworkException;
@@ -130,7 +131,7 @@ class Client
 
     /**
      * @param $statusCode
-     * @param \RuntimeException $resultError
+     * @param ResponseError $resultError
      * @throws \Exception
      * @throws AuthorizationException
      * @throws NetworkException

@@ -40,7 +40,7 @@ class Configuration
 
     /**
      * @param string
-     * @throws PayUConfigurationException
+     * @throws ConfigurationException
      */
     public static function setSafeKey($safeKey)
     {
@@ -61,7 +61,7 @@ class Configuration
 
     /**
      * @param string
-     * @throws PayUConfigurationException
+     * @throws ConfigurationException
      */
     public static function setApiUsername($apiUsername)
     {
@@ -82,7 +82,7 @@ class Configuration
 
     /**
      * @param string
-     * @throws PayUConfigurationException
+     * @throws ConfigurationException
      */
     public static function setApiPassword($apiPassword)
     {
@@ -103,7 +103,7 @@ class Configuration
 
     /**
      * @param string
-     * @throws OpenPayU_Exception_Configuration
+     * @throws ConfigurationException
      */
     public static function setHashAlgorithm($value)
     {
@@ -127,7 +127,7 @@ class Configuration
      * @param string $domain
      * @param string $api
      * @param string $version
-     * @throws OpenPayU_Exception_Configuration
+     * @throws ConfigurationException
      */
     public static function setEnvironment($environment = 'secure', $domain = 'payu.co.za', $api = 'service/PayUAPI')
     {

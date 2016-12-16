@@ -1,9 +1,15 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: kenny
+ * Date: 12/16/16
+ * Time: 3:21 PM
+ */
 
 namespace PayU\Exception;
 
 /**
- * Class ServerException
+ * Class InvalidCredentialException
  *
  * @package PayU\Exception
  * @copyright  Copyright (c) 2016 PayU
@@ -12,7 +18,7 @@ namespace PayU\Exception;
  * @link http://help.payu.co.za/developers
  * @author Kenneth Onah <kenneth@netcraft-devops.com>
  */
-class ServerException extends PayUException
+class InvalidCredentialException extends \Exception
 {
     /**
      * Default Constructor
@@ -23,5 +29,17 @@ class ServerException extends PayUException
     public function __construct($message = null, $code = 0)
     {
         parent::__construct($message, $code);
+    }
+
+    /**
+     * prints error message
+     *
+     * @return string
+     */
+    public function errorMessage()
+    {
+        $errorMsg = 'Error on line ' . $this->getLine() . ' in ' . $this->getFile()
+            . ': <b>' . $this->getMessage() . '</b>';
+        return $errorMsg;
     }
 }

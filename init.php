@@ -29,5 +29,5 @@ require(dirname(__FILE__) . '/lib/HttpClient/CurlClient.php');
 require(dirname(__FILE__) . '/lib/HttpClient/ClientInterface.php');
 
 // Authentication
-require(dirname(__FILE__) . '/lib/Authentication/AuthenticationType.php');
-require(dirname(__FILE__) . '/lib/Authentication/BasicAuthentication.php');
+require(dirname(__FILE__) . '/lib/Auth/AuthenticationType.php');
+require(dirname(__FILE__) . '/lib/Auth/BasicAuth.php');

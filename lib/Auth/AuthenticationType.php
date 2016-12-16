@@ -1,6 +1,6 @@
 <?php
 
-namespace PayU\Authentication;
+namespace PayU\Auth;
 
 /**
  * PayU PHP SDK Library

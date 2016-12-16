@@ -2,7 +2,6 @@
 
 namespace PayU;
 
-use PayU\Exception\ConfigurationException;
 /**
  * PayU PHP SDK Library
  *
@@ -14,113 +13,6 @@ use PayU\Exception\ConfigurationException;
  */
 class Util
 {
-    /**
-     * Function generate sign data
-     *
-     * @param array $data
-     * @param string $algorithm
-     * @param string $merchantPosId
-     * @param string $signatureKey
-     *
-     * @return string
-     *
-     * @throws ConfigurationException
-     */
-    public static function generateSignData(array $data, $algorithm = 'SHA-256', $merchantPosId = '', $signatureKey = '')
-    {
-        if (empty($signatureKey))
-            throw new ConfigurationException('Merchant Signature Key should not be null or empty.');
-
-        if (empty($merchantPosId))
-            throw new ConfigurationException('MerchantPosId should not be null or empty.');
-
-        $contentForSign = '';
-        ksort($data);
-
-        foreach ($data as $key => $value) {
-            $contentForSign .= $key . '=' . urlencode($value) . '&';
-        }
-
-        if (in_array($algorithm, array('SHA-256', 'SHA'))) {
-            $hashAlgorithm = 'sha256';
-            $algorithm = 'SHA-256';
-        } else if ($algorithm == 'SHA-384') {
-            $hashAlgorithm = 'sha384';
-            $algorithm = 'SHA-384';
-        } else if ($algorithm == 'SHA-512') {
-            $hashAlgorithm = 'sha512';
-            $algorithm = 'SHA-512';
-        }
-
-        $signature = hash($hashAlgorithm, $contentForSign . $signatureKey);
-
-        $signData = 'sender=' . $merchantPosId . ';algorithm=' . $algorithm . ';signature=' . $signature;
-
-        return $signData;
-    }
-
-    /**
-     * Function returns signature data object
-     *
-     * @param string $data
-     *
-     * @return null|object
-     */
-    public static function parseSignature($data)
-    {
-        if (empty($data)) {
-            return null;
-        }
-
-        $signatureData = array();
-
-        $list = explode(';', rtrim($data, ';'));
-        if (empty($list)) {
-            return null;
-        }
-
-        foreach ($list as $value) {
-            $explode = explode('=', $value);
-            if (count($explode) != 2) {
-                return null;
-            }
-            $signatureData[$explode[0]] = $explode[1];
-        }
-
-        return (object)$signatureData;
-    }
-
-    /**
-     * Function returns signature validate
-     *
-     * @param string $message
-     * @param string $signature
-     * @param string $signatureKey
-     * @param string $algorithm
-     *
-     * @return bool
-     */
-    public static function verifySignature($message, $signature, $signatureKey, $algorithm = 'MD5')
-    {
-        $hash = '';
-
-        if (isset($signature)) {
-            if ($algorithm == 'MD5') {
-                $hash = md5($message . $signatureKey);
-            } else if (in_array($algorithm, array('SHA', 'SHA1', 'SHA-1'))) {
-                $hash = sha1($message . $signatureKey);
-            } else if (in_array($algorithm, array('SHA-256', 'SHA256', 'SHA_256'))) {
-                $hash = hash('sha256', $message . $signatureKey);
-            }
-
-            if (strcmp($signature, $hash) == 0) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     /**
      * Function builds PayU Json Document
      *
@@ -138,8 +30,6 @@ class Util
         if (!empty($rootElement)) {
             $data = array($rootElement => $data);
         }
-
-        $data = self::setSenderProperty($data);
 
         return json_encode($data);
     }
@@ -160,7 +50,8 @@ class Util
 
     /**
      * @param array $array
-     * @return bool|\stdClass
+     * @return array|\stdClass|bool
+     *
      */
     public static function parseArrayToObject($array)
     {
@@ -263,19 +154,6 @@ class Util
             return substr($key, 0, -1);
         }
         return $key;
-    }
-
-    /**
-     * @param array $data
-     * @return array
-     */
-    private static function setSenderProperty($data)
-    {
-        $data['properties'][0] = array(
-            'name' => 'sender',
-            'value' => Configuration::getFullSenderName()
-        );
-        return $data;
     }
 
     public static function statusDesc($response)

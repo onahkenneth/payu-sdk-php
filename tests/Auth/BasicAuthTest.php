@@ -1,6 +1,6 @@
 <?php
 
-namespace PayU\Authentication;
+namespace PayU\Auth;
 
 /**
  * PayU PHP SDK Library
@@ -11,7 +11,7 @@ namespace PayU\Authentication;
  * @link http://help.payu.co.za/developers
  * @author Kenneth Onah <kenneth@netcraft-devops.com>
  */
-class BasicAuthenticationTest extends \PayU\TestCase
+class BasicAuthTest extends \PayU\TestCase
 {
     const API_USERNAME = '100032';
     const API_PASSWORD = 'PypWWegU';
@@ -26,7 +26,7 @@ class BasicAuthenticationTest extends \PayU\TestCase
     public function shouldThrowExceptionWhenEmptyApiUsername()
     {
         //when
-        new BasicAuthentication(null, null);
+        new BasicAuth(null, null);
     }
 
     /**
@@ -37,7 +37,7 @@ class BasicAuthenticationTest extends \PayU\TestCase
     public function shouldExceptionWhenEmptySignatureId()
     {
         //when
-        new BasicAuthentication(self::API_USERNAME, null);
+        new BasicAuth(self::API_USERNAME, null);
     }
 
     /**
@@ -53,7 +53,7 @@ class BasicAuthenticationTest extends \PayU\TestCase
         );
 
         //when
-        $authBasic = new BasicAuthentication(self::API_USERNAME, self::API_PASSWORD);
+        $authBasic = new BasicAuth(self::API_USERNAME, self::API_PASSWORD);
 
         //then
         $this->assertEquals($this->expectedHeaders, $authBasic->getHeaders());

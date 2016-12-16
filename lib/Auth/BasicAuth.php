@@ -1,6 +1,6 @@
 <?php
 
-namespace PayU\Authentication;
+namespace PayU\Auth;
 
 /**
  * PayU PHP SDK Library
@@ -16,7 +16,7 @@ use PayU\Exception\ConfigurationException;
 /**
  * @var string
  */
-class BasicAuthentication
+class BasicAuth
 {
     private $authBasicToken;
 

@@ -13,7 +13,7 @@
 // PayU config singleton
 require(dirname(__FILE__) . '/lib/Configuration.php');
 
-require(dirname(__FILE__) . '/lib/ResponseError.php');
+require(dirname(__FILE__) . '/lib/Api/Error.php');
 
 // Exceptions
 require(dirname(__FILE__) . '/lib/Exception/PayUException.php');
@@ -24,9 +24,10 @@ require(dirname(__FILE__) . '/lib/Exception/AuthorizationException.php');
 require(dirname(__FILE__) . '/lib/Exception/ServerMaintenanceException.php');
 
 // Http clients
-require(dirname(__FILE__) . '/lib/HttpClient/Client.php');
-require(dirname(__FILE__) . '/lib/HttpClient/CurlClient.php');
-require(dirname(__FILE__) . '/lib/HttpClient/ClientInterface.php');
+require(dirname(__FILE__) . '/lib/Http/Config.php');
+require(dirname(__FILE__) . '/lib/Http/SoapClient.php');
+require(dirname(__FILE__) . '/lib/Http/SoapConnection.php');
+require(dirname(__FILE__) . '/lib/Http/ConnectionInterface.php');
 
 // Authentication
 require(dirname(__FILE__) . '/lib/Auth/AuthenticationType.php');

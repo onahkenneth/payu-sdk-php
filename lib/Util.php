@@ -83,6 +83,17 @@ class Util
     }
 
     /**
+     * @param $arr
+     * @return bool
+     */
+    public static function isAssocArray($arr)
+    {
+        $arrKeys = array_keys($arr);
+        sort($arrKeys, SORT_NUMERIC);
+        return $arrKeys !== range(0, count($arr) - 1);
+    }
+
+    /**
      * @return mixed
      */
     public static function getRequestHeaders()
@@ -98,7 +109,6 @@ class Util
         } else {
             return apache_request_headers();
         }
-
     }
 
     /**
@@ -114,7 +124,6 @@ class Util
         $assoc = self::isAssocArray($array);
 
         foreach ($array as $key => $value) {
-
             if ($namespace && $assoc) {
                 $key = $namespace . '.' . $key;
             } elseif ($namespace && !$assoc) {
@@ -129,17 +138,6 @@ class Util
             }
         }
         return $htmlOutput;
-    }
-
-    /**
-     * @param $arr
-     * @return bool
-     */
-    public static function isAssocArray($arr)
-    {
-        $arrKeys = array_keys($arr);
-        sort($arrKeys, SORT_NUMERIC);
-        return $arrKeys !== range(0, count($arr) - 1);
     }
 
     /**

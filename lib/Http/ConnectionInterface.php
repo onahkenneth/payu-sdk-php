@@ -1,17 +1,21 @@
 <?php
 
-namespace PayU;
+namespace PayU\Http;
 
 /**
- * PayU PHP SDK Library
+ * Class ConnectionInterface
  *
+ * @package PayU\Http
  * @copyright  Copyright (c) 2016 PayU
  * @license    http://opensource.org/licenses/LGPL-3.0  Open Software License (LGPL 3.0)
  * @link http://www.payu.co.za
  * @link http://help.payu.co.za/developers
  * @author Kenneth Onah <kenneth@netcraft-devops.com>
  */
-class Request
+interface ConnectionInterface
 {
-
+    /**
+     * @param string $data The HTTP POST data
+     */
+    public function execute($data);
 }

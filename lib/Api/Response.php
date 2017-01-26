@@ -1,6 +1,6 @@
 <?php
 
-namespace PayU;
+namespace PayU\Api;
 
 /**
  * PayU PHP SDK Library
@@ -203,19 +203,21 @@ class Response
 
     public function __get($name)
     {
-        if (isset($this->{$name}))
+        if (isset($this->{$name})) {
             return $this->name;
+        }
 
         return null;
     }
 
-    public function __call($methodName, $args) {
+    public function __call($methodName, $args)
+    {
         if (preg_match('~^(set|get)([A-Z])(.*)$~', $methodName, $matches)) {
             $property = strtolower($matches[2]) . $matches[3];
             if (!property_exists($this, $property)) {
                 throw new \Exception('Property ' . $property . ' not exists');
             }
-            switch($matches[1]) {
+            switch ($matches[1]) {
                 case 'get':
                     $this->checkArguments($args, 0, 0, $methodName);
                     return $this->get($property);

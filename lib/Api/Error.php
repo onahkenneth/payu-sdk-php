@@ -1,9 +1,6 @@
 <?php
-
-namespace PayU;
-
 /**
- * PayU PHP SDK Library
+ * PayU EMEA PHP SDK
  *
  * @copyright  Copyright (c) 2016 PayU
  * @license    http://opensource.org/licenses/LGPL-3.0  Open Software License (LGPL 3.0)
@@ -11,7 +8,10 @@ namespace PayU;
  * @link http://help.payu.co.za/developers
  * @author Kenneth Onah <kenneth@netcraft-devops.com>
  */
-class ResponseError
+
+namespace PayU\Api;
+
+class Error
 {
     /**
      * @var string
@@ -32,11 +32,12 @@ class ResponseError
 
     /**
      * @param string $error
-     * @return ResponseError
+     * @return Error
      */
     public function setError($error)
     {
         $this->error = $error;
+
         return $this;
     }
 
@@ -50,11 +51,12 @@ class ResponseError
 
     /**
      * @param string $errorDescription
-     * @return ResponseError
+     * @return Error
      */
     public function setErrorDescription($errorDescription)
     {
         $this->errorDescription = $errorDescription;
+
         return $this;
     }
 }

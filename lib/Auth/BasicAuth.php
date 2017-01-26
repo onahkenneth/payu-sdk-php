@@ -1,9 +1,6 @@
 <?php
-
-namespace PayU\Auth;
-
 /**
- * PayU PHP SDK Library
+ * PayU MEA PHP SDK
  *
  * @copyright  Copyright (c) 2016 PayU
  * @license    http://opensource.org/licenses/LGPL-3.0  Open Software License (LGPL 3.0)
@@ -11,34 +8,78 @@ namespace PayU\Auth;
  * @link http://help.payu.co.za/developers
  * @author Kenneth Onah <kenneth@netcraft-devops.com>
  */
-use PayU\Exception\ConfigurationException;
+
+namespace PayU\Auth;
 
 /**
- * @var string
+ * Class BasicAuth
+ *
+ * @package PayU\Auth
  */
 class BasicAuth
 {
-    private $authBasicToken;
+    /**
+     * Web service username as obtained from the safe shop portal
+     *
+     * @var string $username
+     */
+    private $username;
 
-    public function __construct($apiUsername, $apiPassword)
+    /**
+     * Web service password as obtained from the safe shop portal
+     *
+     * @var string $password
+     */
+    private $password;
+
+    /**
+     * Safe key as obtained from the safe shop portal
+     *
+     * @var string $safekey
+     */
+    private $safekey;
+
+    /**
+     * Construct
+     *
+     * @param string $username web service username obtained from the safe shop portal
+     * @param string $password web service password obtained from the safe shop portal
+     * @param string $safekey safe key obtained from the safe shop portal
+     */
+    public function __construct($username, $password, $safekey)
     {
-        if (empty($apiUsername)) {
-            throw new ConfigurationException('API username is empty');
-        }
-
-        if (empty($apiPassword)) {
-            throw new ConfigurationException('API password is empty');
-        }
-
-        $this->authBasicToken = base64_encode($apiUsername . ':' . $apiPassword);
+        $this->username = $username;
+        $this->password = $password;
+        $this->safekey = $safekey;
     }
 
-    public function getHeaders()
+    /**
+     * Get username
+     *
+     * @return string
+     */
+    public function getUsername()
     {
-        return array(
-            'Content-Type: application/json',
-            'Accept: application/json',
-            'Authorization: Basic ' . $this->authBasicToken
-        );
+        return $this->username;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Get safe key
+     *
+     * @return string
+     */
+    public function getSafekey()
+    {
+        return $this->safekey;
     }
 }

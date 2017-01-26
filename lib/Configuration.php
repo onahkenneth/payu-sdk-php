@@ -39,6 +39,14 @@ class Configuration
     }
 
     /**
+     * @return string
+     */
+    public static function getSafeKey()
+    {
+        return self::$safeKey;
+    }
+
+    /**
      * @param string
      * @throws ConfigurationException
      */
@@ -54,9 +62,9 @@ class Configuration
     /**
      * @return string
      */
-    public static function getSafeKey()
+    public static function getApiUsername()
     {
-        return self::$safeKey;
+        return self::$apiUsername;
     }
 
     /**
@@ -75,9 +83,9 @@ class Configuration
     /**
      * @return string
      */
-    public static function getApiUsername()
+    public static function getApiPassword()
     {
-        return self::$apiUsername;
+        return self::$apiPassword;
     }
 
     /**
@@ -96,9 +104,9 @@ class Configuration
     /**
      * @return string
      */
-    public static function getApiPassword()
+    public static function getHashAlgorithm()
     {
-        return self::$apiPassword;
+        return self::$hashAlgorithm;
     }
 
     /**
@@ -112,14 +120,6 @@ class Configuration
         }
 
         self::$hashAlgorithm = $value;
-    }
-
-    /**
-     * @return string
-     */
-    public static function getHashAlgorithm()
-    {
-        return self::$hashAlgorithm;
     }
 
     /**

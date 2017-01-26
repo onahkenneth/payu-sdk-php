@@ -1,82 +1,74 @@
 <?php
 
-namespace PayU\HttpClient;
+namespace PayU\Http;
 
-use PayU\ResponseError;
+use PayU\Exception\AuthorizationException;
+use PayU\Exception\NetworkException;
 use PayU\Exception\PayUException;
 use PayU\Exception\ServerException;
-use PayU\Exception\NetworkException;
-use PayU\Exception\AuthorizationException;
-use PayU\Exception\ConfigurationException;
 use PayU\Exception\ServerMaintenanceException;
-use PayU\Authentication\AuthenticationType;
 
 /**
- * PayU PHP SDK Library
+ * Class SoapClient
  *
+ * @package PayU\Client
  * @copyright  Copyright (c) 2016 PayU
  * @license    http://opensource.org/licenses/LGPL-3.0  Open Software License (LGPL 3.0)
  * @link http://www.payu.co.za
  * @link http://help.payu.co.za/developers
  * @author Kenneth Onah <kenneth@netcraft-devops.com>
  */
-class Client
+class SoapClient
 {
+    protected $soapConnection;
+
+    public function __construct(Config $httpConfig, array $config)
+    {
+        if (null == $this->soapConnection) {
+            $this->soapConnection = new SoapConnection($httpConfig, $config);
+        }
+    }
 
     /**
-     * @param string $pathUrl
+     *
      * @param string $data
-     * @param AuthenticationType $authType
-     * @return mixed
-     * @throws ConfigurationException
-     * @throws NetworkException
      */
-    public static function doPost($pathUrl, $data, $authType)
+    public function doPost($data)
     {
-        $response = CurlClient::doRequest('POST', $pathUrl, $authType, $data);
+        $response = $this->soapConnection->execute($data);
 
         return $response;
     }
 
     /**
-     * @param string $pathUrl
-     * @param AuthenticationType $authType
-     * @return mixed
-     * @throws ConfigurationException
-     * @throws NetworkException
-     */
-    public static function doGet($pathUrl, $authType)
-    {
-        $response = CurlClient::doRequest('GET', $pathUrl, $authType);
-
-        return $response;
-    }
-
-    /**
-     * @param string $pathUrl
-     * @param AuthenticationType $authType
-     * @return mixed
-     * @throws ConfigurationException
-     * @throws NetworkException
-     */
-    public static function doDelete($pathUrl, $authType)
-    {
-        $response = CurlClient::doRequest('DELETE', $pathUrl, $authType);
-
-        return $response;
-    }
-
-    /**
-     * @param string $pathUrl
+     *
      * @param string $data
-     * @param AuthenticationType $authType
-     * @return mixed
-     * @throws ConfigurationException
-     * @throws NetworkException
      */
-    public static function doPut($pathUrl, $data, $authType)
+    public function doGet($data)
     {
-        $response = CurlClient::doRequest('PUT', $pathUrl, $authType, $data);
+        $response = $this->soapConnection->execute($data);
+
+        return $response;
+    }
+
+    /**
+     *
+     * @param string $data
+     */
+    public function doDelete($data)
+    {
+        $response = $this->soapConnection->execute($data);
+
+        return $response;
+    }
+
+    /**
+     *
+     * @param string $data
+     */
+    public function doPut($data)
+    {
+        $response = $this->soapConnection->execute($data);
 
         return $response;
     }
@@ -90,7 +82,7 @@ class Client
      * @throws ServerMaintenanceException
      * @throws ServerException
      */
-    public static function throwHttpStatusException($statusCode, $message = null)
+    public function throwHttpStatusException($statusCode, $message = null)
     {
 
         $response = $message->getResponse();
@@ -125,20 +117,19 @@ class Client
             default:
                 throw new NetworkException('Unexpected HTTP code response', $statusCode);
                 break;
-
         }
     }
 
     /**
      * @param $statusCode
-     * @param ResponseError $resultError
+     * @param \PayU\Api\ResponseError $resultError
      * @throws \Exception
      * @throws AuthorizationException
      * @throws NetworkException
      * @throws ServerException
      * @throws ServerMaintenanceException
      */
-    public static function throwErrorHttpStatusException($statusCode, $resultError)
+    public function throwErrorHttpStatusException($statusCode, $resultError)
     {
         switch ($statusCode) {
             case 400:
@@ -169,7 +160,6 @@ class Client
             default:
                 throw new NetworkException('Unexpected HTTP code response', $statusCode);
                 break;
-
         }
     }
 }

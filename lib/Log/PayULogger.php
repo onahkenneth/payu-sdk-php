@@ -2,7 +2,7 @@
 
 namespace PayU\Log;
 
-use PayU\Core\PayUConfigManager;
+use PayU\Core\ConfigManager;
 use Psr\Log\LogLevel;
 
 /**
@@ -69,7 +69,7 @@ class PayULogger
 
     public function initialize()
     {
-        $config = PayUConfigManager::getInstance()->getConfigHashmap();
+        $config = ConfigManager::getInstance()->getConfigHashmap();
         if (!empty($config)) {
             $this->isLoggingEnabled = (array_key_exists('log.LogEnabled', $config) && $config['log.LogEnabled'] == '1');
             if ($this->isLoggingEnabled) {
@@ -82,6 +82,11 @@ class PayULogger
         }
     }
 
+    public function info($message)
+    {
+        $this->log('INFO', $message);
+    }
+
     public function log($level, $message, array $context = array())
     {
         if ($this->isLoggingEnabled) {
@@ -90,5 +95,20 @@ class PayULogger
                 error_log("[" . date('d-m-Y h:i:s') . "] " . $this->loggerName . " : " . strtoupper($level) . ": $message\n", 3, $this->loggerFile);
             }
         }
+    }
+
+    public function debug($message)
+    {
+        $this->log('DEBUG', $message);
+    }
+
+    public function warning($message)
+    {
+        $this->log('WARNING', $message);
+    }
+
+    public function error($message)
+    {
+        $this->log('ERROR', $message);
     }
 }

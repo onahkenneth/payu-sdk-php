@@ -1,6 +1,6 @@
 <?php
 
-namespace PayU\HttpClient;
+namespace PayU\Api;
 
 /**
  * PayU PHP SDK Library
@@ -11,7 +11,7 @@ namespace PayU\HttpClient;
  * @link http://help.payu.co.za/developers
  * @author Kenneth Onah <kenneth@netcraft-devops.com>
  */
-class Payment
+class Request
 {
 
 }

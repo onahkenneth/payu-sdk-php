@@ -216,8 +216,7 @@ if (PHP_SAPI == 'cli') {
             <div class="row-fluid fixed col-md-3" id="leftNavigation" role="navigation">
                 <ul class="nav nav-pills nav-stacked">
                     <li><a href="#payments">Payments</a></li>
-                    <li><a href="#authorization">Authorization and Capture</a></li>
-                    <li><a href="#sale">Sale</a></li>
+                    <li><a href="#authorization">Reserve and Finalize</a></li>
                 </ul>
 
             </div>
@@ -226,7 +225,7 @@ if (PHP_SAPI == 'cli') {
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 id="payments" class="panel-title"><a
-                                href="https://developer.paypal.com/webapps/developer/docs/api/#payments"
+                                href="#"
                                 target="_blank">Payments</a></h3>
                 </div>
                 <!-- List group -->
@@ -247,14 +246,14 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8">
                                 <h5>Payments using saved credit card
-                                    <small>(using Authorization Token)</small>
+                                    <small>(using Authentication Token)</small>
                                 </h5>
                             </div>
                             <div class="col-md-4">
-                                <a href="payments/CreatePaymentUsingSavedCard.php"
+                                <a href="payments/create-payment-with-saved-card.php"
                                    class="btn btn-primary pull-left execute">
                                     Try It <i class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/payments/CreatePaymentUsingSavedCard.html"
+                                <a href="docs/payments/create-payment-with-saved-card.html"
                                    class="btn btn-default pull-right">Source <i
                                             class="fa fa-file-code-o"></i></a>
                             </div>
@@ -262,11 +261,12 @@ if (PHP_SAPI == 'cli') {
                     </li>
                     <li class="list-group-item">
                         <div class="row">
-                            <div class="col-md-8"><h5>Get payment details</h5></div>
+                            <div class="col-md-8"><h5>Lookup payment details</h5></div>
                             <div class="col-md-4">
-                                <a href="payments/GetPayment.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="payments/lookup-payment.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i
                                             class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/payments/GetPayment.html" class="btn btn-default pull-right">Source <i
+                                <a href="docs/payments/lookup-payment.html" class="btn btn-default pull-right">Source <i
                                             class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
@@ -277,48 +277,19 @@ if (PHP_SAPI == 'cli') {
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 id="authorization" class="panel-title"><a
-                                href="https://developer.paypal.com/webapps/developer/docs/api/#authorizations"
-                                target="_blank">Authorization and capture</a></h3>
+                                href="#"
+                                target="_blank">Reserve (Authorize) and Finalize (Capture)</a></h3>
                 </div>
                 <!-- List group -->
                 <ul class="list-group">
                     <li class="list-group-item">
                         <div class="row">
-                            <div class="col-md-8"><h5>Authorize Payment</h5></div>
+                            <div class="col-md-8"><h5>Reserve Payment</h5></div>
                             <div class="col-md-4">
-                                <a href="payments/AuthorizePayment.php" class="btn btn-primary pull-left execute"> Try
+                                <a href="reserve/reserve-payment.php" class="btn btn-primary pull-left execute"> Try
                                     It
-                                    <i
-                                            class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/payments/AuthorizePayment.html" class="btn btn-default pull-right">Source
-                                    <i
-                                            class="fa fa-file-code-o"></i></a>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h6>Step II: Execute after Success
-                                    <small>(required step after user approval)</small>
-                                </h6>
-                            </div>
-                            <div class="col-md-4">
-                                <a
-                                        href="doc/payments/ExecutePayment.html"
-                                        class="btn btn-default pull-right">Part II : Source <i
-                                            class="fa fa-file-code-o"></i></a>
-
-                            </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-md-8"><h5>Get details of an authorized payment</h5></div>
-                            <div class="col-md-4">
-                                <a href="payments/GetAuthorization.php" class="btn btn-primary pull-left execute"> Try
-                                    It
-                                    <i
-                                            class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/payments/GetAuthorization.html" class="btn btn-default pull-right">Source
+                                    <i class="fa fa-play-circle-o"></i></a>
+                                <a href="docs/reserve/reserve-payment.html" class="btn btn-default pull-right">Source
                                     <i
                                             class="fa fa-file-code-o"></i></a>
                             </div>
@@ -326,12 +297,26 @@ if (PHP_SAPI == 'cli') {
                     </li>
                     <li class="list-group-item">
                         <div class="row">
-                            <div class="col-md-8"><h5>Capture an authorized payment</h5></div>
+                            <div class="col-md-8"><h5>Get details of an reserved payment</h5></div>
                             <div class="col-md-4">
-                                <a href="payments/AuthorizationCapture.php" class="btn btn-primary pull-left execute">
+                                <a href="reserve/get-authorization.php" class="btn btn-primary pull-left execute"> Try
+                                    It
+                                    <i
+                                            class="fa fa-play-circle-o"></i></a>
+                                <a href="docs/reserve/get-authorization.html" class="btn btn-default pull-right">Source
+                                    <i
+                                            class="fa fa-file-code-o"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-8"><h5>Finalize a reserved payment</h5></div>
+                            <div class="col-md-4">
+                                <a href="reserve/authorization-capture.php" class="btn btn-primary pull-left execute">
                                     Try It <i
                                             class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/payments/AuthorizationCapture.html" class="btn btn-default pull-right">Source
+                                <a href="docs/reserve/authorization-capture.html" class="btn btn-default pull-right">Source
                                     <i
                                             class="fa fa-file-code-o"></i></a>
                             </div>
@@ -339,24 +324,24 @@ if (PHP_SAPI == 'cli') {
                     </li>
                     <li class="list-group-item">
                         <div class="row">
-                            <div class="col-md-8"><h5>Get details of a captured payment</h5></div>
+                            <div class="col-md-8"><h5>Get details of a finalized payment</h5></div>
                             <div class="col-md-4">
-                                <a href="payments/GetCapture.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="reserve/get-capture.php" class="btn btn-primary pull-left execute"> Try It <i
                                             class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/payments/GetCapture.html" class="btn btn-default pull-right">Source <i
+                                <a href="docs/reserve/get-capture.html" class="btn btn-default pull-right">Source <i
                                             class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
                     </li>
                     <li class="list-group-item">
                         <div class="row">
-                            <div class="col-md-8"><h5>Void an authorized payment</h5></div>
+                            <div class="col-md-8"><h5>Void a reserved payment</h5></div>
                             <div class="col-md-4">
-                                <a href="payments/VoidAuthorization.php" class="btn btn-primary pull-left execute"> Try
+                                <a href="reserve/void-authorization.php" class="btn btn-primary pull-left execute"> Try
                                     It
                                     <i
                                             class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/payments/VoidAuthorization.html" class="btn btn-default pull-right">Source
+                                <a href="docs/reserve/void-authorization.html" class="btn btn-default pull-right">Source
                                     <i
                                             class="fa fa-file-code-o"></i></a>
                             </div>
@@ -364,45 +349,12 @@ if (PHP_SAPI == 'cli') {
                     </li>
                     <li class="list-group-item">
                         <div class="row">
-                            <div class="col-md-8"><h5>Refund captured payment</h5></div>
+                            <div class="col-md-8"><h5>Credit finalized payment</h5></div>
                             <div class="col-md-4">
-                                <a href="payments/RefundCapture.php" class="btn btn-primary pull-left execute"> Try It
+                                <a href="reserve/refund-capture.php" class="btn btn-primary pull-left execute"> Try It
                                     <i
                                             class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/payments/RefundCapture.html" class="btn btn-default pull-right">Source <i
-                                            class="fa fa-file-code-o"></i></a>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 id="sale" class="panel-title"><a
-                                href="https://developer.paypal.com/webapps/developer/docs/api/#sale-transactions"
-                                target="_blank">Sale</a></h3>
-                </div>
-                <!-- List group -->
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-md-8"><h5>Get Sale details</h5></div>
-                            <div class="col-md-4">
-                                <a href="sale/GetSale.php" class="btn btn-primary pull-left execute"> Try It <i
-                                            class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/sale/GetSale.html" class="btn btn-default pull-right">Source <i
-                                            class="fa fa-file-code-o"></i></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-md-8"><h5>Refund a Sale</h5></div>
-                            <div class="col-md-4">
-                                <a href="sale/RefundSale.php" class="btn btn-primary pull-left execute"> Try It <i
-                                            class="fa fa-play-circle-o"></i></a>
-                                <a href="doc/sale/RefundSale.html" class="btn btn-default pull-right">Source <i
+                                <a href="docs/reserve/refund-capture.html" class="btn btn-default pull-right">Source <i
                                             class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
@@ -443,17 +395,12 @@ if (PHP_SAPI == 'cli') {
 <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
 
 <script>
-    $(document).ready(function () {
-        if (window.location.href.indexOf("paypal.github.io") >= 0) {
-            $(".execute").hide();
-        }
-    });
     $(function () {
         return $(".samples h5, h6").each(function (i, el) {
             var $el, icon, id;
             $el = $(el);
             id = CryptoJS.MD5(($el.html())).toString();
-            //id = $el.attr('id');
+            id = $el.attr('id');
             icon = '<i class="fa fa-link"></i>';
             if (id) {
                 $el.parent().parent().parent().attr('id', id);

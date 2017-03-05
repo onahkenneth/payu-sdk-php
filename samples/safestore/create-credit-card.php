@@ -38,7 +38,8 @@ $card->setType("visa")
 // For direct credit card payments, set the CreditCard
 // field on this object.
 $fi = new FundingInstrument();
-$fi->setPaymentCard($card);
+$fi->setPaymentCard($card)
+    ->setStoreCard(true);
 
 $inv_addr = new InvoiceAddress();
 $inv_addr->setLine1('123 ABC Street')
@@ -135,14 +136,9 @@ $request = clone $payment;
 // with a valid ApiContext (See bootstrap.php for more on `ApiContext`)
 // The return object contains the state.
 try {
-    $payment->callDoTransaction($apiContext);
+    return $payment->callDoTransaction($apiContext);
 } catch (Exception $ex) {
     // NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY
-    ResultPrinter::printError('Create Payment Using Credit Card. If 500 Exception, try creating a new Credit Card', 'Payment', null, $request, $ex);
+    ResultPrinter::printError("Create Credit Card", "Credit Card", null, $request, $ex);
     exit(1);
 }
-
-// NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY
-ResultPrinter::printResult('Create Payment Using Credit Card', 'Payment', $payment->getId(), $request, $payment);
-
-return $payment;

@@ -47,7 +47,6 @@ class DetailsTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($obj->getTax());
         $this->assertNotNull($obj->getHandlingFee());
         $this->assertNotNull($obj->getShippingDiscount());
-        //$this->assertNotNull($obj->getInsurance());
         $this->assertNotNull($obj->getGiftWrap());
         $this->assertNotNull($obj->getFee());
         $this->assertEquals(self::getJson(), $obj->toJson());
@@ -65,7 +64,6 @@ class DetailsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($obj->getTax(), "12.34");
         $this->assertEquals($obj->getHandlingFee(), "12.34");
         $this->assertEquals($obj->getShippingDiscount(), "12.34");
-        //$this->assertEquals($obj->getInsurance(), "12.34");
         $this->assertEquals($obj->getGiftWrap(), "12.34");
         $this->assertEquals($obj->getFee(), "12.34");
     }

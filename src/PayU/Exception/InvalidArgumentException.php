@@ -1,6 +1,6 @@
 <?php
 /**
- * PayU EMEA PHP SDK
+ * PayU MEA PHP SDK
  *
  * @copyright  Copyright (c) 2016 PayU
  * @license    http://opensource.org/licenses/LGPL-3.0  Open Software License (LGPL 3.0)
@@ -12,33 +12,20 @@
 namespace PayU\Exception;
 
 /**
- * Class MissingCredentialException
+ * Class InvalidArgumentException
  *
  * @package PayU\Exception
  */
-class MissingCredentialException extends \Exception
+class InvalidArgumentException extends PayUException
 {
     /**
      * Default Constructor
      *
-     * @param string $message
+     * @param string|null $message
      * @param int $code
      */
     public function __construct($message = null, $code = 0)
     {
         parent::__construct($message, $code);
-    }
-
-    /**
-     * prints error message
-     *
-     * @return string
-     */
-    public function errorMessage()
-    {
-        $errorMsg = 'Error on line ' . $this->getLine() . ' in ' . $this->getFile()
-            . ': <b>' . $this->getMessage() . '</b>';
-
-        return $errorMsg;
     }
 }

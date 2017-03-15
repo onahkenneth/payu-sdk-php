@@ -1,6 +1,6 @@
 <?php
 /**
- * PayU EMEA PHP SDK
+ * PayU MEA PHP SDK
  *
  * @copyright  Copyright (c) 2016 PayU
  * @license    http://opensource.org/licenses/LGPL-3.0  Open Software License (LGPL 3.0)
@@ -12,11 +12,11 @@
 namespace PayU\Exception;
 
 /**
- * Class ConfigurationException
+ * Class ServerMaintenanceException
  *
  * @package PayU\Exception
  */
-class ConfigurationException extends PayUException
+class ServerMaintenanceException extends PayUException
 {
     /**
      * Default Constructor

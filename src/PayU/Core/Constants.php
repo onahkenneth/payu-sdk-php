@@ -22,8 +22,8 @@ namespace PayU\Core;
  */
 class Constants
 {
-    const SDK_NAME = 'PayU-EMEA-PHP-SDK';
-    const SDK_VERSION = '1.0.0';
+    const SDK_NAME = 'PayU-MEA-PHP-SDK';
+    const SDK_VERSION = '0.2.0';
 
     const STAGING_REDIRECT_ENDPOINT = 'https://staging.payu.co.za/service/PayUAPI';
     const STAGING_WSDL_ENDPOINT = 'https://staging.payu.co.za/service/PayUAPI?wsdl';

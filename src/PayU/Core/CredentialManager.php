@@ -59,14 +59,14 @@ class CredentialManager
     }
 
     /**
-     * Load credentials for multiple accounts, with priority given to Signature credential.
+     * Load credentials for multiple accounts.
      *
      * @param array $config
      */
     private function initCredential($config)
     {
         $suffix = 1;
-        $prefix = "store";
+        $prefix = "acct";
 
         $arr = array();
         foreach ($config as $k => $v) {
@@ -79,25 +79,26 @@ class CredentialManager
         $arr = array();
         foreach ($config as $key => $value) {
             $pos = strpos($key, '.');
-            if (strstr($key, "store")) {
+            if (strstr($key, "acct")) {
                 $arr[] = substr($key, 0, $pos);
             }
         }
         $arrayPartKeys = array_unique($arr);
 
         $key = $prefix . $suffix;
-        $userName = null;
+        $account = null;
         while (in_array($key, $arrayPartKeys)) {
-            if (isset($credArr[$key . ".apiUsername"]) && isset($credArr[$key . ".apiPassword"])) {
-                $userName = $key;
-                $this->credentialHashmap[$userName] = new BasicAuth(
-                    $credArr[$key . ".apiUsername"],
-                    $credArr[$key . ".apiPassword"]
+            if (isset($credArr[$key . ".username"]) && isset($credArr[$key . ".password"]) && isset($credArr[$key . ".safekey"])) {
+                $account = $key;
+                $this->credentialHashmap[$account] = new BasicAuth(
+                    $credArr[$key . ".username"],
+                    $credArr[$key . ".password"],
+                    $credArr[$key . ".safekey"]
                 );
             }
-            if ($userName && $this->defaultAccountName == null) {
-                if (array_key_exists($key . '.UserName', $credArr)) {
-                    $this->defaultAccountName = $credArr[$key . '.UserName'];
+            if ($account && $this->defaultAccountName == null) {
+                if (array_key_exists($key . '.storeId', $credArr)) {
+                    $this->defaultAccountName = $credArr[$key . '.storeId'];
                 } else {
                     $this->defaultAccountName = $key;
                 }
@@ -125,14 +126,14 @@ class CredentialManager
      * Sets credential object for users
      *
      * @param \PayU\Auth\BasicAuth $credential
-     * @param string|null $userId User Id associated with the account
+     * @param string|null $accountId Account Id associated with the account
      * @param bool $default If set, it would make it as a default credential for all requests
      *
      * @return $this
      */
-    public function setCredentialObject(BasicAuth $credential, $userId = null, $default = true)
+    public function setCredentialObject(BasicAuth $credential, $accountId = null, $default = true)
     {
-        $key = $userId == null ? 'default' : $userId;
+        $key = $accountId == null ? 'default' : $accountId;
         $this->credentialHashmap[$key] = $credential;
         if ($default) {
             $this->defaultAccountName = $key;
@@ -141,22 +142,22 @@ class CredentialManager
     }
 
     /**
-     * Obtain Credential Object based on UserId provided.
+     * Obtain Credential Object based on StoreId provided.
      *
-     * @param null $userId
+     * @param null $accountId
      * @return BasicAuth
      * @throws InvalidCredentialException
      */
-    public function getCredentialObject($userId = null)
+    public function getCredentialObject($accountId = null)
     {
-        if ($userId == null && array_key_exists($this->defaultAccountName, $this->credentialHashmap)) {
+        if ($accountId == null && array_key_exists($this->defaultAccountName, $this->credentialHashmap)) {
             $credObj = $this->credentialHashmap[$this->defaultAccountName];
-        } elseif (array_key_exists($userId, $this->credentialHashmap)) {
-            $credObj = $this->credentialHashmap[$userId];
+        } elseif (array_key_exists($accountId, $this->credentialHashmap)) {
+            $credObj = $this->credentialHashmap[$accountId];
         }
 
         if (empty($credObj)) {
-            throw new InvalidCredentialException("Credential not found for " . ($userId ? $userId : " default user") .
+            throw new InvalidCredentialException("Credential not found for " . ($accountId ? $accountId : " default user") .
                 ". Please make sure your configuration/APIContext has credential information");
         }
         return $credObj;

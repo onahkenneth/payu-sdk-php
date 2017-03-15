@@ -21,7 +21,7 @@ use PayU\Validation\JsonValidator;
 class PayUModel
 {
     /**
-     * OAuth Credentials to use for this call
+     * BasicAuth Credentials to use for this call
      *
      * @var \PayU\Auth\BasicAuth $credential
      */

@@ -125,6 +125,15 @@ class ReflectionHelper
         return $annotations;
     }
 
+    public static function getClassAnnotations($class)
+    {
+        $class = is_object($class) ? get_class($class) : $class;
+        $r = new \ReflectionClass($class);
+        $doc = $r->getDocComment();
+        preg_match_all('#@property(.*?)\n#s', $doc, $annotations);
+        return $annotations[1];
+    }
+
     /**
      * Checks if the Property is of type array or an object
      *

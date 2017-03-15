@@ -30,21 +30,23 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
 // Replace these values by entering your own SOAP username and password by visiting https://help.payu.co.za/developers
-$username = 'AYSq3RDGsmBLJE-otTkBtM-jBRd1TCQwFf9RGfwddNXWz0uFU9ztymylOhRS';
-$password = 'EGnHDxD_qRPdaLdZz8iCr8N7_MzF-YHPTkjs6NKYQvQSBngp4PTTVWkPZRbL';
-$safekey = '';
-$store_id = '';
+$username = '100032';
+$password = 'PypWWegU';
+$safekey = '{CE62CE80-0EFD-4035-87C1-8824C5C46E7F}';
+$storeId = '3D Sim Store FAuth Off Force On';
+$paymentMethods = 'CREDITCARD,EBUCKS,EFT_PRO';
+$fraudManagement = false;
 
 /**
- * All default curl options are stored in the array inside the Http\Config class. To make changes to those settings
+ * All default SOAP options are stored in the array inside the Http\Config class. To make changes to those settings
  * for your specific environments, feel free to add them using the code shown below
- * Uncomment below line to override any default curl options.
+ * Uncomment below line to override any default SOAP options.
  */
-//Http\Config::$defaultCurlOptions[CURLOPT_SSLVERSION] = CURL_SSLVERSION_TLSv1_2;
+//Http\Config::$defaultSoapOptions['trace'] = true;
 
 
 /** @var \PayU\Soap\ApiContext $apiContext */
-$apiContext = getApiContext($username, $password, $safekey);
+$apiContext = getApiContext($username, $password, $safekey, $paymentMethods, $fraudManagement);
 
 return $apiContext;
 /**
@@ -54,7 +56,7 @@ return $apiContext;
  * @param string $safekey safe key
  * @return PayU\Soap\ApiContext
  */
-function getApiContext($username, $password, $safekey)
+function getApiContext($username, $password, $safekey, $paymentMethods, $fraudManagement)
 {
 
     // #### SDK configuration
@@ -91,7 +93,9 @@ function getApiContext($username, $password, $safekey)
             'log.FileName' => '../PayU.log',
             'log.LogLevel' => 'DEBUG', // PLEASE USE `INFO` LEVEL FOR LOGGING IN LIVE ENVIRONMENTS
             'cache.enabled' => true,
-            //'http.CONNECTTIMEOUT' => 30
+            'acct1.paymentMethods' => $paymentMethods,
+            'acct1.fraudManagement' => $fraudManagement,
+            //'http.connectTimeout' => 30
             //'log.AdapterFactory' => '\PayU\Log\DefaultLogFactory' // Factory class implementing \PayU\Log\PayULogFactory
         )
     );

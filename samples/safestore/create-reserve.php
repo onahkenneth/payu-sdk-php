@@ -11,11 +11,12 @@ use PayU\Api\Amount;
 use PayU\Api\Customer;
 use PayU\Api\CustomerInfo;
 use PayU\Api\Details;
+use PayU\Api\PaymentMethod;
 use PayU\Api\FundingInstrument;
 use PayU\Api\InvoiceAddress;
 use PayU\Api\Item;
 use PayU\Api\ItemList;
-use PayU\Api\Payment;
+use PayU\Api\Reserve;
 use PayU\Api\PaymentCard;
 use PayU\Api\RedirectUrls;
 use PayU\Api\Transaction;
@@ -24,14 +25,14 @@ use PayU\Api\Transaction;
 // A resource representing a payment card that can be
 // used to fund a payment.
 $card = new PaymentCard();
-$card->setType("visa")
-    ->setNumber("4000015372250142")
+$card->setType(PaymentCard::TYPE_VISA)
+    ->setNumber("4000019542438801")
     ->setExpireMonth("11")
     ->setExpireYear("2019")
     ->setCvv2("123")
     ->setFirstName("John")
-    ->setBillingCountry("ZA")
-    ->setLastName("Snow");
+    ->setLastName("Snow")
+    ->setBillingCountry("ZA");
 
 // ### FundingInstrument
 // A resource representing a Customer's funding instrument.
@@ -61,7 +62,7 @@ $ci->setFirstName('Test')
 // For direct credit card payments, set payment method
 // to 'credit_card' and add an array of funding instruments.
 $customer = new Customer();
-$customer->setPaymentMethod("credit_card")
+$customer->setPaymentMethod(PaymentMethod::TYPE_CREDITCARD)
     ->setCustomerInfo($ci)
     ->setIpAddress('127.0.0.1')
     ->setFundingInstrument($fi);
@@ -121,23 +122,23 @@ $redirectUrls->setNotifyUrl('http://example.com/return');
 // ### Payment
 // A Payment Resource; create one using
 // the above types and intent set to sale 'sale'
-$payment = new Payment();
-$payment->setIntent("payment")
+$reserve = new Reserve();
+$reserve->setIntent(Transaction::TYPE_RESERVE)
     ->setCustomer($customer)
     ->setTransaction($transaction)
     ->setRedirectUrls($redirectUrls);
 
 // For Sample Purposes Only.
-$request = clone $payment;
+$request = clone $reserve;
 
 // ### Create Payment
 // Create a payment by calling the payment->callDoTransaction method
 // with a valid ApiContext (See bootstrap.php for more on `ApiContext`)
-// The response object retrieved by calling `getReturn` on the payment object contains the state.
+// The response object retrieved by calling `getReturn()` on the payment resource the contains the state.
 try {
-    return $payment->callDoTransaction($apiContext);
+    return $reserve->callDoTransaction($apiContext);
 } catch (Exception $ex) {
     // NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY
-    ResultPrinter::printError("Create Credit Card", "Credit Card", null, $request, $ex);
+    ResultPrinter::printError("Create Reserve Payment", "Created Reserve", null, $request, $ex);
     exit(1);
 }

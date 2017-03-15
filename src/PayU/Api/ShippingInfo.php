@@ -120,28 +120,6 @@ class ShippingInfo extends PayUModel
     }
 
     /**
-     * @deprecated Not used anymore
-     *
-     * @param string $email
-     * @return $this
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-        return $this;
-    }
-
-    /**
-     * @deprecated Not used anymore
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
      * Address of the invoice recipient.
      *
      * @param \PayU\Api\InvoiceAddress $address

@@ -16,12 +16,22 @@ use PayU\Api\Item;
 use PayU\Api\ItemList;
 use PayU\Api\Payment;
 use PayU\Api\Transaction;
+use PayU\Api\LookupTransaction;
 
+$payload = array(
+    'lookupTransactionType' => 'PAYMENT_METHODS',
+    'Customfield' => array(
+        'key' => 'MerchantUserId',
+        'value' => $card->getCustomer()->getCustomerInfo()->getCustomerId()
+    )
+);
+$transaction = LookupTransaction::lookup($payload, $apiContext);
+var_dump($transaction->getReturn());exit;
 // ### Credit card token
 // Saved credit card id from a previous call to
 // CreateCreditCard.php
 $creditCardToken = new CreditCardToken();
-$creditCardToken->setCreditCardId($card->getId());
+$creditCardToken->setCreditCardId($card->getId);
 
 // ### FundingInstrument
 // A resource representing a Customer's funding instrument.
@@ -88,7 +98,7 @@ $transaction->setAmount($amount)
 // A Payment Resource; create one using
 // the above types and intent set to 'sale'
 $payment = new Payment();
-$payment->setIntent("payment")
+$payment->setIntent(Transaction::TYPE_PAYMENT)
     ->setCustomer($customer)
     ->setTransaction($transaction);
 
@@ -109,6 +119,6 @@ try {
 }
 
 // NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY
-ResultPrinter::printResult("Create Payment using Saved Card", "Payment", $payment->getId(), $request, $payment);
+ResultPrinter::printResult("Create Payment using Saved Card", "Payment", $payment->getReturn()->getPayUReference(), $request, $payment);
 
 return $card;

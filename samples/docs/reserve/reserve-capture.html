@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>reserve/reserve-capture</title></head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="groc-relative-root" content="../">
+<meta name="groc-document-path" content="reserve/reserve-capture">
+<meta name="groc-project-path" content="reserve/reserve-capture.php">
+<link rel="stylesheet" type="text/css" media="all" href="../assets/style.css">
+<script type="text/javascript" src="../assets/behaviour.js"></script>
+<body>
+<div id="meta">
+    <div class="file-path">reserve/reserve-capture.php</div>
+</div>
+<div id="document">
+<div class="segment">
+    <div class="code">
+        <div class="wrapper"><span class="hljs-preprocessor">&lt;?php</span></div>
+    </div>
+</div>
+    <div class="segment">
+        <div class="comments ">
+            <div class="wrapper"><h1 id="authorize-payment">CapturePayment</h1>
+                <p>This sample code demonstrates how you can capture an authorized payment.
+                </p></div>
+        </div>
+        <div class="code">
+            <div class="wrapper">
+                <span class="hljs-variable">$createdReserve</span> = <span class="hljs-keyword">require</span> <span class="hljs-keyword">__DIR__</span> . <span class="hljs-string">'/../safestore/create-reserve.php'</span>;
+
+                <span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span class="hljs-title">Api</span>\<span class="hljs-title">Amount</span>;
+                <span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span class="hljs-title">Api</span>\<span class="hljs-title">Customer</span>;
+                <span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span class="hljs-title">Api</span>\<span class="hljs-title">Reserve</span>;
+                <span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span class="hljs-title">Api</span>\<span class="hljs-title">PaymentMethod</span>;
+                <span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span class="hljs-title">Api</span>\<span class="hljs-title">Transaction</span>;
+            </div>
+        </div>
+    </div>
+    <div class="segment">
+        <div class="comments">
+            <div class="wrapper"><h3 id="customer">Customer</h3>
+                <p>A resource representing a Customer that funds a payment
+                    For direct credit card payments, set payment method
+                    to &#39;credit_card&#39;.</p>
+            </div>
+        </div>
+        <div class="code">
+            <div class="wrapper">
+                <span class="hljs-variable">$customer</span> = <span class="hljs-keyword">new</span> Customer();
+                <span class="hljs-variable">$customer</span>-&gt;setPaymentMethod(<span class="hljs-keyword">PaymentMethod::TYPE_CREDITCARD</span>);
+            </div>
+        </div>
+    </div>
+    <div class="segment">
+        <div class="comments ">
+            <div class="wrapper"><h3 id="amount">Amount</h3>
+                <p>Lets you specify a payment amount.</p></div>
+        </div>
+        <div class="code">
+            <div class="wrapper">
+                <span class="hljs-variable">$amount</span> = <span class="hljs-keyword">new</span> Amount();
+                <span class="hljs-variable">$amount</span>-&gt;setCurrency(<span class="hljs-string">"ZAR"</span>)-&gt;setTotal(<span class="hljs-number">20</span>);
+            </div>
+        </div>
+    </div>
+    <div class="segment">
+        <div class="comments ">
+            <div class="wrapper"><h3 id="transaction">Transaction</h3>
+                <p>A transaction defines the contract of a
+                    payment - what is the payment for and who
+                    is fulfilling it. </p></div>
+        </div>
+        <div class="code">
+            <div class="wrapper">
+                <span class="hljs-variable">$transaction</span> = <span class="hljs-keyword">new</span> Transaction();
+                <span class="hljs-variable">$transaction</span>-&gt;setAmount(<span class="hljs-variable">$amount</span>);
+            </div>
+        </div>
+    </div>
+    <div class="segment">
+        <div class="comments ">
+            <div class="wrapper"><p>Setting intent to `finalize` captures the authorized payment.</p></div>
+        </div>
+        <div class="code">
+            <div class="wrapper">
+                <span class="hljs-variable">$reserve</span> = <span class="hljs-keyword">new</span> Reserve();
+                <span class="hljs-variable">$response</span> = <span class="hljs-variable">$createdReserve</span>->getReturn();
+
+                <span class="hljs-variable">$reserve</span>-&gt;setIntent(<span class="hljs-keyword">Transaction::TYPE_FINALIZE</span>)
+                -&gt;setCustomer(<span class="hljs-variable">$customer</span>)
+                -&gt;setTransaction(<span class="hljs-variable">$transaction</span>)
+                ->setPayUReference(<span class="hljs-variable">$response</span>->getPayUReference())
+                ->setMerchantReference(<span class="hljs-variable">$response</span>->getMerchantReference());
+            </div>
+        </div>
+    </div>
+    <div class="segment">
+        <div class="comments ">
+            <div class="wrapper"><p>For Sample Purposes Only.</p></div>
+        </div>
+        <div class="code">
+            <div class="wrapper">
+                <span class="hljs-variable">$request</span> = <span class="hljs-keyword">clone</span><span class="hljs-variable"> $payment</span>;
+            </div>
+        </div>
+    </div>
+    <div class="segment">
+        <div class="comments ">
+            <div class="wrapper"><h3 id="create-payment">Capture Authorized Payment</h3>
+                <p>Capture authorized payment by calling the reserve-&gt;capture() method
+                    with a valid ApiContext (See bootstrap.php for more on <code>ApiContext</code>)
+                    The response object retrieved by calling `getReturn()` on the payment resource contains the state.</p></div>
+        </div>
+        <div class="code">
+            <div class="wrapper"><span class="hljs-keyword">try</span> {
+        <span class="hljs-variable">$capture</span> = <span class="hljs-variable">$reserve</span>-&gt;capture(<span class="hljs-variable">$apiContext</span>);
+    } <span class="hljs-keyword">catch</span> (<span class="hljs-keyword">Exception</span> <span class="hljs-variable">$ex</span>) {
+            </div>
+        </div>
+    </div>
+    <div class="segment">
+        <div class="comments ">
+            <div class="wrapper"><p>NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE
+                ONLY</p></div>
+        </div>
+        <div class="code">
+            <div class="wrapper">
+        ResultPrinter::printError(<span class="hljs-string">'Finalize a Payment'</span>, <span class="hljs-string">'Finalized Payment'</span>, <span class="hljs-variable">$payment</span>-&gt;getId(), <span class="hljs-variable">$request</span>, <span class="hljs-variable">$ex</span>);
+        <span class="hljs-keyword">exit</span>(<span class="hljs-number">1</span>);
+    }
+            </div>
+        </div>
+    </div>
+    <div class="segment">
+        <div class="comments ">
+            <div class="wrapper"><p>NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE
+                ONLY</p></div>
+        </div>
+        <div class="code">
+            <div class="wrapper">
+        ResultPrinter::printResult(<span class="hljs-string">'Finalize a Payment'</span>, <span class="hljs-string">'Finalized Payment'</span>, <span class="hljs-variable">$payment</span>-&gt;getId(), <span class="hljs-variable">$request</span>, <span class="hljs-variable">$payment</span>);
+
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$capture</span>;
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

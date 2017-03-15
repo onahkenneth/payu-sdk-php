@@ -215,7 +215,7 @@ if (PHP_SAPI == 'cli') {
         <div class="col-md-3 ">
             <div class="row-fluid fixed col-md-3" id="leftNavigation" role="navigation">
                 <ul class="nav nav-pills nav-stacked">
-                    <li><a href="#payments">Payments</a></li>
+                    <li><a href="#payments">Payment</a></li>
                     <li><a href="#authorization">Reserve and Finalize</a></li>
                 </ul>
 
@@ -226,7 +226,7 @@ if (PHP_SAPI == 'cli') {
                 <div class="panel-heading">
                     <h3 id="payments" class="panel-title"><a
                                 href="#"
-                                target="_blank">Payments</a></h3>
+                                target="_blank">Payment (Sale)</a></h3>
                 </div>
                 <!-- List group -->
                 <ul class="list-group">
@@ -246,7 +246,7 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8">
                                 <h5>Payments using saved credit card
-                                    <small>(using Authentication Token)</small>
+                                    <small>(using Payment method ID - pmId)</small>
                                 </h5>
                             </div>
                             <div class="col-md-4">
@@ -297,13 +297,13 @@ if (PHP_SAPI == 'cli') {
                     </li>
                     <li class="list-group-item">
                         <div class="row">
-                            <div class="col-md-8"><h5>Get details of an reserved payment</h5></div>
+                            <div class="col-md-8"><h5>Get details of a reserved payment</h5></div>
                             <div class="col-md-4">
-                                <a href="reserve/get-authorization.php" class="btn btn-primary pull-left execute"> Try
+                                <a href="reserve/get-reserve.php" class="btn btn-primary pull-left execute"> Try
                                     It
                                     <i
                                             class="fa fa-play-circle-o"></i></a>
-                                <a href="docs/reserve/get-authorization.html" class="btn btn-default pull-right">Source
+                                <a href="docs/reserve/get-reserve.html" class="btn btn-default pull-right">Source
                                     <i
                                             class="fa fa-file-code-o"></i></a>
                             </div>
@@ -313,10 +313,10 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Finalize a reserved payment</h5></div>
                             <div class="col-md-4">
-                                <a href="reserve/authorization-capture.php" class="btn btn-primary pull-left execute">
+                                <a href="reserve/reserve-capture.php" class="btn btn-primary pull-left execute">
                                     Try It <i
                                             class="fa fa-play-circle-o"></i></a>
-                                <a href="docs/reserve/authorization-capture.html" class="btn btn-default pull-right">Source
+                                <a href="docs/reserve/reserve-capture.html" class="btn btn-default pull-right">Source
                                     <i
                                             class="fa fa-file-code-o"></i></a>
                             </div>
@@ -337,11 +337,11 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Void a reserved payment</h5></div>
                             <div class="col-md-4">
-                                <a href="reserve/void-authorization.php" class="btn btn-primary pull-left execute"> Try
+                                <a href="reserve/void-reserve.php" class="btn btn-primary pull-left execute"> Try
                                     It
                                     <i
                                             class="fa fa-play-circle-o"></i></a>
-                                <a href="docs/reserve/void-authorization.html" class="btn btn-default pull-right">Source
+                                <a href="docs/reserve/void-reserve.html" class="btn btn-default pull-right">Source
                                     <i
                                             class="fa fa-file-code-o"></i></a>
                             </div>

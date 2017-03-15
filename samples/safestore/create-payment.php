@@ -12,13 +12,22 @@ use PayU\Api\Customer;
 use PayU\Api\CustomerInfo;
 use PayU\Api\Details;
 use PayU\Api\FundingInstrument;
-use PayU\Api\InvoiceAddress;
+use PayU\Api\Address;
 use PayU\Api\Item;
 use PayU\Api\ItemList;
 use PayU\Api\Payment;
 use PayU\Api\PaymentCard;
 use PayU\Api\RedirectUrls;
 use PayU\Api\Transaction;
+
+$addr = new Address();
+$addr->setLine1("3909 Witmer Road")
+    ->setLine2("Niagara Falls")
+    ->setCity("Niagara Falls")
+    ->setState("GP")
+    ->setPostalCode("14305")
+    ->setCountryCode("ZA")
+    ->setPhone("0748523695");
 
 // ### PaymentCard
 // A resource representing a payment card that can be
@@ -31,21 +40,15 @@ $card->setType("visa")
     ->setCvv2("123")
     ->setFirstName("John")
     ->setBillingCountry("ZA")
-    ->setLastName("Snow");
+    ->setLastName("Snow")
+    ->setBillingAddress($addr);
 
 // ### FundingInstrument
 // A resource representing a Customer's funding instrument.
 // For direct credit card payments, set the CreditCard
 // field on this object.
 $fi = new FundingInstrument();
-$fi->setPaymentCard($card)
-    ->setStoreCard(true);
-
-$inv_addr = new InvoiceAddress();
-$inv_addr->setLine1('123 ABC Street')
-    ->setCity('Johannesburg')
-    ->setState('Gauteng')
-    ->setPostalCode('2000');
+$fi->setPaymentCard($card);
 
 $ci = new CustomerInfo();
 $ci->setFirstName('Test')
@@ -54,7 +57,7 @@ $ci->setFirstName('Test')
     ->setCountryOfResidence('ZA')
     ->setPhone('0748523695')
     ->setCustomerId('854')
-    ->setBillingAddress($inv_addr);
+    ->setBillingAddress($addr);
 
 // ### Customer
 // A resource representing a Customer that funds a payment
@@ -63,7 +66,7 @@ $ci->setFirstName('Test')
 $customer = new Customer();
 $customer->setPaymentMethod("credit_card")
     ->setCustomerInfo($ci)
-    ->setIpAddress('127.0.0.1')
+    ->setIpAddress('12.0.0.7')
     ->setFundingInstrument($fi);
 
 // ### Itemized information
@@ -131,13 +134,13 @@ $payment->setIntent("payment")
 $request = clone $payment;
 
 // ### Create Payment
-// Create a payment by calling the payment->callDoTransaction method
+// Create a payment by calling the payment->doTransaction method
 // with a valid ApiContext (See bootstrap.php for more on `ApiContext`)
 // The response object retrieved by calling `getReturn` on the payment object contains the state.
 try {
     return $payment->callDoTransaction($apiContext);
 } catch (Exception $ex) {
     // NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY
-    ResultPrinter::printError("Create Credit Card", "Credit Card", null, $request, $ex);
+    ResultPrinter::printError('Create Payment Using Credit Card. If 500 Exception, try creating a new Credit Card', 'Payment', null, $request, $ex);
     exit(1);
 }

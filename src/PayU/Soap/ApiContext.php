@@ -44,13 +44,11 @@ class ApiContext
     /**
      * Construct
      *
-     * @param \PayU\Auth\BasicAuth $credential
-     * @param string|null $requestId
+     * @param \PayU\Auth\BasicAuth $basic_auth authentication for soap calls
      */
-    public function __construct($credential = null, $requestId = null)
+    public function __construct($basic_auth)
     {
-        $this->requestId = $requestId;
-        $this->credential = $credential;
+        $this->credential = $basic_auth;
     }
 
     /**

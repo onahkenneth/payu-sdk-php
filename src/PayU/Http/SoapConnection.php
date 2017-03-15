@@ -5,6 +5,7 @@ namespace PayU\Http;
 use PayU\Core\LoggingManager;
 use PayU\Exception\ConfigurationException;
 use PayU\Exception\NetworkException;
+use PayU\Soap\ApiContext;
 
 /**
  * class SoapConnection
@@ -25,6 +26,12 @@ class SoapConnection implements ConnectionInterface
      * Service Unavailable and Gateway timeout errors.
      */
     private static $retryCodes = array('408', '502', '503', '504',);
+
+    /**
+     * @var ApiContext
+     */
+    private $apiContext;
+
     /**
      * @var Config
      */
@@ -40,14 +47,15 @@ class SoapConnection implements ConnectionInterface
      * Default Constructor
      *
      * @param Config $httpConfig
-     * @param array $config
      * @throws ConfigurationException
      */
-    public function __construct(Config $httpConfig, array $config)
+    public function __construct(ApiContext $apiContext, Config $httpConfig)
     {
         if (!extension_loaded("soap")) {
-            throw new ConfigurationException("SOAP module is not available on this system");
+            throw new ConfigurationException("SOAP extension is not available/enabled on the server");
         }
+
+        $this->apiContext = $apiContext;
         $this->httpConfig = $httpConfig;
         $this->logger = LoggingManager::getInstance(__CLASS__);
     }
@@ -55,53 +63,37 @@ class SoapConnection implements ConnectionInterface
     /**
      * Executes an HTTP request
      *
-     * @param string $data query string OR POST content as a string
+     * @param string $methodName SOAP method to call
+     * @param string $data POST content as a string
      * @return mixed
      * @throws NetworkException
      */
-    public function execute($data)
+    public function execute($methodName, $data)
     {
+        $apiContext = $this->apiContext;
+        $httpConfig = $this->httpConfig;
+
         //Initialize the logger
-        $this->logger->debug($this->httpConfig->getMethod() . ' ' . $this->httpConfig->getUrl());
+        $this->logger->debug($httpConfig->getMethod() . ' ' . $httpConfig->getEndpointUrl());
 
-        //Initialize Curl Options
-        $ch = curl_init($this->httpConfig->getUrl());
-        $options = $this->httpConfig->getSoapOptions();
-        if (empty($options[CURLOPT_HTTPHEADER])) {
-            unset($options[CURLOPT_HTTPHEADER]);
-        }
-        curl_setopt_array($ch, $options);
-        curl_setopt($ch, CURLOPT_URL, $this->httpConfig->getUrl());
-        curl_setopt($ch, CURLOPT_HEADER, true);
-        curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->getHttpHeaders());
-
-        //Determine Curl Options based on Method
-        switch ($this->httpConfig->getMethod()) {
-            case 'POST':
-                curl_setopt($ch, CURLOPT_POST, true);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-                break;
-            case 'PUT':
-            case 'PATCH':
-            case 'DELETE':
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-                break;
-        }
-
-        //Default Option if Method not of given types in switch case
-        if ($this->httpConfig->getMethod() != null) {
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $this->httpConfig->getMethod());
-        }
+        //Initialize client
+        $soapClient = new PayUSoapClient($apiContext, $httpConfig);
+        $headers = $this->getHttpHeaders();
 
         //Logging Each Headers for debugging purposes
-        foreach ($this->getHttpHeaders() as $header) {
+        foreach ($headers as $header) {
             //TODO: Strip out credentials and other secure info when logging.
-            // $this->logger->debug($header);
+            $this->logger->debug($header);
         }
 
-        //Execute Curl Request
-        $result = curl_exec($ch);
+        $payload = array_merge(array(
+            'Api' => PayUSoapClient::API_VERSION,
+            'Safekey' => $apiContext->getCredential()->getSafekey(),
+        ), $data);
+
+        $result = $soapClient->doAction($methodName, $payload, $headers);
+        return $result;
+        /*
         //Retrieve Response Status
         $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
@@ -185,6 +177,7 @@ class SoapConnection implements ConnectionInterface
 
         //Return result object
         return $result;
+        */
     }
 
     /**

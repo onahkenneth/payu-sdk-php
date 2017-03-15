@@ -15,7 +15,8 @@ namespace PayU\Http;
 interface ConnectionInterface
 {
     /**
+     * @param string $method The SOAP method to call
      * @param string $data The HTTP POST data
      */
-    public function execute($data);
+    public function execute($method, $data);
 }

@@ -50,18 +50,19 @@ class BasicAuthHandler implements PayUHandler
     public function handle($httpConfig, $request, $options)
     {
         $config = $this->apiContext->getConfig();
+        $credential = $this->apiContext->getCredential();
 
-        $httpConfig->setUrl(
+        $httpConfig->setEndpointUrl(
             rtrim(trim($this->getEndpoint($config)), '/') .
             (isset($options['path']) ? $options['path'] : '')
         );
-        //var_dump($options);exit;
+
         $headers = array(
             "User-Agent" => UserAgent::getValue(Constants::SDK_NAME, Constants::SDK_VERSION),
             "Authorization" => "Basic " . base64_encode(
-                    $options['apiContext']->getCredential()->getUsername() . ":" . $options['apiContext']->getCredential()->getPassword()
+                    $credential->getUsername() . ":" . $credential->getPassword()
                 ),
-            "Accept" => "*/*"
+            "Accept" => "*/*",
         );
         $httpConfig->setHeaders($headers);
 
@@ -73,20 +74,16 @@ class BasicAuthHandler implements PayUHandler
     }
 
     /**
-     * Get HttpConfiguration object for OAuth API
+     * Get base endpoint for SOAP WSDL service
      *
      * @param array $config
      *
-     * @return Config
+     * @return string $baseEndpoint the WSDL endpoint
      * @throws \PayU\Exception\ConfigurationException
      */
     private static function getEndpoint($config)
     {
-        if (isset($config['oauth.EndPoint'])) {
-            $baseEndpoint = $config['oauth.EndPoint'];
-        } elseif (isset($config['service.EndPoint'])) {
-            $baseEndpoint = $config['service.EndPoint'];
-        } elseif (isset($config['mode'])) {
+        if (isset($config['mode'])) {
             switch (strtoupper($config['mode'])) {
                 case 'SANDBOX':
                     $baseEndpoint = Constants::STAGING_WSDL_ENDPOINT;

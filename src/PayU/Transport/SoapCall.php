@@ -60,22 +60,22 @@ class SoapCall
     }
 
     /**
-     * @param array $handlers Array of handlers
-     * @param string $path Resource path relative to base service endpoint
-     * @param string $method HTTP method - one of GET, POST, PUT, DELETE, PATCH etc
+     * @param string $methodName SOAP method - one of setTransaction, doTransaction, getTransaction etc
      * @param string $data Request payload
+     * @param array $handlers Array of handlers
      * @param array $headers HTTP headers
+     * @param string $path path to soap action
      * @return mixed
      * @throws \PayU\Exception\NetworkException
      */
-    public function execute($handlers = array(), $path, $method, $data = '', $headers = array())
+    public function execute($methodName, $data = '', $handlers = array(), $headers = array(), $path = '')
     {
         $config = $this->apiContext->getConfig();
-        $httpConfig = new Config(null, $method, $config);
+        $httpConfig = new Config(null, $methodName, $config);
         $headers = $headers ? $headers : array();
         $httpConfig->setHeaders($headers +
             array(
-                'Content-Type' => 'application/xml'
+                'Content-Type' => 'text/xml'
             ));
 
         /** @var \PayU\Handler\PayUHandler $handler */
@@ -84,10 +84,11 @@ class SoapCall
                 $fullHandler = "\\" . (string)$handler;
                 $handler = new $fullHandler($this->apiContext);
             }
-            $handler->handle($httpConfig, $data, array('path' => $path, 'apiContext' => $this->apiContext));
+            $handler->handle($httpConfig, $data, array('path' => $path));
         }
-        $connection = new SoapConnection($httpConfig, $config);
-        $response = $connection->execute($data);
+
+        $connection = new SoapConnection($this->apiContext, $httpConfig);
+        $response = $connection->execute($methodName, $data);
 
         return $response;
     }

@@ -8,14 +8,14 @@
          testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader">
 
     <testsuites>
-        <testsuite name="PayU EMEA PHP SDK Test Suite">
+        <testsuite name="PayU MEA PHP SDK Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory suffix=".php">lib</directory>
+            <directory suffix=".php">src</directory>
             <exclude></exclude>
         </whitelist>
     </filter>

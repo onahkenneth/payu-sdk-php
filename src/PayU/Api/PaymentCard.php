@@ -39,6 +39,10 @@ use PayU\Model\PayUModel;
  */
 class PaymentCard extends PayUModel
 {
+    const TYPE_VISA = 'visa';
+    const TYPE_MASTERCARD = 'mastercard';
+    const TYPE_MAESTRO = 'maestro';
+
     /**
      * The ID of a credit card to save for later use.
      *
@@ -87,7 +91,7 @@ class PaymentCard extends PayUModel
 
     /**
      * The card type.
-     * Valid Values: ["VISA", "AMEX", "DISCOVER", "MAESTRO",  "MASTERCARD"]
+     * Valid Values: ["VISA", "DISCOVERY", "MAESTRO",  "MASTERCARD"]
      *
      * @param string $type
      *

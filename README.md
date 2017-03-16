@@ -1,4 +1,4 @@
-# PayU EMEA PHP bindings
+# PayU MEA PHP bindings
 
 [![Build Status](https://travis-ci.org/netcraft-devops/payu-sdk-php.svg?branch=master)](https://travis-ci.org/netcraft-devops/payu-sdk-php)
 [![Latest Stable Version](https://poser.pugx.org/netcrat-devops/payu-sdk-php/v/stable)](https://packagist.org/packages/netcrat-devops/payu-sdk-php)
@@ -79,7 +79,7 @@ Install dependencies as mentioned above (which will resolve [PHPUnit](http://pac
 Or to run an individual test file:
 
 ```bash
-./vendor/bin/phpunit tests/PayU/Api/AmounTest.php
+./vendor/bin/phpunit tests/PayU/Test/Api/AmounTest.php
 ```
 
 ## Attention plugin developers

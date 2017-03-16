@@ -41,8 +41,8 @@
     "issues": "https://github.com/netcraft-devops/payu-sdk-php/issues"
   },
   "autoload": {
-    "psr-0": {
-      "PayU": "lib/"
+    "psr-4": {
+      "PayU\\": "src/PayU"
     }
   }
 }

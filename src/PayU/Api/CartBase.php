@@ -1,6 +1,6 @@
 <?php
 /**
- * PayU EMEA PHP SDK
+ * PayU MEA PHP SDK
  *
  * @copyright  Copyright (c) 2016 PayU
  * @license    http://opensource.org/licenses/LGPL-3.0  Open Software License (LGPL 3.0)
@@ -11,6 +11,7 @@
 
 namespace PayU\Api;
 
+use PayU\Model\PayUModel;
 use PayU\Validation\UrlValidator;
 
 /**
@@ -27,12 +28,11 @@ use PayU\Validation\UrlValidator;
  * @property string note_to_merchant
  * @property string custom
  * @property string invoice_number
- * @property \PayU\Api\PaymentOptions payment_options
  * @property \PayU\Api\ItemList item_list
  * @property string notify_url
  * @property string order_url
  */
-class CartBase
+class CartBase extends PayUModel
 {
     /**
      * Merchant identifier to the purchase unit. Optional parameter
@@ -193,29 +193,6 @@ class CartBase
     public function getInvoiceNumber()
     {
         return $this->invoice_number;
-    }
-
-    /**
-     * Payment options requested for this purchase unit
-     *
-     * @param \PayU\Api\PaymentOptions $payment_options
-     *
-     * @return $this
-     */
-    public function setPaymentOptions($payment_options)
-    {
-        $this->payment_options = $payment_options;
-        return $this;
-    }
-
-    /**
-     * Payment options requested for this purchase unit
-     *
-     * @return \PayU\Api\PaymentOptions
-     */
-    public function getPaymentOptions()
-    {
-        return $this->payment_options;
     }
 
     /**

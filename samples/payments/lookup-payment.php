@@ -1,30 +1,30 @@
 <?php
-// # GetPaymentSample
+// # LookupPaymentSample
 // This sample code demonstrate how you can
-// retrieve a list of all Payment resources
+// retrieve details of a Payment resource
 // you've created using the SOAP API.
 
 /** @var Payment $createdPayment */
-$createdPayment = require 'create-payment.php';
+$createdPayment = require __DIR__ . '/../safestore/create-payment.php';
+
 use PayU\Api\Payment;
 
-$paymentId = $createdPayment->return['payUReference'];
+$paymentReference = $createdPayment->getReturn()->getPayUReference();
 
 // ### Retrieve payment
 // Retrieve the payment object by calling the
-// static `get` method
-// on the Payment class by passing a valid
-// Payment ID
+// static `callGetTransaction` method
+// on the Payment class by passing a valid PayU reference ID
 // (See bootstrap.php for more on `ApiContext`)
 try {
-    $payment = (new Payment)->callGetTransaction($paymentId, $apiContext);
+    $payment = Payment::callGetTransaction($paymentReference, $apiContext);
 } catch (Exception $ex) {
     // NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY
-    ResultPrinter::printError("Get Payment", "Payment", null, null, $ex);
+    ResultPrinter::printError("Lookup Payment details", "Payment", null, null, $ex);
     exit(1);
 }
 
 // NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY
-ResultPrinter::printResult("Get Payment", "Payment", $payment->getId(), null, $payment);
+ResultPrinter::printResult("Lookup Payment details", "Payment", $payment->getReturn()->getPayUReference(), $createdPayment, $payment);
 
 return $payment;

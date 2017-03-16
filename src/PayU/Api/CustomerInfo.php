@@ -31,6 +31,7 @@ use PayU\Model\PayUModel;
  * @property string phone
  * @property string birth_date
  * @property string country_code
+ * @property string country_of_residence
  * @property \PayU\Api\Address billing_address
  */
 class CustomerInfo extends PayUModel
@@ -266,7 +267,8 @@ class CustomerInfo extends PayUModel
     }
 
     /**
-     * Two-letter registered country code of the customer.
+     * Registered country code of the customer.
+     * @see https://countrycode.org
      *
      * @param string $country_code
      *
@@ -279,13 +281,39 @@ class CustomerInfo extends PayUModel
     }
 
     /**
-     * Two-letter registered country code of the customer.
+     * Registered country code of the customer.
+     * @see https://countrycode.org
      *
      * @return string
      */
     public function getCountryCode()
     {
         return $this->country_code;
+    }
+
+    /**
+     * Two-letter registered country of residence code of the customer.
+     * @see https://countrycode.org
+     *
+     * @param string $country_of_residence
+     *
+     * @return $this
+     */
+    public function setCountryOfResidence($country_of_residence)
+    {
+        $this->country_of_residence = $country_of_residence;
+        return $this;
+    }
+
+    /**
+     * Two-letter registered country of residence code of the customer.
+     * @see https://countrycode.org
+     *
+     * @return string
+     */
+    public function getCountryOfResidence()
+    {
+        return $this->country_of_residence;
     }
 
     /**

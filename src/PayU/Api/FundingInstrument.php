@@ -1,6 +1,6 @@
 <?php
 /**
- * PayU EMEA PHP SDK
+ * PayU MEA PHP SDK
  *
  * @copyright  Copyright (c) 2016 PayU
  * @license    http://opensource.org/licenses/LGPL-3.0  Open Software License (LGPL 3.0)
@@ -21,6 +21,7 @@ use PayU\Model\PayUModel;
  *
  * @package PayU\Api
  *
+ * @property boolean store_card
  * @property \PayU\Api\CreditCard credit_card
  * @property \PayU\Api\CreditCardToken credit_card_token
  * @property \PayU\Api\Billing billing
@@ -117,5 +118,27 @@ class FundingInstrument extends PayUModel
     public function getBilling()
     {
         return $this->billing;
+    }
+
+    /**
+     * Save payment card details for future payment.
+     *
+     * @return $this
+     */
+    public function setStoreCard($store = false)
+    {
+        $this->store_card = $store;
+
+        return $this;
+    }
+
+    /**
+     * Save payment card details for future payment.
+     *
+     * @return boolean
+     */
+    public function getStoreCard()
+    {
+        return $this->store_card;
     }
 }

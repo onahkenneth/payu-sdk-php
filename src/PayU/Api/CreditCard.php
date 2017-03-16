@@ -84,7 +84,7 @@ class CreditCard extends ResourceModel
     }
 
     /**
-     * Credit card type. Valid types are: `visa`, `mastercard`
+     * Credit card type. Valid types are: ["VISA",  "MASTERCARD"]
      *
      * @param string $type
      *
@@ -97,7 +97,7 @@ class CreditCard extends ResourceModel
     }
 
     /**
-     * Credit card type. Valid types are: `visa`, `mastercard`
+     * Credit card type. Valid types are: ["VISA", "MASTERCARD"]
      *
      * @return string
      */

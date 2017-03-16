@@ -24,7 +24,7 @@ use PayU\Model\PayUModel;
  * @property string first_name
  * @property string last_name
  * @property string business_name
- * @property \PayU\Api\InvoiceAddress address
+ * @property \PayU\Api\InvoiceAddress invoice_address
  * @property string language
  * @property string additional_info
  * @property \PayU\Api\Phone phone
@@ -126,13 +126,13 @@ class Billing extends PayUModel
     /**
      * The invoice recipient address.
      *
-     * @param \PayU\Api\InvoiceAddress $address
+     * @param \PayU\Api\InvoiceAddress $invoice_address
      *
      * @return $this
      */
-    public function setAddress($address)
+    public function setInvoiceAddress($invoice_address)
     {
-        $this->address = $address;
+        $this->invoice_address = $invoice_address;
         return $this;
     }
 
@@ -141,9 +141,9 @@ class Billing extends PayUModel
      *
      * @return \PayU\Api\InvoiceAddress
      */
-    public function getAddress()
+    public function getInvoiceAddress()
     {
-        return $this->address;
+        return $this->invoice_address;
     }
 
     /**

@@ -1,3 +1,7 @@
 /vendor/
 /.idea/
 /samples/*.log
+/build/
+clover.xml
+/build.php
+sample_ipn

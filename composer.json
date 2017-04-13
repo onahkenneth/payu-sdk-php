@@ -1,6 +1,6 @@
 {
   "name": "netcrat-devops/payu-sdk-php",
-  "description": "PayU EMEA Secure Payments PHP SDK",
+  "description": "PayU MEA Secure Payments PHP SDK",
   "type": "library",
   "homepage": "https://payu.co.za/",
   "minimum-stability": "stable",
@@ -8,10 +8,10 @@
   "version": "1.0.0",
   "keywords": [
     "payu",
-    "payu emea",
+    "payu mea",
     "payu secure payments",
     "payment processing",
-    "php sdk"
+    "payu php sdk"
   ],
   "extra": [
     {
@@ -42,7 +42,7 @@
   },
   "autoload": {
     "psr-4": {
-      "PayU\\": "src/PayU"
+      "PayU\\": "lib/PayU"
     }
   }
 }

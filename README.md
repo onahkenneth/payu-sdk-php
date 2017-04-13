@@ -6,7 +6,7 @@
 [![License](https://poser.pugx.org/netcrat-devops/payu-sdk-php/license)](https://packagist.org/packages/netcrat-devops/payu-sdk-php)
 [![Coverage Status](https://coveralls.io/repos/github/netcraft-devops/payu-sdk-php/badge.svg?branch=master)](https://coveralls.io/github/netcraft-devops/payu-sdk-php?branch=master)
 
-__Welcome to PayU PHP SDK__. This repository contains PayU's PHP SDK and samples for SOAP API.
+__Welcome to PayU PHP SDK__. This repository contains PayU's PHP SDK and samples for both Enterprise and Redirect SOAP API.
 
 ## Please Note
 > **The Payment Card Industry (PCI) Council has [mandated](http://blog.pcisecuritystandards.org/migrating-from-ssl-and-early-tls) that early versions of TLS be retired from service.  All organizations that handle credit card information are required to comply with this standard. As part of this obligation, PayU has updated its services to require TLS 1.2 for all HTTPS connections. At this time, PayU will also require HTTP/1.1 for all connections.**
@@ -15,7 +15,7 @@ You can sign up for a PayU account at https://payu.co.za.
 
 ## Requirements
 
-PHP 5.3 and later.
+PHP 5.4 and later.
 
 ## Composer
 
@@ -29,14 +29,6 @@ To use the bindings, use Composer's [autoload](https://getcomposer.org/doc/00-in
 
 ```php
 require_once('vendor/autoload.php');
-```
-
-## Manual Installation
-
-If you do not wish to use Composer, you can download the [latest release](https://github.com/netcraft-devops/payu-sdk-php/releases). Then, to use the bindings, include the `init.php` file.
-
-```php
-require_once('/path/to/payu-sdk-php/init.php');
 ```
 
 ## Dependencies
@@ -81,13 +73,3 @@ Or to run an individual test file:
 ```bash
 ./vendor/bin/phpunit tests/PayU/Test/Api/AmounTest.php
 ```
-
-## Attention plugin developers
-
-Are you writing a plugin that integrates PayU and embeds our library? Then please use the `setAppInfo` function to identify your plugin. For example:
-
-```php
-\PayU\PayU::setAppInfo("MyAwesomePlugin", "1.1.2", "https://myawesomeplugin.info");
-```
-
-The method should be called once, before any request is sent to the API. The second and third parameters are optional.

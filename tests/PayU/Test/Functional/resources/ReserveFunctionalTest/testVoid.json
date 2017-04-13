@@ -1,0 +1,34 @@
+{
+  "description": "Voids a reserve resource for the given identifier.",
+  "title": "Void reserve resource",
+  "runnable": true,
+  "operationId": "reserve.void",
+  "user": {
+    "scopes": []
+  },
+  "credentials": {
+    "basicauth": {
+      "username": "",
+      "password": "",
+      "safekey": ""
+    }
+  },
+  "request": {
+    "headers": {},
+    "body": {}
+  },
+  "response": {
+    "headers": {},
+    "body": {
+      "return" : {
+        "resultCode": "00",
+        "resultMessage": "Successful",
+        "successful": true,
+        "displayMessage": "Successful",
+        "merchantReference": "1234567890",
+        "payUReference": "21976214819"
+      }
+    },
+    "status": "200 OK"
+  }
+}

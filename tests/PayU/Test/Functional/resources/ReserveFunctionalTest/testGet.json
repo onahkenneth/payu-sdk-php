@@ -1,0 +1,53 @@
+{
+  "description": "Obtain the reserve resource for the given identifier.",
+  "title": "Get a reserve resource",
+  "runnable": true,
+  "operationId": "reserve.get",
+  "user": {
+    "scopes": []
+  },
+  "credentials": {
+    "basicauth": {
+      "username": "",
+      "password": "",
+      "safekey": ""
+    }
+  },
+  "request": {
+    "headers": {},
+    "body": {}
+  },
+  "response": {
+    "headers": {},
+    "body": {
+      "return" : {
+        "basket": {
+          "amountInCents": 7047,
+          "currencyCode": "ZAR",
+          "description": "This is the payment transaction description."
+        },
+        "customFields": {
+          "key": "Secure3D",
+          "value": "{}"
+        },
+        "resultCode": "00",
+        "resultMessage": "Successful",
+        "successful": true,
+        "displayMessage": "Successful",
+        "merchantReference": "1234567890",
+        "payUReference": "21976214819",
+        "transactionState": "SUCCESSFUL",
+        "transactionType": "RESERVE",
+        "paymentsMethodUsed": {
+          "amountInCents": "1000",
+          "cardExpiry": "122015",
+          "cardNumber": "400000******1000",
+          "gatewayReference": "37149772",
+          "information": "VISA",
+          "nameOnCard": "John Doe"
+        }
+      }
+    },
+    "status": "200 OK"
+  }
+}

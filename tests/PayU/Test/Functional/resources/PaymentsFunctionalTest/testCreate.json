@@ -1,0 +1,95 @@
+{
+  "description": "Creates a payment resource.",
+  "title": "payment",
+  "runnable": true,
+  "operationId": "payment.create",
+  "user": {
+    "scopes": [ ]
+  },
+  "credentials": {
+    "basicauth": {
+      "username": "",
+      "password": "",
+      "safekey": ""
+    }
+  },
+  "request": {
+    "headers": { },
+    "body": {
+      "intent": "payment",
+      "customer": {
+        "payment_method": "credit_card",
+        "funding_instrument": {
+          "payment_card": {
+            "number": "4000015372250142",
+            "billing_country": "ZA",
+            "type": "VISA",
+            "expire_month": "11",
+            "expire_year": "2018",
+            "cvv2": "123",
+            "first_name": "Peter",
+            "last_name": "Pan",
+            "billing_address": {
+              "line1": "21 Main Road",
+              "city": "Cape Town",
+              "state": "WC",
+              "postal_code": "8000",
+              "country_code": "ZA"
+            }
+          }
+        },
+        "customer_info": {
+          "first_name": "Peter",
+          "last_name": "Pan",
+          "email": "peter.pan@example.com",
+          "country_of_residence": "ZA",
+          "phone": "0748523695",
+          "customer_id": "854",
+          "billing_address": {
+            "line1": "21 Main Road",
+            "city": "Cape Town",
+            "state": "WC",
+            "postal_code": "8000",
+            "country_code": "ZA"
+          }
+        }
+      },
+      "transaction": {
+        "amount": {
+          "total": "70.47",
+          "currency": "ZAR",
+          "details": {
+            "subtotal": "70.41",
+            "tax": "0.03",
+            "shipping": "0.03"
+          }
+        },
+        "description": "This is the payment transaction description.",
+        "invoice_number": "payu-3489032190230"
+      }
+    }
+  },
+  "response": {
+    "headers": {},
+    "body": {
+      "return" : {
+        "resultCode": "00",
+        "resultMessage": "Successful",
+        "successful": "true",
+        "displayMessage": "Successful",
+        "merchantReference": "payu-3489032190230",
+        "payUReference": "21976214819",
+        "transactionState": "SUCCESSFUL",
+        "transactionType": "PAYMENT",
+        "paymentsMethodUsed": {
+          "amountInCents": "7047",
+          "cardExpiry": "112018",
+          "cardNumber": "400001******7225",
+          "gatewayReference": "37149772",
+          "information": "VISA",
+          "nameOnCard": "Peter Pan"
+        }
+      }
+    }
+  }
+}

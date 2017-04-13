@@ -1,0 +1,44 @@
+{
+  "description": "Obtain the payment resource for the given identifier.",
+  "title": "Get a payment resource",
+  "runnable": true,
+  "operationId": "payment.get",
+  "user": {
+    "scopes": []
+  },
+  "credentials": {
+    "basicauth": {
+      "username": "",
+      "password": "",
+      "safekey": ""
+    }
+  },
+  "request": {
+    "headers": {},
+    "body": {}
+  },
+  "response": {
+    "headers": {},
+    "body": {
+      "return" : {
+        "resultCode": "00",
+        "resultMessage": "Successful",
+        "successful": "true",
+        "displayMessage": "Successful",
+        "merchantReference": "payu-3489032190230",
+        "payUReference": "21976214819",
+        "transactionState": "SUCCESSFUL",
+        "transactionType": "PAYMENT",
+        "paymentsMethodUsed": {
+          "amountInCents": "1000",
+          "cardExpiry": "122015",
+          "cardNumber": "400000******1000",
+          "gatewayReference": "37149772",
+          "information": "VISA",
+          "nameOnCard": "John Doe"
+        }
+      }
+    },
+    "status": "200 OK"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "description": "Creates a reserve resource.",
+  "title": "reserve",
+  "runnable": true,
+  "operationId": "reserve.create",
+  "user": {
+    "scopes": [ ]
+  },
+  "credentials": {
+    "basicauth": {
+      "username": "",
+      "password": "",
+      "safekey": ""
+    }
+  },
+  "request": {
+    "headers": {},
+    "body": {
+      "transaction": {
+        "amount": {
+          "total": "70.47",
+          "currency": "ZAR"
+        }
+      }
+    }
+  },
+  "return": {
+    "merchantReference": "payu58d704379f83a",
+    "payUReference": "605173453579",
+    "resultCode": "00",
+    "resultMessage": "Successful",
+    "successful": true
+  }
+}

@@ -58,19 +58,19 @@ class ResultPrinter
             if (self::$printResultCounter == 0) {
                 include "header.html";
                 echo '
-                  <div class="row header"><div class="col-md-5 pull-left"><br /><a href="../index.php"><h1 class="home">&#10094;&#10094; Back to Samples</h1></a><br /></div> <br />
+                  <div class="row header"><div class="col-md-5 pull-left"><br /><a href="../../index.php"><h1 class="home">&#10094;&#10094; Back to Samples</h1></a><br /></div> <br />
                   <div class="col-md-4 pull-right"><img src="https://static.payu.co.za/sites/all/themes/regionwithwalletNew/public/images/global/payu@2x.png" class="logo" width="300"/></div> </div>';
                 echo '<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">';
             }
             self::$printResultCounter++;
             echo '
-        <div class="panel panel-default">
-            <div class="panel-heading ' . ($errorMessage ? 'error' : '') . '" role="tab" id="heading-' . self::$printResultCounter . '">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#step-' . self::$printResultCounter . '" aria-expanded="false" aria-controls="step-' . self::$printResultCounter . '">
-            ' . self::$printResultCounter . '. ' . $title . ($errorMessage ? ' (Failed)' : '') . '</a>
-                </h4>
-            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading ' . ($errorMessage ? 'error' : '') . '" role="tab" id="heading-' . self::$printResultCounter . '">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#step-' . self::$printResultCounter . '" aria-expanded="false" aria-controls="step-' . self::$printResultCounter . '">
+                    ' . self::$printResultCounter . '. ' . $title . ($errorMessage ? ' (Failed)' : '') . '</a>
+                    </h4>
+                </div>
             <div id="step-' . self::$printResultCounter . '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-' . self::$printResultCounter . '">
                 <div class="panel-body">
             ';
@@ -79,9 +79,9 @@ class ResultPrinter
                 echo "<div>" . ($objectName ? $objectName : "Object") . " with ID: $objectId </div>";
             }
 
-            echo '<div class="row hidden-xs hidden-sm hidden-md"><div class="col-md-6"><h4>Request Object</h4>';
+            echo '<div class="row hidden-xs hidden-sm hidden-md"><div class="col-xs-12 col-sm-6 col-md-6"><h4>Request Object</h4>';
             self::printObject($request);
-            echo '</div><div class="col-md-6"><h4 class="' . ($errorMessage ? 'error' : '') . '">Response Object</h4>';
+            echo '</div><div class="col-xs-12 col-sm-6 col-md-6"><h4 class="' . ($errorMessage ? 'error' : '') . '">Response Object</h4>';
             self::printObject($response, $errorMessage);
             echo '</div></div>';
 

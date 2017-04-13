@@ -34,9 +34,9 @@ if (PHP_SAPI == 'cli') {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="images/favicon.ico">
+    <link rel="icon" href="favicon.ico">
 
-    <title>PayU MEA SDK API Samples</title>
+    <title>PayU MEA SDK PHP API Samples</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
@@ -76,7 +76,7 @@ if (PHP_SAPI == 'cli') {
         }
 
         .jumbotron {
-            margin-bottom: 0px;
+            margin-bottom: 0;
             padding-bottom: 20px;
         }
 
@@ -113,8 +113,8 @@ if (PHP_SAPI == 'cli') {
 
             .img-div {
                 position: fixed;
-                margin-left: 0px;
-                padding-left: 0px;
+                margin-left: 0;
+                padding-left: 0;
             }
 
             .logo {
@@ -145,8 +145,8 @@ if (PHP_SAPI == 'cli') {
         .footer-links, .footer-links li {
             display: inline-block;
             font-size: 110%;
-            padding-left: 0px;
-            padding-right: 0px;
+            padding-left: 0;
+            padding-right: 0;
         }
 
         .footer-links li {
@@ -184,7 +184,7 @@ if (PHP_SAPI == 'cli') {
                      class="logo img-responsive"/>
             </div>
             <div class="col-md-9 pull-right">
-                <h2>// SOAP API Samples</h2>
+                <h2>// Enterprise/Redirect API Samples</h2>
 
                 <p>These examples are created to experiment with the PayU-PHP-SDK capabilities. Each examples
                     are designed to demonstrate the default use-cases in each segment.</p>
@@ -197,7 +197,7 @@ if (PHP_SAPI == 'cli') {
                                 PayU PHP SDK</a></li>
                         <li>
                             <a href="http://help.payu.co.za/display/developers" target="_blank"><i
-                                        class="fa fa-book"></i> SOAP API Reference</a>
+                                        class="fa fa-book"></i> API documentation</a>
                         </li>
                         <li>
                             <a href="http://github.com/netcraft-devops/payu-sdk-php/issues" target="_blank"><i
@@ -215,8 +215,12 @@ if (PHP_SAPI == 'cli') {
         <div class="col-md-3 ">
             <div class="row-fluid fixed col-md-3" id="leftNavigation" role="navigation">
                 <ul class="nav nav-pills nav-stacked">
-                    <li><a href="#payments">Payment</a></li>
-                    <li><a href="#authorization">Reserve and Finalize</a></li>
+                    <li><a href="#enterprise-payment">Payment (Enterprise API)</a></li>
+                    <li><a href="#enterprise-reserve">Authorization/Capture (Enterprise API)</a></li>
+                    <li><a href="#redirect-payment">Payment (Redirect API)</a></li>
+                    <li><a href="#redirect-reserve">Authorization/Capture (Redirect API)</a></li>
+                    <li><a href="#lookup">Lookup Transactions</a></li>
+                    <li><a href="#partner-api">Partner API</a></li>
                 </ul>
 
             </div>
@@ -224,20 +228,32 @@ if (PHP_SAPI == 'cli') {
         <div class="col-md-9 samples">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 id="payments" class="panel-title"><a
+                    <h3 id="enterprise-payment" class="panel-title"><a
                                 href="#"
-                                target="_blank">Payment (Sale)</a></h3>
+                                target="_blank">Payment (Enterprise API)</a></h3>
                 </div>
                 <!-- List group -->
                 <ul class="list-group">
                     <li class="list-group-item">
                         <div class="row">
-                            <div class="col-md-8"><h5>Payments using credit card information</h5></div>
+                            <div class="col-md-8"><h5>Payment using credit card</h5></div>
                             <div class="col-md-4">
-                                <a href="payments/create-payment.php" class="btn btn-primary pull-left execute"> Try It
+                                <a href="enterprise/payment/create-payment.php" class="btn btn-primary pull-left execute"> Try It
                                     <i
                                             class="fa fa-play-circle-o"></i></a>
-                                <a href="docs/payments/create-payment.html" class="btn btn-default pull-right">Source <i
+                                <a href="doc/enterprise/payment/create-payment.html" class="btn btn-default pull-right">Source <i
+                                            class="fa fa-file-code-o"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-8"><h5>Payment using credit card (secure3D)</h5></div>
+                            <div class="col-md-4">
+                                <a href="enterprise/payment/create-payment-secure3d.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i
+                                            class="fa fa-play-circle-o"></i></a>
+                                <a href="doc/enterprise/payment/create-payment-secure3d.html" class="btn btn-default pull-right">Source <i
                                             class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
@@ -245,29 +261,59 @@ if (PHP_SAPI == 'cli') {
                     <li class="list-group-item">
                         <div class="row">
                             <div class="col-md-8">
-                                <h5>Payments using saved credit card
+                                <h5>Payment using saved credit card
                                     <small>(using Payment method ID - pmId)</small>
                                 </h5>
                             </div>
                             <div class="col-md-4">
-                                <a href="payments/create-payment-with-saved-card.php"
-                                   class="btn btn-primary pull-left execute">
+                                <a href="enterprise/payment/create-payment-with-saved-card.php" class="btn btn-primary pull-left execute">
                                     Try It <i class="fa fa-play-circle-o"></i></a>
-                                <a href="docs/payments/create-payment-with-saved-card.html"
-                                   class="btn btn-default pull-right">Source <i
+                                <a href="doc/enterprise/payment/create-payment-with-saved-card.html" class="btn btn-default pull-right">Source <i class="fa fa-file-code-o"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h5>Real-Time Recurring Credit Card Transactions (RTR)
+                                    <small></small>
+                                </h5>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="enterprise/payment/create-payment-real-time-recurring.php" class="btn btn-primary pull-left execute">
+                                    Try It <i class="fa fa-play-circle-o"></i></a>
+                                <a href="doc/enterprise/payment/create-payment-real-time-recurring.html" class="btn btn-default pull-right">Source <i class="fa fa-file-code-o"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-8"><h5>Debit Order</h5></div>
+                            <div class="col-md-4">
+                                <a href="enterprise/payment/create-debit-order.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i class="fa fa-play-circle-o"></i></a>
+                                <a href="doc/enterprise/payment/create-debit-order.html" class="btn btn-default pull-right">Source <i
                                             class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
                     </li>
                     <li class="list-group-item">
                         <div class="row">
-                            <div class="col-md-8"><h5>Lookup payment details</h5></div>
+                            <div class="col-md-8"><h5>Payment with fraud management</h5></div>
                             <div class="col-md-4">
-                                <a href="payments/lookup-payment.php" class="btn btn-primary pull-left execute"> Try It
-                                    <i
-                                            class="fa fa-play-circle-o"></i></a>
-                                <a href="docs/payments/lookup-payment.html" class="btn btn-default pull-right">Source <i
-                                            class="fa fa-file-code-o"></i></a>
+                                <a href="enterprise/payment/create-payment-with-fraud-management.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i class="fa fa-play-circle-o"></i></a>
+                                <a href="doc/enterprise/payment/create-payment-with-fraud-management.html" class="btn btn-default pull-right">Source <i class="fa fa-file-code-o"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-8"><h5>Get a payment details</h5></div>
+                            <div class="col-md-4">
+                                <a href="enterprise/payment/get-payment.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i class="fa fa-play-circle-o"></i></a>
+                                <a href="doc/enterprise/payment/get-payment.html" class="btn btn-default pull-right">Source <i class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
                     </li>
@@ -276,9 +322,9 @@ if (PHP_SAPI == 'cli') {
 
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 id="authorization" class="panel-title"><a
+                    <h3 id="enterprise-reserve" class="panel-title"><a
                                 href="#"
-                                target="_blank">Reserve (Authorize) and Finalize (Capture)</a></h3>
+                                target="_blank">Authorize and Capture (Enterprise API)</a></h3>
                 </div>
                 <!-- List group -->
                 <ul class="list-group">
@@ -286,12 +332,10 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Reserve Payment</h5></div>
                             <div class="col-md-4">
-                                <a href="reserve/reserve-payment.php" class="btn btn-primary pull-left execute"> Try
-                                    It
-                                    <i class="fa fa-play-circle-o"></i></a>
-                                <a href="docs/reserve/reserve-payment.html" class="btn btn-default pull-right">Source
-                                    <i
-                                            class="fa fa-file-code-o"></i></a>
+                                <a href="enterprise/reserve/reserve-payment.php" class="btn btn-primary pull-left execute"> Try
+                                    It<i class="fa fa-play-circle-o"></i></a>
+                                <a href="doc/enterprise/reserve/reserve-payment.html" class="btn btn-default pull-right">Source
+                                    <i class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
                     </li>
@@ -299,13 +343,10 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Get details of a reserved payment</h5></div>
                             <div class="col-md-4">
-                                <a href="reserve/get-reserve.php" class="btn btn-primary pull-left execute"> Try
-                                    It
-                                    <i
-                                            class="fa fa-play-circle-o"></i></a>
-                                <a href="docs/reserve/get-reserve.html" class="btn btn-default pull-right">Source
-                                    <i
-                                            class="fa fa-file-code-o"></i></a>
+                                <a href="enterprise/reserve/get-reserve.php" class="btn btn-primary pull-left execute"> Try
+                                    It<i class="fa fa-play-circle-o"></i></a>
+                                <a href="doc/enterprise/reserve/get-reserve.html" class="btn btn-default pull-right">Source
+                                    <i class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
                     </li>
@@ -313,12 +354,10 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Finalize a reserved payment</h5></div>
                             <div class="col-md-4">
-                                <a href="reserve/reserve-capture.php" class="btn btn-primary pull-left execute">
-                                    Try It <i
-                                            class="fa fa-play-circle-o"></i></a>
-                                <a href="docs/reserve/reserve-capture.html" class="btn btn-default pull-right">Source
-                                    <i
-                                            class="fa fa-file-code-o"></i></a>
+                                <a href="enterprise/reserve/reserve-capture.php" class="btn btn-primary pull-left execute">
+                                    Try It <i class="fa fa-play-circle-o"></i></a>
+                                <a href="doc/enterprise/reserve/reserve-capture.html" class="btn btn-default pull-right">Source
+                                    <i class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
                     </li>
@@ -326,9 +365,9 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Get details of a finalized payment</h5></div>
                             <div class="col-md-4">
-                                <a href="reserve/get-capture.php" class="btn btn-primary pull-left execute"> Try It <i
+                                <a href="enterprise/reserve/get-capture.php" class="btn btn-primary pull-left execute"> Try It <i
                                             class="fa fa-play-circle-o"></i></a>
-                                <a href="docs/reserve/get-capture.html" class="btn btn-default pull-right">Source <i
+                                <a href="doc/enterprise/reserve/get-capture.html" class="btn btn-default pull-right">Source <i
                                             class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
@@ -337,13 +376,10 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Void a reserved payment</h5></div>
                             <div class="col-md-4">
-                                <a href="reserve/void-reserve.php" class="btn btn-primary pull-left execute"> Try
-                                    It
-                                    <i
-                                            class="fa fa-play-circle-o"></i></a>
-                                <a href="docs/reserve/void-reserve.html" class="btn btn-default pull-right">Source
-                                    <i
-                                            class="fa fa-file-code-o"></i></a>
+                                <a href="enterprise/reserve/void-reserve.php" class="btn btn-primary pull-left execute"> Try
+                                    It<i class="fa fa-play-circle-o"></i></a>
+                                <a href="doc/enterprise/reserve/void-reserve.html" class="btn btn-default pull-right">Source
+                                    <i class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
                     </li>
@@ -351,11 +387,206 @@ if (PHP_SAPI == 'cli') {
                         <div class="row">
                             <div class="col-md-8"><h5>Credit finalized payment</h5></div>
                             <div class="col-md-4">
-                                <a href="reserve/refund-capture.php" class="btn btn-primary pull-left execute"> Try It
+                                <a href="enterprise/reserve/refund-capture.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i class="fa fa-play-circle-o"></i></a>
+                                <a href="doc/enterprise/reserve/refund-capture.html" class="btn btn-default pull-right">Source <i
+                                            class="fa fa-file-code-o"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 id="redirect-payment" class="panel-title"><a
+                                href="#"
+                                target="_blank">Payment (Redirect API)</a></h3>
+                </div>
+                <!-- List group -->
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-8"><h5>Standard Redirect
+                                    <small>Credit card, eBucks, and Discovery Miles</small>
+                                </h5></div>
+                            <div class="col-md-4">
+                                <a href="redirect/payment/standard-redirect.php" class="btn btn-primary pull-left execute"> Try It
                                     <i
                                             class="fa fa-play-circle-o"></i></a>
-                                <a href="docs/reserve/refund-capture.html" class="btn btn-default pull-right">Source <i
+                                <a href="doc/redirect/payment/standard-redirect.html" class="btn btn-default pull-right">Source <i
                                             class="fa fa-file-code-o"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-8"><h5>Standard Redirect
+                                    <small>EFT Pro</small>
+                                </h5></div>
+                            <div class="col-md-4">
+                                <a href="redirect/payment/standard-redirect-eft-pro.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i
+                                            class="fa fa-play-circle-o"></i></a>
+                                <a href="doc/redirect/payment/standard-redirect-eft-pro.html" class="btn btn-default pull-right">Source <i
+                                            class="fa fa-file-code-o"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-8"><h5>Payment using credit card (secure3D)</h5></div>
+                            <div class="col-md-4">
+                                <a href="redirect/payment/setup-payment-secure3d.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i
+                                            class="fa fa-play-circle-o"></i></a>
+                                <a href="doc/redirect/payment/setup-payment-secure3d.html" class="btn btn-default pull-right">Source <i
+                                            class="fa fa-file-code-o"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-8"><h5>Get a payment details</h5></div>
+                            <div class="col-md-4">
+                                <a href="redirect/payment/get-redirect.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i class="fa fa-play-circle-o"></i></a>
+                                <a href="doc/redirect/payment/get-redirect.html" class="btn btn-default pull-right">Source <i
+                                            class="fa fa-file-code-o"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-8"><h5>Standard payment with fraud management</h5></div>
+                            <div class="col-md-4">
+                                <a href="redirect/payment/standard-redirect-with-fraud-management.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i class="fa fa-play-circle-o"></i></a>
+                                <a href="doc/redirect/payment/standard-redirect-with-fraud-management.html" class="btn btn-default pull-right">Source <i
+                                            class="fa fa-file-code-o"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-8"><h5>Debit Order</h5></div>
+                            <div class="col-md-4">
+                                <a href="redirect/payment/setup-debit-order.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i class="fa fa-play-circle-o"></i></a>
+                                <a href="doc/redirect/payment/setup-debit-order.html" class="btn btn-default pull-right">Source <i
+                                            class="fa fa-file-code-o"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-8"><h5>Real-Time Recurring</h5></div>
+                            <div class="col-md-4">
+                                <a href="redirect/payment/setup-real-time-recurring.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i class="fa fa-play-circle-o"></i></a>
+                                <a href="doc/redirect/payment/setup-payment-real-time-recurring.html" class="btn btn-default pull-right">Source <i
+                                            class="fa fa-file-code-o"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 id="redirect-reserve" class="panel-title"><a
+                                href="#"
+                                target="_blank">Authorization/Capture (Redirect API)</a></h3>
+                </div>
+                <!-- List group -->
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-8"><h5>Standard Redirect</h5></div>
+                            <div class="col-md-4">
+                                <a href="redirect/reserve/standard-redirect.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i
+                                            class="fa fa-play-circle-o"></i></a>
+                                <a href="doc/redirect/reserve/standard-redirect.html" class="btn btn-default pull-right">Source <i
+                                            class="fa fa-file-code-o"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-8"><h5>Get a redirect reserve details</h5></div>
+                            <div class="col-md-4">
+                                <a href="redirect/reserve/get-redirect.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i class="fa fa-play-circle-o"></i></a>
+                                <a href="doc/redirect/reserve/get-redirect.html" class="btn btn-default pull-right">Source <i
+                                            class="fa fa-file-code-o"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 id="lookup" class="panel-title"><a href="#" target="_blank">Lookup Transactions</a></h3>
+                </div>
+                <!-- List group -->
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-8"><h5>Get Customer Details</h5></div>
+                            <div class="col-md-4">
+                                <a href="lookup/get-payment-method.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i class="fa fa-play-circle-o"></i></a>
+                                <a href="doc/lookup/get-payment-method.html" class="btn btn-default pull-right">Source <i class="fa fa-file-code-o"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 id="partner-api" class="panel-title"><a href="#" target="_blank">Partner API</a></h3>
+                </div>
+                <!-- List group -->
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-8"><h5>eBucks Authenticate Account (Enterprise API)</h5></div>
+                            <div class="col-md-4">
+                                <a href="partner-api/ebucks-authenticate-account.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i class="fa fa-play-circle-o"></i></a>
+                                <a href="doc/partner-api/ebucks-authenticate-account.html" class="btn btn-default pull-right">Source <i class="fa fa-file-code-o"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-8"><h5>eBucks Payment (Enterprise API)</h5></div>
+                            <div class="col-md-4">
+                                <a href="partner-api/ebucks-payment.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i class="fa fa-play-circle-o"></i></a>
+                                <a href="doc/partner-api/ebucks-payment.html" class="btn btn-default pull-right">Source <i class="fa fa-file-code-o"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-8"><h5>EFT Pro Payment (Enterprise API)</h5></div>
+                            <div class="col-md-4">
+                                <a href="partner-api/eft-payment.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i class="fa fa-play-circle-o"></i></a>
+                                <a href="doc/partner-api/eft-payment.html" class="btn btn-default pull-right">Source <i class="fa fa-file-code-o"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-8"><h5>Smart EFT Payment (Enterprise API)</h5></div>
+                            <div class="col-md-4">
+                                <a href="partner-api/smart-eft-payment.php" class="btn btn-primary pull-left execute"> Try It
+                                    <i class="fa fa-play-circle-o"></i></a>
+                                <a href="doc/partner-api/smart-eft-payment.html" class="btn btn-default pull-right">Source <i class="fa fa-file-code-o"></i></a>
                             </div>
                         </div>
                     </li>
@@ -376,7 +607,7 @@ if (PHP_SAPI == 'cli') {
                         PayU PHP SDK</a></li>
                 <li>
                     <a href="https://help.payu.co.za/developers" target="_blank"><i
-                                class="fa fa-book"></i> SOAP API Reference</a>
+                                class="fa fa-book"></i> API Documentation</a>
                 </li>
                 <li>
                     <a href="http://github.com/netcraft-devops/payu-sdk-php/issues" target="_blank"><i

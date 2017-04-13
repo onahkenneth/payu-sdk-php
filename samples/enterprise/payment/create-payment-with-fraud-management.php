@@ -5,13 +5,14 @@
 // This sample code demonstrate how you can process
 // a direct credit card payment.
 
-require __DIR__ . '/../bootstrap.php';
+require __DIR__ . '/../../bootstrap.php';
 
 use PayU\Api\Address;
 use PayU\Api\Amount;
+use PayU\Api\CreditCard;
 use PayU\Api\Customer;
 use PayU\Api\CustomerInfo;
-use PayU\Api\Details;
+use PayU\Api\FmDetails;
 use PayU\Api\FundingInstrument;
 use PayU\Api\Item;
 use PayU\Api\ItemList;
@@ -19,30 +20,33 @@ use PayU\Api\Payment;
 use PayU\Api\PaymentCard;
 use PayU\Api\PaymentMethod;
 use PayU\Api\RedirectUrls;
+use PayU\Api\ShippingInfo;
 use PayU\Api\Transaction;
 use PayU\Soap\ApiContext;
 
+// ### Address
+// A resource representing a customer shipping/billing address information
 $addr = new Address();
-$addr->setLine1("3909 Witmer Road")
-    ->setLine2("Niagara Falls")
-    ->setCity("Niagara Falls")
-    ->setState("GP")
-    ->setPostalCode("14305")
+$addr->setLine1("80 Main Road")
+    ->setLine2("Cape Town")
+    ->setCity("Cape Town")
+    ->setState("WC")
+    ->setPostalCode("8000")
     ->setCountryCode("ZA");
 
-// ### PaymentCard
+// ### CreditCard
 // A resource representing a payment card that can be
 // used to fund a payment.
-$card = new PaymentCard();
+$card = new CreditCard();
 $card->setType(PaymentCard::TYPE_VISA)
     ->setNumber("4000015372250142")
     ->setExpireMonth("11")
     ->setExpireYear("2019")
     ->setCvv2("123")
     ->setFirstName("John")
-    ->setBillingCountry("ZA")
     ->setLastName("Snow")
-    ->setBillingAddress($addr);
+    ->setBillingAddress($addr)
+    ->setBillingCountry("ZA");
 
 // ### FundingInstrument
 // A resource representing a Customer's funding instrument.
@@ -51,10 +55,13 @@ $card->setType(PaymentCard::TYPE_VISA)
 $fi = new FundingInstrument();
 $fi->setPaymentCard($card);
 
+// ### CustomerInfo
+// A resource representing a customer detailed information
 $ci = new CustomerInfo();
-$ci->setFirstName('Test')
-    ->setLastName('Customer')
-    ->setEmail('test.customer@example.com')
+$ci->setFirstName('John')
+    ->setLastName('Snow')
+    ->setEmail('john.snow@example.com')
+    ->setCountryCode('27')
     ->setCountryOfResidence('ZA')
     ->setPhone('0748523695')
     ->setCustomerId('854')
@@ -62,43 +69,45 @@ $ci->setFirstName('Test')
 
 // ### Customer
 // A resource representing a Customer that funds a payment
-// For direct credit card payments, set payment method
-// to 'credit_card' and add an array of funding instruments.
 $customer = new Customer();
 $customer->setPaymentMethod(PaymentMethod::TYPE_CREDITCARD)
+    ->setFundingInstrument($fi)
     ->setCustomerInfo($ci)
-    ->setIpAddress('127.0.0.1')
-    ->setFundingInstrument($fi);
+    ->setIPAddress('127.0.0.1');
 
 // ### Itemized information
 // (Optional) Lets you specify item wise
-// information
+// information. Only Utilized with fraud management enabled, otherwise ignored.
 $item1 = new Item();
 $item1->setName('Ground Coffee 40 oz')
     ->setDescription('Ground Coffee 40 oz')
-    ->setCurrency('USD')
-    ->setQuantity(1)
+    ->setSku('GCF0011')
+    ->setCurrency('ZAR')
+    ->setQuantity(10)
     ->setTax(0.3)
     ->setPrice(7.50);
 $item2 = new Item();
 $item2->setName('Granola bars')
     ->setDescription('Granola Bars with Peanuts')
-    ->setCurrency('USD')
+    ->setSku('GCF0022')
+    ->setCurrency('ZAR')
     ->setQuantity(5)
     ->setTax(0.2)
-    ->setPrice(2);
+    ->setPrice(20);
 
 $itemList = new ItemList();
 $itemList->setItems(array($item1, $item2));
 
-// ### Additional payment details
-// Use this optional field to set additional
-// payment information such as tax, shipping
-// charges etc.
-$details = new Details();
-$details->setShipping(1.2)
-    ->setTax(1.3)
-    ->setSubtotal(17.5);
+// ### ShippingInfo
+// Use this optional field to set shipping information.
+$si = new ShippingInfo();
+$si->setId(25)
+    ->setFirstName('John')
+    ->setLastName('Snow')
+    ->setEmail('john.snow@example.com')
+    ->setPhone('0748523695')
+    ->setMethod('P')
+    ->setShippingAddress($addr);
 
 // ### Amount
 // Lets you specify a payment amount.
@@ -106,8 +115,14 @@ $details->setShipping(1.2)
 // such as shipping, tax.
 $amount = new Amount();
 $amount->setCurrency("ZAR")
-    ->setTotal(200.00)
-    ->setDetails($details);
+    ->setTotal(175.50);
+
+// ### Fraud Management Details
+// Lets you specify details required for fraud management.
+$fm = new FmDetails();
+$fm->setCheckFraudOverride(false)
+    ->setMerchantWebsite(getBaseUrl())
+    ->setPCFingerPrint('owhjiflkwhefqwoaef');
 
 // ### Transaction
 // A transaction defines the contract of a
@@ -117,40 +132,43 @@ $transaction = new Transaction();
 $transaction->setAmount($amount)
     ->setItemList($itemList)
     ->setDescription("Payment description")
-    ->setInvoiceNumber(uniqid('payu'));
+    ->setInvoiceNumber(uniqid('payu'))
+    ->setFraudManagement($fm)
+    ->setShippingInfo($si);
 
+$baseUrl = getBaseUrl();
 $redirectUrls = new RedirectUrls();
-$redirectUrls->setNotifyUrl('http://example.com/return');
+$redirectUrls->setNotifyUrl("$baseUrl/process-ipn");
 
-// ### Payment
-// A Payment Resource; create one using
-// the above types and intent set to sale 'sale'
+// ### Redirect
+// A Redirect Payment Resource; create one using
+// the above types and intent set to sale 'payment'
 $payment = new Payment();
 $payment->setIntent(Transaction::TYPE_PAYMENT)
     ->setCustomer($customer)
     ->setTransaction($transaction)
     ->setRedirectUrls($redirectUrls);
 
-// Setting integration to `redirect` will alter the way the API behaves.
-$apiContext[0]->setAccountId('acct1')
+// Setting integration will alter the way the API behaves.
+$apiContext[2]->setAccountId('acct3')
     ->setIntegration(ApiContext::ENTERPRISE);
 
 // For Sample Purposes Only.
 $request = clone $payment;
 
 // ### Create Payment
-// Create a payment by calling the payment->doTransaction method
+// Create a payment by calling the payment->callSetTransaction method
 // with a valid ApiContext (See bootstrap.php for more on `ApiContext`)
-// The response object retrieved by calling `getReturn` on the payment object contains the state.
+// The return object contains the result with the redirect url to PayU to capture customer's payment details.
 try {
-    $payment->create($apiContext[0]);
+    $payment->create($apiContext[2]);
 } catch (Exception $ex) {
     // NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY
-    ResultPrinter::printError('Create Payment With Credit Card. If 500 Exception, check response details', 'Payment', null, $request, $ex);
+    ResultPrinter::printError('Create Payment with Fraud Management. If 500 Exception, check response for details.', 'Payment', null, $request, $ex);
     exit(1);
 }
 
 // NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY
-ResultPrinter::printResult("Create Payment With Credit Card", "Payment", $payment->getId(), $request, $payment);
+ResultPrinter::printResult('Create Payment with Fraud Management', 'Payment', $payment->getId(), $request, $payment);
 
 return $payment;

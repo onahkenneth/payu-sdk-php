@@ -30,12 +30,42 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
 // Replace these values by entering your own SOAP username and password by visiting https://help.payu.co.za/developers
-$username = '100032';
-$password = 'PypWWegU';
-$safekey = '{CE62CE80-0EFD-4035-87C1-8824C5C46E7F}';
-$storeId = '3D Sim Store FAuth Off Force On';
-$paymentMethods = 'CREDITCARD,EBUCKS,EFT_PRO';
-$fraudManagement = false;
+$acct1Username = '100032';
+$acct1Password = 'PypWWegU';
+$acct1Safekey = '{CE62CE80-0EFD-4035-87C1-8824C5C46E7F}';
+$acct1StoreId = '3D Sim Store FAuth Off Force On';
+$acct1PaymentMethods = 'CREDITCARD';
+
+$acct2Username = 'Staging Integration Store 3';
+$acct2Password = 'WSAUFbw6';
+$acct2Safekey = '{07F70723-1B96-4B97-B891-7BF708594EEA}';
+$acct2StoreId = 'Staging Integration Store 3';
+$acct2PaymentMethods = 'CREDITCARD,EBUCKS,EFT_PRO,DISCOVERYMILES';
+
+$acct3Username = 'Staging Enterprise With Fraud Integration Store 1';
+$acct3Password = 'xoV3PFor';
+$acct3Safekey = '{CF86C6D5-016C-4E98-9E4F-0F4FE3A0C1BA}';
+$acct3StoreId = 'Staging Enterprise With Fraud Integration Store 1';
+$acct3PaymentMethods = 'CREDITCARD';
+
+$acct4Username = '200022';
+$acct4Password = 'XSWYgMUA';
+$acct4Safekey = '{826BD3C4-9663-48B0-804B-044BAA6A57F1}';
+$acct4StoreId = 'Staging Integration Store 2';
+$acct4PaymentMethods = 'CREDITCARD';
+
+$acct5Username = '200239';
+$acct5Password = '5AlTRPoD';
+$acct5Safekey = '{542595FF-78EC-4A42-996D-18F8790393E5}';
+$acct5StoreId = 'Staging Integration Store (RTR)';
+$acct5PaymentMethods = 'CREDIT_CARD';
+
+$acct6Username = 'Staging Integration Store 3';
+$acct6Password = 'WSAUFbw6';
+$acct6Safekey = '{07F70723-1B96-4B97-B891-7BF708594EEA}';
+$acct6StoreId = 'Staging Integration Store 3';
+$acct6PaymentMethods = 'EFT_PRO';
+
 
 /**
  * All default SOAP options are stored in the array inside the Http\Config class. To make changes to those settings
@@ -46,7 +76,28 @@ $fraudManagement = false;
 
 
 /** @var \PayU\Soap\ApiContext $apiContext */
-$apiContext = getApiContext($username, $password, $safekey, $paymentMethods, $fraudManagement);
+$apiContext = getApiContext(
+    array(
+        $acct1Username, $acct2Username,
+        $acct3Username, $acct4Username,
+        $acct5Username, $acct6Username
+    ),
+    array(
+        $acct1Password, $acct2Password,
+        $acct3Password, $acct4Password,
+        $acct5Password, $acct6Password
+    ),
+    array(
+        $acct1Safekey, $acct2Safekey,
+        $acct3Safekey, $acct4Safekey,
+        $acct5Safekey, $acct6Safekey
+    ),
+    array(
+        $acct1PaymentMethods, $acct2PaymentMethods,
+        $acct3PaymentMethods, $acct4PaymentMethods,
+        $acct5PaymentMethods, $acct6PaymentMethods
+    )
+);
 
 return $apiContext;
 /**
@@ -54,31 +105,70 @@ return $apiContext;
  * @param string $username Web service username
  * @param string $password Web service password
  * @param string $safekey safe key
- * @return PayU\Soap\ApiContext
+ * @return array PayU\Soap\ApiContext[]
  */
-function getApiContext($username, $password, $safekey, $paymentMethods, $fraudManagement)
+function getApiContext($usernames, $passwords, $safekeys, $paymentMethods)
 {
 
     // #### SDK configuration
     // Register the sdk_config.ini file in current directory
     // as the configuration source.
-    /*
-    if(!defined("PP_CONFIG_PATH")) {
-        define("PP_CONFIG_PATH", __DIR__);
+
+    if(!defined("PYU_CONFIG_PATH")) {
+        define("PYU_CONFIG_PATH", __DIR__);
     }
-    */
 
     // ### Api context
     // Use an ApiContext object to authenticate
     // API calls. The username and password for the
     // BasicAuth class can be retrieved from
-    // help.payu.co.za/developers
+    // https://help.payu.co.za/display/developers/Test+Credentials
 
-    $apiContext = new ApiContext(
+    $apiContextEnterprise = new ApiContext(
         new BasicAuth(
-            $username,
-            $password,
-            $safekey
+            $usernames[0],
+            $passwords[0],
+            $safekeys[0]
+        )
+    );
+
+    $apiContextRedirect = new ApiContext(
+        new BasicAuth(
+            $usernames[1],
+            $passwords[1],
+            $safekeys[1]
+        )
+    );
+
+    $apiContextFm = new ApiContext(
+        new BasicAuth(
+            $usernames[2],
+            $passwords[2],
+            $safekeys[2]
+        )
+    );
+
+    $apiContextDebitOrder = new ApiContext(
+        new BasicAuth(
+            $usernames[3],
+            $passwords[3],
+            $safekeys[3]
+        )
+    );
+
+    $apiContextRTR = new ApiContext(
+        new BasicAuth(
+            $usernames[4],
+            $passwords[4],
+            $safekeys[4]
+        )
+    );
+
+    $apiContextEFTRedirect = new ApiContext(
+        new BasicAuth(
+            $usernames[5],
+            $passwords[5],
+            $safekeys[5]
         )
     );
 
@@ -86,19 +176,87 @@ function getApiContext($username, $password, $safekey, $paymentMethods, $fraudMa
     // 'define' block if you want to use static file
     // based configuration
 
-    $apiContext->setConfig(
+    $apiContextEnterprise->setConfig(
         array(
             'mode' => 'sandbox',
-            'log.LogEnabled' => true,
-            'log.FileName' => '../PayU.log',
-            'log.LogLevel' => 'DEBUG', // PLEASE USE `INFO` LEVEL FOR LOGGING IN LIVE ENVIRONMENTS
+            'log.log_enabled' => true,
+            'log.file_name' => '../PayU.log',
+            'log.log_level' => 'DEBUG', // PLEASE USE `INFO` LEVEL FOR LOGGING IN LIVE ENVIRONMENTS
             'cache.enabled' => true,
-            'acct1.paymentMethods' => $paymentMethods,
-            'acct1.fraudManagement' => $fraudManagement,
-            //'http.connectTimeout' => 30
+            'acct1.payment_methods' => $paymentMethods[0]
+            //'http.connect_timeout' => 30
             //'log.AdapterFactory' => '\PayU\Log\DefaultLogFactory' // Factory class implementing \PayU\Log\PayULogFactory
         )
     );
 
-    return $apiContext;
+    $apiContextRedirect->setConfig(
+        array(
+            'mode' => 'sandbox',
+            'log.log_enabled' => true,
+            'log.file_name' => '../PayU.log',
+            'log.log_level' => 'DEBUG', // PLEASE USE `INFO` LEVEL FOR LOGGING IN LIVE ENVIRONMENTS
+            'cache.enabled' => true,
+            'acct2.payment_methods' => $paymentMethods[1]
+            //'http.connect_timeout' => 30
+            //'log.AdapterFactory' => '\PayU\Log\DefaultLogFactory' // Factory class implementing \PayU\Log\PayULogFactory
+        )
+    );
+
+    $apiContextFm->setConfig(
+        array(
+            'mode' => 'sandbox',
+            'log.log_enabled' => true,
+            'log.file_name' => '../PayU.log',
+            'log.log_level' => 'DEBUG', // PLEASE USE `INFO` LEVEL FOR LOGGING IN LIVE ENVIRONMENTS
+            'cache.enabled' => true,
+            'acct3.payment_methods' => $paymentMethods[2]
+            //'http.connect_timeout' => 30
+            //'log.AdapterFactory' => '\PayU\Log\DefaultLogFactory' // Factory class implementing \PayU\Log\PayULogFactory
+        )
+    );
+
+    $apiContextDebitOrder->setConfig(
+        array(
+            'mode' => 'sandbox',
+            'log.log_enabled' => true,
+            'log.file_name' => '../PayU.log',
+            'log.log_level' => 'DEBUG', // PLEASE USE `INFO` LEVEL FOR LOGGING IN LIVE ENVIRONMENTS
+            'cache.enabled' => true,
+            'acct4.payment_methods' => $paymentMethods[3]
+            //'http.connect_timeout' => 30
+            //'log.AdapterFactory' => '\PayU\Log\DefaultLogFactory' // Factory class implementing \PayU\Log\PayULogFactory
+        )
+    );
+
+    $apiContextRTR->setConfig(
+        array(
+            'mode' => 'sandbox',
+            'log.log_enabled' => true,
+            'log.file_name' => '../PayU.log',
+            'log.log_level' => 'DEBUG', // PLEASE USE `INFO` LEVEL FOR LOGGING IN LIVE ENVIRONMENTS
+            'cache.enabled' => true,
+            'acct5.payment_methods' => $paymentMethods[4]
+            //'http.connect_timeout' => 30
+            //'log.AdapterFactory' => '\PayU\Log\DefaultLogFactory' // Factory class implementing \PayU\Log\PayULogFactory
+        )
+    );
+
+    $apiContextEFTRedirect->setConfig(
+        array(
+            'mode' => 'sandbox',
+            'log.log_enabled' => true,
+            'log.file_name' => '../PayU.log',
+            'log.log_level' => 'DEBUG', // PLEASE USE `INFO` LEVEL FOR LOGGING IN LIVE ENVIRONMENTS
+            'cache.enabled' => true,
+            'acct6.payment_methods' => $paymentMethods[5]
+            //'http.connect_timeout' => 30
+            //'log.AdapterFactory' => '\PayU\Log\DefaultLogFactory' // Factory class implementing \PayU\Log\PayULogFactory
+        )
+    );
+
+    return array(
+        $apiContextEnterprise, $apiContextRedirect,
+        $apiContextFm, $apiContextDebitOrder,
+        $apiContextRTR, $apiContextEFTRedirect
+    );
 }

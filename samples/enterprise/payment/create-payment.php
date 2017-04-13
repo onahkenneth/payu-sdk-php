@@ -5,31 +5,41 @@
 // This sample code demonstrate how you can process
 // a direct credit card payment.
 
-require __DIR__ . '/../bootstrap.php';
+require __DIR__ . '/../../bootstrap.php';
 
+use PayU\Api\Address;
 use PayU\Api\Amount;
+use PayU\Api\CreditCard;
 use PayU\Api\Customer;
 use PayU\Api\CustomerInfo;
 use PayU\Api\FundingInstrument;
-use PayU\Api\InvoiceAddress;
+use PayU\Api\Payment;
 use PayU\Api\PaymentCard;
 use PayU\Api\PaymentMethod;
 use PayU\Api\RedirectUrls;
-use PayU\Api\Reserve;
 use PayU\Api\Transaction;
 use PayU\Soap\ApiContext;
 
-// ### PaymentCard
+$addr = new Address();
+$addr->setLine1("80 Main Road")
+    ->setLine2("Cape Town")
+    ->setCity("Cape Town")
+    ->setState("WC")
+    ->setPostalCode("8000")
+    ->setCountryCode("ZA");
+
+// ### CreditCard
 // A resource representing a payment card that can be
 // used to fund a payment.
-$card = new PaymentCard();
+$card = new CreditCard();
 $card->setType(PaymentCard::TYPE_VISA)
-    ->setNumber("4000019542438801")
+    ->setNumber("4000015372250142")
     ->setExpireMonth("11")
     ->setExpireYear("2019")
     ->setCvv2("123")
     ->setFirstName("John")
     ->setLastName("Snow")
+    ->setBillingAddress($addr)
     ->setBillingCountry("ZA");
 
 // ### FundingInstrument
@@ -37,23 +47,17 @@ $card->setType(PaymentCard::TYPE_VISA)
 // For direct credit card payments, set the CreditCard
 // field on this object.
 $fi = new FundingInstrument();
-$fi->setPaymentCard($card)
-    ->setStoreCard(true);
-
-$inv_addr = new InvoiceAddress();
-$inv_addr->setLine1('123 ABC Street')
-    ->setCity('Johannesburg')
-    ->setState('Gauteng')
-    ->setPostalCode('2000');
+$fi->setPaymentCard($card);
 
 $ci = new CustomerInfo();
-$ci->setFirstName('Test')
-    ->setLastName('Customer')
+$ci->setFirstName('John')
+    ->setLastName('Snow')
     ->setEmail('test.customer@example.com')
+    ->setCountryCode('27')
     ->setCountryOfResidence('ZA')
     ->setPhone('0748523695')
     ->setCustomerId('854')
-    ->setBillingAddress($inv_addr);
+    ->setBillingAddress($addr);
 
 // ### Customer
 // A resource representing a Customer that funds a payment
@@ -62,7 +66,7 @@ $ci->setFirstName('Test')
 $customer = new Customer();
 $customer->setPaymentMethod(PaymentMethod::TYPE_CREDITCARD)
     ->setCustomerInfo($ci)
-    ->setIpAddress('127.0.0.1')
+    ->setIPAddress('127.0.0.1')
     ->setFundingInstrument($fi);
 
 // ### Amount
@@ -71,7 +75,7 @@ $customer->setPaymentMethod(PaymentMethod::TYPE_CREDITCARD)
 // such as shipping, tax.
 $amount = new Amount();
 $amount->setCurrency("ZAR")
-    ->setTotal(175.50);
+    ->setTotal(200.00);
 
 // ### Transaction
 // A transaction defines the contract of a
@@ -82,38 +86,40 @@ $transaction->setAmount($amount)
     ->setDescription("Payment description")
     ->setInvoiceNumber(uniqid('payu'));
 
+$baseUrl = getBaseUrl();
 $redirectUrls = new RedirectUrls();
-$redirectUrls->setNotifyUrl('http://example.com/return');
+$redirectUrls->setNotifyUrl("$baseUrl/process-ipn");
 
 // ### Payment
 // A Payment Resource; create one using
 // the above types and intent set to sale 'sale'
-$reserve = new Reserve();
-$reserve->setIntent(Transaction::TYPE_RESERVE)
+$payment = new Payment();
+$payment->setIntent(Transaction::TYPE_PAYMENT)
     ->setCustomer($customer)
     ->setTransaction($transaction)
     ->setRedirectUrls($redirectUrls);
 
-// Setting integration to `redirect` will alter the way the API behaves.
+// Because default integration is redirect, setting integration to
+// `enterprise` will alter the way the API behaves.
 $apiContext[0]->setAccountId('acct1')
     ->setIntegration(ApiContext::ENTERPRISE);
 
 // For Sample Purposes Only.
-$request = clone $reserve;
+$request = clone $payment;
 
 // ### Create Payment
-// Create a payment by calling the payment->callDoTransaction method
+// Create a payment by calling the payment->doTransaction method
 // with a valid ApiContext (See bootstrap.php for more on `ApiContext`)
-// The response object retrieved by calling `getReturn()` on the payment resource the contains the state.
+// The return object contains the state.
 try {
-    $reserve->create($apiContext[0]);
+    $payment->create($apiContext[0]);
 } catch (Exception $ex) {
     // NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY
-    ResultPrinter::printError("Create Authorized/Reserved Payment", "Reserve", null, $request, $ex);
+    ResultPrinter::printError('Create Payment Using Credit Card. If 500 Exception, try creating a new Credit Card', 'Payment', null, $request, $ex);
     exit(1);
 }
 
 // NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY
-ResultPrinter::printResult("Create Authorized/Reserved Payment", "Reserve", $reserve->getId(), $request, $reserve);
+ResultPrinter::printResult('Create Payment Using Credit Card', 'Payment', $payment->getId(), $request, $payment);
 
-return $reserve;
+return $payment;

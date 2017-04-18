@@ -72,7 +72,7 @@ $payment->setIntent(Transaction::TYPE_PAYMENT)
     ->setTransaction($transaction);
 
 // Setting integration will alter the way the API behaves.
-$apiContext[0]->setAccountId('acct1')
+$apiContext[6]->setAccountId('acct7')
     ->setIntegration(ApiContext::ENTERPRISE);
 
 // For Sample Purposes Only.
@@ -84,7 +84,7 @@ $request = clone $payment;
 // (See bootstrap.php for more on `ApiContext`)
 // The return object contains the state.
 try {
-    $payment->create($apiContext[0]);
+    $payment->create($apiContext[6]);
 } catch (Exception $ex) {
     // NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY
     ResultPrinter::printError("Create Real-Time Recurring Payment with token (pmId).", "Payment", null, $request, $ex);

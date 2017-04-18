@@ -99,7 +99,7 @@ $payment->setIntent(Transaction::TYPE_PAYMENT)
     ->setRedirectUrls($redirectUrls);
 
 // Setting integration to `redirect` will alter the way the API behaves.
-$apiContext[0]->setAccountId('acct1')
+$apiContext[6]->setAccountId('acct7')
     ->setIntegration(ApiContext::ENTERPRISE);
 
 // For Sample Purposes Only.
@@ -110,7 +110,7 @@ $request = clone $payment;
 // with a valid ApiContext (See bootstrap.php for more on `ApiContext`)
 // The response object retrieved by calling `getReturn` on the payment object contains the state.
 try {
-    $card = $payment->create($apiContext[0]);
+    $card = $payment->create($apiContext[6]);
 } catch (Exception $ex) {
     // NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY
     ResultPrinter::printError("Create Payment and Save Credit Card", "Payment", null, $request, $ex);

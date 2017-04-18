@@ -44,7 +44,7 @@ class ConfigManager
         } else {
             $configFile = implode(
                 DIRECTORY_SEPARATOR,
-                array(dirname(__FILE__), "..", "config", "sdk_config.ini")
+                array(dirname(__FILE__), "..", "..", "..", "config", "sdk_config.ini")
             );
         }
         if (file_exists($configFile)) {
@@ -119,17 +119,17 @@ class ConfigManager
 
     /**
      * Utility method for handling account configuration
-     * return config key corresponding to the API userId passed in
+     * return config key corresponding to the API accountId passed in
      *
-     * If $userId is null, returns config keys corresponding to
+     * If $accountId is null, returns config keys corresponding to
      * all configured accounts
      *
-     * @param string|null $userId
+     * @param string|null $accountId
      * @return array|string
      */
-    public function getIniPrefix($userId = null)
+    public function getIniPrefix($accountId = null)
     {
-        if ($userId == null) {
+        if ($accountId == null) {
             $arr = array();
             foreach ($this->configs as $key => $value) {
                 $pos = strpos($key, '.');
@@ -139,7 +139,7 @@ class ConfigManager
             }
             return array_unique($arr);
         } else {
-            $iniPrefix = array_search($userId, $this->configs);
+            $iniPrefix = array_search($accountId, $this->configs);
             $pos = strpos($iniPrefix, '.');
             $acct = substr($iniPrefix, 0, $pos);
 

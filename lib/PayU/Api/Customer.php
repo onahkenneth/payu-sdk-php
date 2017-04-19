@@ -28,6 +28,16 @@ use PayU\Model\PayUModel;
 class Customer extends PayUModel
 {
     /**
+     * Customer Id
+     *
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->customer_info->customer_id;
+    }
+
+    /**
      * Payment method being used - Credit card, PayU Wallet payment, Eft.
      * Valid Values: ["creditcard", "eft_pro", "ebucks", "discoverymiles", "smarteft"]
      *

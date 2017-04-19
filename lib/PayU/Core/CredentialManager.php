@@ -100,8 +100,8 @@ class CredentialManager
                 );
             }
             if ($account && $this->defaultAccountName == null) {
-                if (array_key_exists($key . '.storeName', $credArr)) {
-                    $this->defaultAccountName = $credArr[$key . '.storeName'];
+                if (array_key_exists($key . '.store_id', $credArr)) {
+                    $this->defaultAccountName = $credArr[$key . '.store_id'];
                 } else {
                     $this->defaultAccountName = $key;
                 }

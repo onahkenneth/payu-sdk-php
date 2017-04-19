@@ -64,7 +64,7 @@ class ApiContext
      *
      * @param \PayU\Auth\BasicAuth $basic_auth authentication for soap calls
      */
-    public function __construct($basic_auth)
+    public function __construct($basic_auth = null)
     {
         $this->credential = $basic_auth;
     }

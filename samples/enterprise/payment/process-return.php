@@ -3,7 +3,7 @@
 require __DIR__ . '/../../bootstrap.php';
 
 use PayU\Api\Redirect;
-use PayU\Model\XmlHelper;
+use PayU\Model\XMLHelper;
 
 $payuReference = isset($_GET['PayUReference']) ? $_GET['PayUReference'] : '';
 
@@ -33,7 +33,7 @@ if($payuReference) {
         http_response_code('500');
     }
 
-    $ipnArray = XmlHelper::parseXMLToArray($sxe);
+    $ipnArray = XMLHelper::parseXMLToArray($sxe);
 
     if($ipnArray) {
         $baseUrl = getBaseUrl();

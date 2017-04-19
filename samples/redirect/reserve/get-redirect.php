@@ -5,7 +5,7 @@
 // you've created using the SOAP API.
 
 /** @var Redirect $createdRedirect */
-$createdRedirect = require __DIR__ . '/../safestore/setup-standard-redirect.php';
+$createdRedirect = require __DIR__ . '/../../safestore/setup-standard-redirect.php';
 
 use PayU\Api\Redirect;
 

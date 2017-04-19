@@ -3,6 +3,7 @@
 namespace PayU\Test\Functional;
 
 use PayU\Auth\BasicAuth;
+use PayU\Core\ConfigManager;
 use PayU\Core\CredentialManager;
 use PayU\Soap\ApiContext;
 use PayU\Test\Constants;
@@ -17,9 +18,9 @@ class Setup
         $configs = array(
             'mode' => 'sandbox',
             'http.connection_timeOut' => 30,
-            'log.LogEnabled' => true,
-            'log.FileName' => '../PayPal.log',
-            'log.LogLevel' => 'FINE',
+            'log.log_enabled' => true,
+            'log.file_name' => '../PayPal.log',
+            'log.log_level' => 'FINE',
             'validation.level' => 'log'
         );
         $test->apiContext = new ApiContext(
@@ -27,8 +28,8 @@ class Setup
         );
         $test->apiContext->setConfig($configs);
 
-        //PayPalConfigManager::getInstance()->addConfigFromIni(__DIR__. '/../../../sdk_config.ini');
-        //PayPalConfigManager::getInstance()->addConfigs($configs);
+        ConfigManager::getInstance()->addConfigFromIni(__DIR__. '/../../../sdk_config.ini');
+        ConfigManager::getInstance()->addConfigs($configs);
         CredentialManager::getInstance()->setCredentialObject(CredentialManager::getInstance()->getCredentialObject('acct1'));
 
         self::$mode = getenv('SOAP_MODE') ? getenv('SOAP_MODE') : 'mock';

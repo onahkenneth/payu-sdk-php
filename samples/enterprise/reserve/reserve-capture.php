@@ -21,7 +21,6 @@ $amount->setCurrency("ZAR")
 $transaction = new Transaction();
 $transaction->setAmount($amount);
 
-
 // Setting intent to finalize captures the authorized payment.
 $reserve = new Reserve();
 $response = $createdReserve->getReturn();

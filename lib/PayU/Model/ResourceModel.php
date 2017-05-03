@@ -3,6 +3,7 @@
 namespace PayU\Model;
 
 use PayU\Api\Capture;
+use PayU\Api\FmDetails;
 use PayU\Api\Refund;
 use PayU\Api\Request;
 use PayU\Resource;
@@ -17,15 +18,15 @@ use PayU\Validation\ArgumentValidator;
  *
  * @property string id
  * @property string intent
- * @property string payu_reference
- * @property string merchant_reference
+ * @property string payUReference
+ * @property string merchantReference
  * @property \PayU\Api\Customer customer
  * @property \PayU\Api\Transaction transaction
  * @property \PayU\Api\Merchant merchant
- * @property \PayU\Api\RedirectUrls redirect_urls
+ * @property \PayU\Api\RedirectUrls redirectUrls
  * @property \PayU\Api\Response return
- * @property \PayU\Api\FmDetails fm_details
- * @property \PayU\Api\TransactionRecord $transaction_record
+ * @property \PayU\Api\FmDetails fmDetails
+ * @property \PayU\Api\TransactionRecord $transactionRecord
  */
 class ResourceModel extends PayUModel implements Resource
 {
@@ -47,69 +48,6 @@ class ResourceModel extends PayUModel implements Resource
         parent::__construct($data);
 
         $this->request = new Request();
-    }
-
-    /**
-     * Shows details a of payment or redirect resource.
-     *
-     * @param string $reference
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration
-     * and credentials.
-     * @param SoapCall $soapCall is the SOAP Call Service that is used to make API calls
-     * @return ResourceModel resource object
-     */
-    public static function get($reference, $apiContext = null, $soapCall = null)
-    {
-        $methodName = 'getTransaction';
-        ArgumentValidator::validate($reference, 'PayUReference');
-        $payload = array(
-            'AdditionalInformation' => array(
-                'payUReference' => $reference
-            )
-        );
-
-        $json = self::executeCall(
-            $methodName,
-            $payload,
-            null,
-            $apiContext,
-            $soapCall
-        );
-
-        $ret = new static();
-        $ret->fromJson($json);
-        return $ret;
-    }
-
-    /**
-     * Execute SDK Call to PayU services
-     *
-     * @param string $method
-     * @param string $payLoad
-     * @param array $headers
-     * @param ApiContext $apiContext
-     * @param SoapCall $restCall
-     * @param array $handlers
-     * @return string json response of the object
-     */
-    protected static function executeCall(
-        $method,
-        $payLoad,
-        $headers = array(),
-        $apiContext = null,
-        $soapCall = null,
-        $handlers = array('PayU\Handler\BasicAuthHandler'),
-        $path = ''
-    )
-    {
-        //Initialize the context and rest call object if not provided explicitly
-        $apiContext = $apiContext ? $apiContext : new ApiContext(self::$credential);
-        self::$apiContext = $apiContext;
-        $soapCall = $soapCall ? $soapCall : new SoapCall($apiContext);
-
-        //Make the execution call
-        $json = $soapCall->execute($method, $payLoad, $handlers, $headers, $path);
-        return $json;
     }
 
     /**
@@ -140,7 +78,7 @@ class ResourceModel extends PayUModel implements Resource
 
     /**
      * Payment intent.
-     * Valid Values: ["payment", "reserve", "finalize", "credit", "reserve_cancel"]
+     * Valid Values: ["PAYMENT", "RESERVE", "FINALIZE", "CREDIT", "RESERVE_CANCEL"]
      *
      * @param string $intent
      *
@@ -154,6 +92,7 @@ class ResourceModel extends PayUModel implements Resource
 
     /**
      * Payment intent.
+     * Valid Values: ["PAYMENT", "RESERVE", "FINALIZE", "CREDIT", "RESERVE_CANCEL"]
      *
      * @return string
      */
@@ -232,13 +171,13 @@ class ResourceModel extends PayUModel implements Resource
     /**
      * Redirect URLs you provide for redirect/IPN.
      *
-     * @param \PayU\Api\RedirectUrls $redirect_urls
+     * @param \PayU\Api\RedirectUrls $redirectUrls
      *
      * @return $this
      */
-    public function setRedirectUrls($redirect_urls)
+    public function setRedirectUrls($redirectUrls)
     {
-        $this->redirect_urls = $redirect_urls;
+        $this->redirectUrls = $redirectUrls;
         return $this;
     }
 
@@ -249,7 +188,7 @@ class ResourceModel extends PayUModel implements Resource
      */
     public function getRedirectUrls()
     {
-        return $this->redirect_urls;
+        return $this->redirectUrls;
     }
 
     /**
@@ -264,15 +203,6 @@ class ResourceModel extends PayUModel implements Resource
         return $this;
     }
 
-    /**
-     * Get 3DSecure Approval Form
-     *
-     * @return null|string
-     */
-    public function get3DSecureForm()
-    {
-        return $this->getReturn()->getSecure3D()->getSecure3DUrl();
-    }
 
     /**
      * Transaction response
@@ -285,15 +215,48 @@ class ResourceModel extends PayUModel implements Resource
     }
 
     /**
+     * Fraud management details
+     *
+     * @param FmDetails $fmDetails
+     * @return $this
+     */
+    public function setFmDetails($fmDetails)
+    {
+        $this->fmDetails = $fmDetails;
+        return $this;
+    }
+
+
+    /**
+     * Fraud management details
+     *
+     * @return \PayU\Api\FmDetails
+     */
+    public function getFmDetails()
+    {
+        return $this->fmDetails;
+    }
+
+    /**
+     * Get 3DSecure Approval Form
+     *
+     * @return null|string
+     */
+    public function get3DSecureForm()
+    {
+        return $this->getReturn()->getSecure3D()->getSecure3DUrl();
+    }
+
+    /**
      * PayU identifier corresponding to this transaction.
      *
-     * @param string $payu_reference
+     * @param string $payUReference
      *
      * @return $this
      */
-    public function setPayUReference($payu_reference)
+    public function setPayUReference($payUReference)
     {
-        $this->payu_reference = $payu_reference;
+        $this->payUReference = $payUReference;
         return $this;
     }
 
@@ -304,19 +267,19 @@ class ResourceModel extends PayUModel implements Resource
      */
     public function getPayUReference()
     {
-        return $this->payu_reference;
+        return $this->payUReference;
     }
 
     /**
      * Merchant reference is 16 digit number payment identification number to identify the payment.
      *
-     * @param string $merchant_reference
+     * @param string $merchantReference
      *
      * @return $this
      */
-    public function setMerchantReference($merchant_reference)
+    public function setMerchantReference($merchantReference)
     {
-        $this->merchant_reference = $merchant_reference;
+        $this->merchantReference = $merchantReference;
         return $this;
     }
 
@@ -327,18 +290,18 @@ class ResourceModel extends PayUModel implements Resource
      */
     public function getMerchantReference()
     {
-        return $this->merchant_reference;
+        return $this->merchantReference;
     }
 
     /**
      * Debit Order transaction record
      *
-     * @param  \PayU\Api\TransactionRecord $transaction_record
+     * @param  \PayU\Api\TransactionRecord $transactionRecord
      * @return $this
      */
-    public function setTransactionRecord($transaction_record)
+    public function setTransactionRecord($transactionRecord)
     {
-        $this->transaction_record = $transaction_record;
+        $this->transactionRecord = $transactionRecord;
         return $this;
     }
 
@@ -349,7 +312,7 @@ class ResourceModel extends PayUModel implements Resource
      */
     public function getTransactionRecord()
     {
-        return $this->transaction_record;
+        return $this->transactionRecord;
     }
 
     public function parseResource($resource)
@@ -362,8 +325,70 @@ class ResourceModel extends PayUModel implements Resource
     }
 
     /**
+     * Execute SDK Call to PayU services
+     *
+     * @param string $method
+     * @param string $payLoad
+     * @param array $headers
+     * @param ApiContext $apiContext
+     * @param SoapCall $restCall
+     * @param array $handlers
+     * @return string json response of the object
+     */
+    protected static function executeCall(
+        $method,
+        $payLoad,
+        $headers = array(),
+        $apiContext = null,
+        $soapCall = null,
+        $handlers = array('PayU\Handler\BasicAuthHandler'),
+        $path = ''
+    )
+    {
+        //Initialize the context and rest call object if not provided explicitly
+        $apiContext = $apiContext ? $apiContext : new ApiContext(self::$credential);
+        self::$apiContext = $apiContext;
+        $soapCall = $soapCall ? $soapCall : new SoapCall($apiContext);
+
+        //Make the execution call
+        $json = $soapCall->execute($method, $payLoad, $handlers, $headers, $path);
+        return $json;
+    }
+
+    /**
+     * Shows details a of payment or redirect resource.
+     *
+     * @param string $reference
+     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param SoapCall $soapCall is the SOAP Call Service that is used to make API calls
+     * @return ResourceModel resource object
+     */
+    public static function get($reference, $apiContext = null, $soapCall = null)
+    {
+        $methodName = 'getTransaction';
+        ArgumentValidator::validate($reference, 'PayUReference');
+        $payload = array(
+            'AdditionalInformation' => array(
+                'payUReference' => $reference
+            )
+        );
+
+        $json = self::executeCall(
+            $methodName,
+            $payload,
+            null,
+            $apiContext,
+            $soapCall
+        );
+
+        $ret = new static();
+        $ret->fromJson($json);
+        return $ret;
+    }
+
+    /**
      * Setup a redirect payment process. In the JSON request body, include a `redirect` object with the intent,
-     * customer, funding_instrument, transaction etc. Also include return, notify, and cancel URLs in the `redirect` object.
+     * customer, fundingInstrument, transaction etc. Also include return, notify, and cancel URLs in the `redirect` object.
      *
      * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration
      * and credentials.
@@ -389,7 +414,7 @@ class ResourceModel extends PayUModel implements Resource
 
     /**
      * Executes, or completes direct payment processing. In the JSON request body, include a `payment` object with the intent,
-     * customer, funding_instrument, transaction etc. Also include return, notify, and cancel URLs in the `payment` object.
+     * customer, fundingInstrument, transaction etc. Also include return, notify, and cancel URLs in the `payment` object.
      *
      * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic
      * configuration and credentials.
@@ -426,8 +451,8 @@ class ResourceModel extends PayUModel implements Resource
     public function refund($apiContext = null, $soapCall = null)
     {
         $methodName = 'doTransaction';
-        ArgumentValidator::validate($this->return->payUReference, "PayUReference");
-        ArgumentValidator::validate($this->return->merchantReference, 'MerchantReference');
+        ArgumentValidator::validate($this->getReturn()->getPayUReference(), "PayUReference");
+        ArgumentValidator::validate($this->getReturn()->getMerchantReference(), 'MerchantReference');
         $payLoad = $this->request->parseReserveResource($this);
 
         $json = self::executeCall(
@@ -447,8 +472,7 @@ class ResourceModel extends PayUModel implements Resource
      * Captures and processes an authorization, by ID. To use this call, the original payment call must specify an
      * intent of `reserve`.
      *
-     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration
-     *                                   and credentials.
+     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
      * @param SoapCall $soapCall is the SOAP Call Service that is used to make rest calls
      *
      * @return Capture
@@ -456,8 +480,8 @@ class ResourceModel extends PayUModel implements Resource
     public function capture($apiContext = null, $soapCall = null)
     {
         $methodName = 'doTransaction';
-        ArgumentValidator::validate($this->payu_reference, "PayUReference");
-        ArgumentValidator::validate($this->merchant_reference, "MerchantReference");
+        ArgumentValidator::validate($this->getPayUReference(), "PayUReference");
+        ArgumentValidator::validate($this->getMerchantReference(), "MerchantReference");
         $payLoad = $this->request->parseReserveResource($this);
 
         $json = self::executeCall(

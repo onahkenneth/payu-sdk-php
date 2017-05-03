@@ -431,16 +431,12 @@ class Request extends PayUModel
                         ),
                         'Customfield' => array(
                             array(
-                                'key' => 'action',
-                                'value' => $ebucks->getAction(),
+                                'key' => 'ebucksOtp',
+                                'value' => $ebucks->getEbucksOTP(),
                             ),
                             array(
-                                'key' => 'resetPasswordType',
-                                'value' => $ebucks->getResetPasswordType(),
-                            ),
-                            array(
-                                'key' => 'ebucksMemberIdentifier',
-                                'value' => $ebucks->getEbucksMemberIdentifier(),
+                                'key' => 'ebucksAccountNumber',
+                                'value' => $ebucks->getEbucksAccountNumber(),
                             ),
                         ),
                     ));

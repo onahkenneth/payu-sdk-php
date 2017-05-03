@@ -21,11 +21,11 @@ use PayU\Model\PayUModel;
  * @package PayU\Api
  *
  * @property string email
- * @property string merchant_id
- * @property string first_name
- * @property string last_name
- * @property string account_number
- * @property string phone
+ * @property string merchantId
+ * @property string firstName
+ * @property string lastName
+ * @property string accountNumber
+ * @property \PayU\Api\Phone phone
  */
 class Merchant extends PayUModel
 {
@@ -55,13 +55,13 @@ class Merchant extends PayUModel
     /**
      * PayU account identifier for the Merchant.
      *
-     * @param string $merchant_id
+     * @param string $merchantId
      *
      * @return $this
      */
-    public function setMerchantId($merchant_id)
+    public function setMerchantId($merchantId)
     {
-        $this->merchant_id = $merchant_id;
+        $this->merchantId = $merchantId;
         return $this;
     }
 
@@ -72,7 +72,7 @@ class Merchant extends PayUModel
      */
     public function getMerchantId()
     {
-        return $this->merchant_id;
+        return $this->merchantId;
     }
 
     /**
@@ -82,9 +82,9 @@ class Merchant extends PayUModel
      *
      * @return $this
      */
-    public function setFirstName($first_name)
+    public function setFirstName($firstName)
     {
-        $this->first_name = $first_name;
+        $this->firstName = $firstName;
         return $this;
     }
 
@@ -95,19 +95,19 @@ class Merchant extends PayUModel
      */
     public function getFirstName()
     {
-        return $this->first_name;
+        return $this->firstName;
     }
 
     /**
      * Last Name of the Payee.
      *
-     * @param string $last_name
+     * @param string $lastName
      *
      * @return $this
      */
-    public function setLastName($last_name)
+    public function setLastName($lastName)
     {
-        $this->last_name = $last_name;
+        $this->lastName = $lastName;
         return $this;
     }
 
@@ -118,19 +118,19 @@ class Merchant extends PayUModel
      */
     public function getLastName()
     {
-        return $this->last_name;
+        return $this->lastName;
     }
 
     /**
      * PayU account Number of the Merchant
      *
-     * @param string $account_number
+     * @param string $accountNumber
      *
      * @return $this
      */
-    public function setAccountNumber($account_number)
+    public function setAccountNumber($accountNumber)
     {
-        $this->account_number = $account_number;
+        $this->accountNumber = $accountNumber;
         return $this;
     }
 
@@ -141,7 +141,7 @@ class Merchant extends PayUModel
      */
     public function getAccountNumber()
     {
-        return $this->account_number;
+        return $this->accountNumber;
     }
 
     /**
@@ -158,7 +158,7 @@ class Merchant extends PayUModel
     }
 
     /**
-     * Information related to the Payee.
+     * Information related to the Merchant.
      *
      * @return \PayU\Api\Phone
      */

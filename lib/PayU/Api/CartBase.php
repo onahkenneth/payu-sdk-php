@@ -20,25 +20,25 @@ use PayU\Model\PayUModel;
  *
  * @package PayU\Api
  *
- * @property string reference_id
+ * @property string referenceId
  * @property \PayU\Api\Amount amount
  * @property \PayU\Api\Merchant merchant
  * @property string description
- * @property string invoice_number
- * @property \PayU\Api\ItemList item_list
+ * @property string invoiceNumber
+ * @property \PayU\Api\ItemList itemList
  */
 class CartBase extends PayUModel
 {
     /**
      * Merchant identifier to the purchase unit. Optional parameter
      *
-     * @param string $reference_id
+     * @param string $referenceId
      *
      * @return $this
      */
-    public function setReferenceId($reference_id)
+    public function setReferenceId($referenceId)
     {
-        $this->reference_id = $reference_id;
+        $this->referenceId = $referenceId;
         return $this;
     }
 
@@ -49,7 +49,7 @@ class CartBase extends PayUModel
      */
     public function getReferenceId()
     {
-        return $this->reference_id;
+        return $this->referenceId;
     }
 
     /**
@@ -147,13 +147,13 @@ class CartBase extends PayUModel
     /**
      * invoice number to track this payment
      *
-     * @param string $invoice_number
+     * @param string $invoiceNumber
      *
      * @return $this
      */
-    public function setInvoiceNumber($invoice_number)
+    public function setInvoiceNumber($invoiceNumber)
     {
-        $this->invoice_number = $invoice_number;
+        $this->invoiceNumber = $invoiceNumber;
         return $this;
     }
 
@@ -164,19 +164,19 @@ class CartBase extends PayUModel
      */
     public function getInvoiceNumber()
     {
-        return $this->invoice_number;
+        return $this->invoiceNumber;
     }
 
     /**
      * List of items being paid for.
      *
-     * @param \PayU\Api\ItemList $item_list
+     * @param \PayU\Api\ItemList $itemList
      *
      * @return $this
      */
-    public function setItemList($item_list)
+    public function setItemList($itemList)
     {
-        $this->item_list = $item_list;
+        $this->itemList = $itemList;
         return $this;
     }
 
@@ -187,6 +187,6 @@ class CartBase extends PayUModel
      */
     public function getItemList()
     {
-        return $this->item_list;
+        return $this->itemList;
     }
 }

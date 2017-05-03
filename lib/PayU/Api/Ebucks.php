@@ -72,7 +72,7 @@ class Ebucks extends ResourceModel
      */
     public function setAuthenticateAccountType($authenticateAccountType)
     {
-        $this->authenticateaccountType = $authenticateAccountType;
+        $this->authenticateAccountType = $authenticateAccountType;
         return $this;
     }
 

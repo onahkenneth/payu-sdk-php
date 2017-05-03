@@ -1,6 +1,6 @@
 <?php
 /**
- * PayU EMEA PHP SDK
+ * PayU MEA PHP SDK
  *
  * @copyright  Copyright (c) 2016 PayU
  * @license    http://opensource.org/licenses/LGPL-3.0  Open Software License (LGPL 3.0)
@@ -24,9 +24,10 @@ use PayU\Model\PayUModel;
  * @property string line1
  * @property string line2
  * @property string city
- * @property string country_code
- * @property string postal_code
+ * @property string countryCode
+ * @property string postalCode
  * @property string state
+ * @property string \PayU\Api\Phone phone
  */
 class BaseAddress extends PayUModel
 {
@@ -102,13 +103,13 @@ class BaseAddress extends PayUModel
     /**
      * 2 letter country code.
      *
-     * @param string $country_code
+     * @param string $countryCode
      *
      * @return $this
      */
-    public function setCountryCode($country_code)
+    public function setCountryCode($countryCode)
     {
-        $this->country_code = $country_code;
+        $this->countryCode = $countryCode;
         return $this;
     }
 
@@ -119,19 +120,19 @@ class BaseAddress extends PayUModel
      */
     public function getCountryCode()
     {
-        return $this->country_code;
+        return $this->countryCode;
     }
 
     /**
      * Postal code or equivalent is usually required for countries that have them.
      *
-     * @param string $postal_code
+     * @param string $postalCode
      *
      * @return $this
      */
-    public function setPostalCode($postal_code)
+    public function setPostalCode($postalCode)
     {
-        $this->postal_code = $postal_code;
+        $this->postalCode = $postalCode;
         return $this;
     }
 
@@ -142,7 +143,7 @@ class BaseAddress extends PayUModel
      */
     public function getPostalCode()
     {
-        return $this->postal_code;
+        return $this->postalCode;
     }
 
     /**
@@ -166,5 +167,28 @@ class BaseAddress extends PayUModel
     public function getState()
     {
         return $this->state;
+    }
+
+    /**
+     * Phone number in E.123 format.
+     *
+     * @param \PayU\Api\Phone $phone
+     *
+     * @return $this
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+        return $this;
+    }
+
+    /**
+     * Phone number in E.123 format.
+     *
+     * @return \PayU\Api\Phone
+     */
+    public function getPhone()
+    {
+        return $this->phone;
     }
 }

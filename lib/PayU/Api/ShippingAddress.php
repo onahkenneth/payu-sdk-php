@@ -18,20 +18,20 @@ namespace PayU\Api;
  *
  * @package PayU\Api
  *
- * @property string recipient_name
+ * @property string recipientName
  */
 class ShippingAddress extends Address
 {
     /**
      * Name of the recipient at this address.
      *
-     * @param string $recipient_name
+     * @param string $recipientName
      *
      * @return $this
      */
-    public function setRecipientName($recipient_name)
+    public function setRecipientName($recipientName)
     {
-        $this->recipient_name = $recipient_name;
+        $this->recipientName = $recipientName;
         return $this;
     }
 
@@ -42,6 +42,6 @@ class ShippingAddress extends Address
      */
     public function getRecipientName()
     {
-        return $this->recipient_name;
+        return $this->recipientName;
     }
 }

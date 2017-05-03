@@ -28,7 +28,7 @@ class LookupData extends PayUModel
     /**
      * Array of lookup data
      *
-     * @param array $entry
+     * @param \PayU\Api\LookupDataEntry $entry
      * @return $this
      */
     public function setEntry($entry)
@@ -40,7 +40,7 @@ class LookupData extends PayUModel
     /**
      * Array of lookup data
      *
-     * @return LookupDataEntry
+     * @return \PayU\Api\LookupDataEntry
      */
     public function getEntry()
     {

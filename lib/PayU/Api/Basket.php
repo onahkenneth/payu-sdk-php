@@ -27,19 +27,19 @@ use PayU\Model\PayUModel;
 class Basket extends PayUModel
 {
     /**
-     * Basket amount converted to integer (float_amount * 100)
+     * Basket amount in cents converted to integer
      *
-     * @param int $amount
+     * @param int $amountInCents
      * @return $this
      */
-    public function setAmountInCents($amount)
+    public function setAmountInCents($amountInCents)
     {
-        $this->amountInCents = (int)$amount;
+        $this->amountInCents = $amountInCents;
         return $this;
     }
 
     /**
-     * Basket amount converted to integer (float_amount * 100)
+     * Basket amount in cents converted to integer
      *
      * @return int
      */

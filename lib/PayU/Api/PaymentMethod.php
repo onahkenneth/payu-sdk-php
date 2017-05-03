@@ -119,6 +119,29 @@ class PaymentMethod extends PayUModel
     }
 
     /**
+     * Payment amount in integer
+     *
+     * @param $amountInCents
+     *
+     * @return $this
+     */
+    public function setAmountInCents($amountInCents)
+    {
+        $this->amountInCents = $amountInCents;
+        return $this;
+    }
+
+    /**
+     * Payment amount in integer
+     *
+     * @return string
+     */
+    public function getAmountInCents()
+    {
+        return $this->amountInCents;
+    }
+
+    /**
      * The expiry date for the card.
      *
      * @param string $expiry

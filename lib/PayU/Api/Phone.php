@@ -20,8 +20,8 @@ use PayU\Model\PayUModel;
  *
  * @package PayU\Api
  *
- * @property string country_code
- * @property string national_number
+ * @property string countryCode
+ * @property string nationalNumber
  * @property string extension
  */
 class Phone extends PayUModel
@@ -29,13 +29,13 @@ class Phone extends PayUModel
     /**
      * Country code (from in E.164 format)
      *
-     * @param string $country_code
+     * @param string $countryCode
      *
      * @return $this
      */
-    public function setCountryCode($country_code)
+    public function setCountryCode($countryCode)
     {
-        $this->country_code = $country_code;
+        $this->countryCode = $countryCode;
         return $this;
     }
 
@@ -46,7 +46,7 @@ class Phone extends PayUModel
      */
     public function getCountryCode()
     {
-        return $this->country_code;
+        return $this->countryCode;
     }
 
     /**
@@ -56,9 +56,9 @@ class Phone extends PayUModel
      *
      * @return $this
      */
-    public function setNationalNumber($national_number)
+    public function setNationalNumber($nationalNumber)
     {
-        $this->national_number = $national_number;
+        $this->nationalNumber = $nationalNumber;
         return $this;
     }
 
@@ -69,7 +69,7 @@ class Phone extends PayUModel
      */
     public function getNationalNumber()
     {
-        return $this->national_number;
+        return $this->nationalNumber;
     }
 
     /**

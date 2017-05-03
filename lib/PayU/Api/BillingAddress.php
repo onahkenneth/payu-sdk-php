@@ -12,12 +12,12 @@
 namespace PayU\Api;
 
 /**
- * Class InvoiceAddress
+ * Class BillingAddress
  *
- * Invoice Address object used as billing address in a payment or extended for Shipping Address.
+ * Billing Address object used as billing address for credit card payment.
  *
  * @package PayU\Api
  */
-class InvoiceAddress extends Address
+class BillingAddress extends Address
 {
 }

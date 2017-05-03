@@ -21,18 +21,14 @@ use PayU\Model\PayUModel;
  * @package PayU\Api
  *
  * @property string email
- * @property string account_number
- * @property string salutation
- * @property string first_name
- * @property string middle_name
- * @property string last_name
- * @property string suffix
- * @property string customer_id
+ * @property string accountNumber
+ * @property string firstName
+ * @property string lastName
+ * @property string customerId
  * @property string phone
- * @property string birth_date
- * @property string country_code
- * @property string country_of_residence
- * @property \PayU\Api\Address billing_address
+ * @property string countryCode
+ * @property string countryOfResidence
+ * @property \PayU\Api\Address billingAddress
  */
 class CustomerInfo extends PayUModel
 {
@@ -62,13 +58,13 @@ class CustomerInfo extends PayUModel
     /**
      * Account Number representing the Customer
      *
-     * @param string $account_number
+     * @param string $accountNumber
      *
      * @return $this
      */
-    public function setAccountNumber($account_number)
+    public function setAccountNumber($accountNumber)
     {
-        $this->account_number = $account_number;
+        $this->accountNumber = $accountNumber;
         return $this;
     }
 
@@ -79,42 +75,19 @@ class CustomerInfo extends PayUModel
      */
     public function getAccountNumber()
     {
-        return $this->account_number;
-    }
-
-    /**
-     * Salutation of the customer.
-     *
-     * @param string $salutation
-     *
-     * @return $this
-     */
-    public function setSalutation($salutation)
-    {
-        $this->salutation = $salutation;
-        return $this;
-    }
-
-    /**
-     * Salutation of the customer.
-     *
-     * @return string
-     */
-    public function getSalutation()
-    {
-        return $this->salutation;
+        return $this->accountNumber;
     }
 
     /**
      * First name of the customer.
      *
-     * @param string $first_name
+     * @param string $firstName
      *
      * @return $this
      */
-    public function setFirstName($first_name)
+    public function setFirstName($firstName)
     {
-        $this->first_name = $first_name;
+        $this->firstName = $firstName;
         return $this;
     }
 
@@ -125,42 +98,19 @@ class CustomerInfo extends PayUModel
      */
     public function getFirstName()
     {
-        return $this->first_name;
-    }
-
-    /**
-     * Middle name of the customer.
-     *
-     * @param string $middle_name
-     *
-     * @return $this
-     */
-    public function setMiddleName($middle_name)
-    {
-        $this->middle_name = $middle_name;
-        return $this;
-    }
-
-    /**
-     * Middle name of the customer.
-     *
-     * @return string
-     */
-    public function getMiddleName()
-    {
-        return $this->middle_name;
+        return $this->firstName;
     }
 
     /**
      * Last name of the payer.
      *
-     * @param string $last_name
+     * @param string $lastName
      *
      * @return $this
      */
-    public function setLastName($last_name)
+    public function setLastName($lastName)
     {
-        $this->last_name = $last_name;
+        $this->lastName = $lastName;
         return $this;
     }
 
@@ -171,42 +121,20 @@ class CustomerInfo extends PayUModel
      */
     public function getLastName()
     {
-        return $this->last_name;
+        return $this->lastName;
     }
 
-    /**
-     * Suffix of the payer.
-     *
-     * @param string $suffix
-     *
-     * @return $this
-     */
-    public function setSuffix($suffix)
-    {
-        $this->suffix = $suffix;
-        return $this;
-    }
-
-    /**
-     * Suffix of the payer.
-     *
-     * @return string
-     */
-    public function getSuffix()
-    {
-        return $this->suffix;
-    }
 
     /**
      * PayU assigned ID.
      *
-     * @param string $customer_id
+     * @param string $customerId
      *
      * @return $this
      */
-    public function setCustomerId($customer_id)
+    public function setCustomerId($customerId)
     {
-        $this->customer_id = $customer_id;
+        $this->customerId = $customerId;
         return $this;
     }
 
@@ -217,7 +145,7 @@ class CustomerInfo extends PayUModel
      */
     public function getCustomerId()
     {
-        return $this->customer_id;
+        return $this->customerId;
     }
 
     /**
@@ -244,39 +172,16 @@ class CustomerInfo extends PayUModel
     }
 
     /**
-     * Birth date of the Customer in ISO8601 format (yyyy-mm-dd).
-     *
-     * @param string $birth_date
-     *
-     * @return $this
-     */
-    public function setBirthDate($birth_date)
-    {
-        $this->birth_date = $birth_date;
-        return $this;
-    }
-
-    /**
-     * Birth date of the Customer in ISO8601 format (yyyy-mm-dd).
-     *
-     * @return string
-     */
-    public function getBirthDate()
-    {
-        return $this->birth_date;
-    }
-
-    /**
      * Registered country code of the customer.
      * @see https://countrycode.org
      *
-     * @param string $country_code
+     * @param string $countryCode
      *
      * @return $this
      */
-    public function setCountryCode($country_code)
+    public function setCountryCode($countryCode)
     {
-        $this->country_code = $country_code;
+        $this->countryCode = $countryCode;
         return $this;
     }
 
@@ -288,20 +193,20 @@ class CustomerInfo extends PayUModel
      */
     public function getCountryCode()
     {
-        return $this->country_code;
+        return $this->countryCode;
     }
 
     /**
      * Two-letter registered country of residence code of the customer.
      * @see https://countrycode.org
      *
-     * @param string $country_of_residence
+     * @param string $countryOfResidence
      *
      * @return $this
      */
-    public function setCountryOfResidence($country_of_residence)
+    public function setCountryOfResidence($countryOfResidence)
     {
-        $this->country_of_residence = $country_of_residence;
+        $this->countryOfResidence = $countryOfResidence;
         return $this;
     }
 
@@ -313,19 +218,19 @@ class CustomerInfo extends PayUModel
      */
     public function getCountryOfResidence()
     {
-        return $this->country_of_residence;
+        return $this->countryOfResidence;
     }
 
     /**
      * Billing address of the Customer.
      *
-     * @param \PayU\Api\Address $billing_address
+     * @param \PayU\Api\Address $billingAddress
      *
      * @return $this
      */
-    public function setBillingAddress($billing_address)
+    public function setBillingAddress($billingAddress)
     {
-        $this->billing_address = $billing_address;
+        $this->billingAddress = $billingAddress;
         return $this;
     }
 
@@ -336,6 +241,6 @@ class CustomerInfo extends PayUModel
      */
     public function getBillingAddress()
     {
-        return $this->billing_address;
+        return $this->billingAddress;
     }
 }

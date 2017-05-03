@@ -18,10 +18,10 @@ namespace PayU\Api;
  *
  * @package PayU\Api
  *
- * @property boolean show_budget
- * @property \PayU\Api\TransactionRecord $transaction_record
- * @property \PayU\Api\FmDetails fraud_management
- * @property \PayU\Api\ShippingInfo shipping_info
+ * @property boolean showBudget
+ * @property \PayU\Api\TransactionRecord $transactionRecord
+ * @property \PayU\Api\FmDetails fraudManagement
+ * @property \PayU\Api\ShippingInfo shippingInfo
  */
 class TransactionBase extends CartBase
 {
@@ -45,89 +45,89 @@ class TransactionBase extends CartBase
     /**
      * Debit order transaction record
      *
-     * @var \PayU\Api\TransactionRecord $transaction_record
+     * @var \PayU\Api\TransactionRecord $transactionRecord
      * @return $this
      */
-    public function setTransactionRecord($transaction_record)
+    public function setTransactionRecord($transactionRecord)
     {
-        $this->transaction_record = $transaction_record;
+        $this->transactionRecord = $transactionRecord;
         return $this;
     }
 
     /**
      * Debit order transaction record
      *
-     * @return \PayU\Api\TransactionRecord $transaction_record
+     * @return \PayU\Api\TransactionRecord $transactionRecord
      */
     public function getTransactionRecord()
     {
-        return $this->transaction_record;
+        return $this->transactionRecord;
     }
 
     /**
      * Fraud management
      *
-     * @var \PayU\Api\FmDetails $fraud_management
+     * @var \PayU\Api\FmDetails $fraudManagement
      * @return $this
      */
-    public function setFraudManagement($fraud_management)
+    public function setFraudManagement($fraudManagement)
     {
-        $this->fraud_management = $fraud_management;
+        $this->fraudManagement = $fraudManagement;
         return $this;
     }
 
     /**
      * Fraud management
      *
-     * @return \PayU\Api\FmDetails $fraud_management
+     * @return \PayU\Api\FmDetails $fraudManagement
      */
     public function getFraudManagement()
     {
-        return $this->fraud_management;
+        return $this->fraudManagement;
     }
 
     /**
      * Shipping information
      *
-     * @var \PayU\Api\ShippingInfo $shipping_info
+     * @var \PayU\Api\ShippingInfo $shippingInfo
      * @return $this
      */
-    public function setShippingInfo($shipping_info)
+    public function setShippingInfo($shippingInfo)
     {
-        $this->shipping_info = $shipping_info;
+        $this->shippingInfo = $shippingInfo;
         return $this;
     }
 
     /**
      * Shipping information
      *
-     * @return \PayU\Api\ShippingInfo $shipping_info
+     * @return \PayU\Api\ShippingInfo $shippingInfo
      */
     public function getShippingInfo()
     {
-        return $this->shipping_info;
+        return $this->shippingInfo;
     }
 
     /**
-     * The show_budget flag provides for budget payment.
+     * The showBudget flag provides for budget payment.
      *
-     * @param string $show_budget
+     * @param string $showBudget
      *
      * @return $this
      */
-    public function setShowBudget($show_budget)
+    public function setShowBudget($showBudget)
     {
-        $this->show_budget = $show_budget;
+        $this->showBudget = $showBudget;
         return $this;
     }
 
     /**
-     * The show_budget flag provides for budget payment.
+     * The showBudget flag provides for budget payment.
      *
      * @return string
      */
     public function getShowBudget()
     {
-        return $this->show_budget;
+        return $this->showBudget;
     }
 }

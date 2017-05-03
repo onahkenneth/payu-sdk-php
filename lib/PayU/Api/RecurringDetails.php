@@ -18,8 +18,7 @@ use PayU\Model\PayUModel;
  *
  * The details of Debit Order payment setup on the customer account
  *
- * A transaction defines the contract of a payment - what is the payment
- * for and who is fulfilling it.
+ * A transaction defines the contract of a payment - what is the payment for and who is fulfilling it.
  *
  * @package PaU\Api
  *
@@ -200,11 +199,14 @@ class RecurringDetails extends PayUModel
      * `callcenter.allowed.reps` list. If there are no IDs in the `callcenter.allowed.reps` list the
      * callCenterRepId can be an empty string.
      *
-     * @param  array $callCenterRepId
+     * @param array $callCenterRepId
      * @return $this
      */
     public function setCallCenterRepIds($callCenterRepId)
     {
+        if(!is_array($callCenterRepId))
+            $callCenterRepId = array($callCenterRepId);
+
         $this->callCenterRepId = $callCenterRepId;
         return $this;
     }
@@ -214,7 +216,7 @@ class RecurringDetails extends PayUModel
      * `callcenter.allowed.reps` list. If there are no IDs in the `callcenter.allowed.reps` list the
      * callCenterRepId can be an empty string.
      *
-     * @return  array
+     * @return array
      */
     public function getCallCenterRepIds()
     {
@@ -224,7 +226,7 @@ class RecurringDetails extends PayUModel
     /**
      * Token representing the debit order setup.
      *
-     * @param  array $recurringPaymentToken
+     * @param string $recurringPaymentToken
      * @return $this
      */
     public function setRecurringPaymentToken($recurringPaymentToken)
@@ -236,7 +238,7 @@ class RecurringDetails extends PayUModel
     /**
      * Token representing the debit order setup.
      *
-     * @return  array
+     * @return string
      */
     public function getRecurringPaymentToken()
     {

@@ -387,4 +387,24 @@ class Response extends PayUModel
         );
     }
 
+    /**
+     * Key-value pair fields returned from a transaction lookup.
+     *
+     * @return \PayU\Api\LookupData
+     */
+    public function getLookupData()
+    {
+        return $this->lookupData;
+    }
+
+    /**
+     * Key-value pair fields returned from a transaction lookup.
+     *
+     * @param \PayU\Api\LookupData
+     */
+    public function setLookupData($lookupData)
+    {
+        $this->lookupData = $lookupData;
+    }
+
 }

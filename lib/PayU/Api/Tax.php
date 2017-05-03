@@ -101,7 +101,7 @@ class Tax extends PayUModel
     }
 
     /**
-     * The tax as a monetary amount. Cannot be specified in a request.
+     * The tax as a monetary amount.
      *
      * @param \PayU\Api\Currency $amount
      *
@@ -114,7 +114,7 @@ class Tax extends PayUModel
     }
 
     /**
-     * The tax as a monetary amount. Cannot be specified in a request.
+     * The tax as a monetary amount.
      *
      * @return \PayU\Api\Currency
      */

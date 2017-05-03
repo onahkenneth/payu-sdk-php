@@ -25,9 +25,9 @@ use PayU\Validation\NumericValidator;
  * @property string subtotal
  * @property string shipping
  * @property string tax
- * @property string handling_fee
- * @property string shipping_discount
- * @property string gift_wrap
+ * @property string handlingFee
+ * @property string shippingDiscount
+ * @property string giftWrap
  * @property string fee
  */
 class Details extends PayUModel
@@ -112,15 +112,15 @@ class Details extends PayUModel
     /**
      * Amount being charged for the handling fee.
      *
-     * @param string|double $handling_fee
+     * @param string|double $handlingFee
      *
      * @return $this
      */
-    public function setHandlingFee($handling_fee)
+    public function setHandlingFee($handlingFee)
     {
-        NumericValidator::validate($handling_fee, "Handling Fee");
-        $handling_fee = Formatter::formatToPrice($handling_fee);
-        $this->handling_fee = $handling_fee;
+        NumericValidator::validate($handlingFee, "Handling Fee");
+        $handlingFee = Formatter::formatToPrice($handlingFee);
+        $this->handlingFee = $handlingFee;
         return $this;
     }
 
@@ -131,21 +131,21 @@ class Details extends PayUModel
      */
     public function getHandlingFee()
     {
-        return $this->handling_fee;
+        return $this->handlingFee;
     }
 
     /**
      * Amount being discounted for the shipping fee.
      *
-     * @param string|double $shipping_discount
+     * @param string|double $shippingDiscount
      *
      * @return $this
      */
-    public function setShippingDiscount($shipping_discount)
+    public function setShippingDiscount($shippingDiscount)
     {
-        NumericValidator::validate($shipping_discount, "Shipping Discount");
-        $shipping_discount = Formatter::formatToPrice($shipping_discount);
-        $this->shipping_discount = $shipping_discount;
+        NumericValidator::validate($shippingDiscount, "Shipping Discount");
+        $shippingDiscount = Formatter::formatToPrice($shippingDiscount);
+        $this->shippingDiscount = $shippingDiscount;
         return $this;
     }
 
@@ -156,7 +156,7 @@ class Details extends PayUModel
      */
     public function getShippingDiscount()
     {
-        return $this->shipping_discount;
+        return $this->shippingDiscount;
     }
 
     /**
@@ -166,11 +166,11 @@ class Details extends PayUModel
      *
      * @return $this
      */
-    public function setGiftWrap($gift_wrap)
+    public function setGiftWrap($giftWrap)
     {
-        NumericValidator::validate($gift_wrap, "Gift Wrap");
-        $gift_wrap = Formatter::formatToPrice($gift_wrap);
-        $this->gift_wrap = $gift_wrap;
+        NumericValidator::validate($giftWrap, "Gift Wrap");
+        $giftWrap = Formatter::formatToPrice($giftWrap);
+        $this->giftWrap = $giftWrap;
         return $this;
     }
 
@@ -181,7 +181,7 @@ class Details extends PayUModel
      */
     public function getGiftWrap()
     {
-        return $this->gift_wrap;
+        return $this->giftWrap;
     }
 
     /**

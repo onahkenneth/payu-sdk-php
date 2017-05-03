@@ -21,9 +21,9 @@ use PayU\Model\PayUModel;
  * @package PayU\Api
  *
  * @property \PayU\Api\Item[] items
- * @property \PayU\Api\ShippingAddress shipping_address
- * @property string shipping_method
- * @property string shipping_phone_number
+ * @property \PayU\Api\ShippingAddress shippingAddress
+ * @property string shippingMethod
+ * @property string shippingPhoneNumber
  */
 class ItemList extends PayUModel
 {
@@ -85,13 +85,13 @@ class ItemList extends PayUModel
     /**
      * Shipping address.
      *
-     * @param \PayU\Api\ShippingAddress $shipping_address
+     * @param \PayU\Api\ShippingAddress $shippingAddress
      *
      * @return $this
      */
-    public function setShippingAddress($shipping_address)
+    public function setShippingAddress($shippingAddress)
     {
-        $this->shipping_address = $shipping_address;
+        $this->shippingAddress = $shippingAddress;
         return $this;
     }
 
@@ -102,7 +102,7 @@ class ItemList extends PayUModel
      */
     public function getShippingAddress()
     {
-        return $this->shipping_address;
+        return $this->shippingAddress;
     }
 
     /**
@@ -112,9 +112,9 @@ class ItemList extends PayUModel
      *
      * @return $this
      */
-    public function setShippingMethod($shipping_method)
+    public function setShippingMethod($shippingMethod)
     {
-        $this->shipping_method = $shipping_method;
+        $this->shippingMethod = $shippingMethod;
         return $this;
     }
 
@@ -125,28 +125,28 @@ class ItemList extends PayUModel
      */
     public function getShippingMethod()
     {
-        return $this->shipping_method;
+        return $this->shippingMethod;
     }
 
     /**
      * Final contact number of payer associated with the transaction
-     * might be same as shipping_phone_number or different. The phone
+     * might be same as shippingPhoneNumber or different. The phone
      * number must be represented in its canonical international format,
      * as defined by the E.164 numbering plan
      *
-     * @param string $shipping_phone_number
+     * @param string $shippingPhoneNumber
      *
      * @return $this
      */
-    public function setShippingPhoneNumber($shipping_phone_number)
+    public function setShippingPhoneNumber($shippingPhoneNumber)
     {
-        $this->shipping_phone_number = $shipping_phone_number;
+        $this->shippingPhoneNumber = $shippingPhoneNumber;
         return $this;
     }
 
     /**
      * Final contact number of payer associated with the transaction
-     * might be same as shipping_phone_number or different. The phone
+     * might be same as shippingPhoneNumber or different. The phone
      * number must be represented in its canonical international format,
      * as defined by the E.164 numbering plan
      *
@@ -154,6 +154,6 @@ class ItemList extends PayUModel
      */
     public function getShippingPhoneNumber()
     {
-        return $this->shipping_phone_number;
+        return $this->shippingPhoneNumber;
     }
 }

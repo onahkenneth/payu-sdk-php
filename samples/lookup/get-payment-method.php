@@ -14,7 +14,7 @@ $payload = array(
     'Customfield' => array(
         array(
             'key' => 'MerchantUserId',
-            'value' => $payment->getCustomer()->getCustomerInfo()->getCustomerId(),
+            'value' => $payment->getCustomer()->getId(),
         ),
     ),
 );

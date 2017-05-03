@@ -20,38 +20,15 @@ use PayU\Model\PayUModel;
  *
  * @package PayPal\Api
  *
- * @property string credit_card_id
  * @property string last4
  * @property string type
  * @property string cvv2
- * @property int expire_month
- * @property int expire_year
+ * @property int expireMonth
+ * @property int expireYear
+ * @property string creditCardId
  */
 class CreditCardToken extends PayUModel
 {
-    /**
-     * ID of credit card previously stored using `storePaymentMethod` parameter set to `true`.
-     *
-     * @param string $credit_card_id
-     *
-     * @return $this
-     */
-    public function setCreditCardId($credit_card_id)
-    {
-        $this->credit_card_id = $credit_card_id;
-        return $this;
-    }
-
-    /**
-     * ID of credit card previously stored using `storePaymentMethod` parameter set to `true`.
-     *
-     * @return string
-     */
-    public function getCreditCardId()
-    {
-        return $this->credit_card_id;
-    }
-
     /**
      * Last four digits of the stored credit card number.
      *
@@ -126,13 +103,13 @@ class CreditCardToken extends PayUModel
     /**
      * Expiration month with no leading zero. Acceptable values are 1 through 12.
      *
-     * @param int $expire_month
+     * @param int $expireMonth
      *
      * @return $this
      */
-    public function setExpireMonth($expire_month)
+    public function setExpireMonth($expireMonth)
     {
-        $this->expire_month = $expire_month;
+        $this->expireMonth = $expireMonth;
         return $this;
     }
 
@@ -143,7 +120,7 @@ class CreditCardToken extends PayUModel
      */
     public function getExpireMonth()
     {
-        return $this->expire_month;
+        return $this->expireMonth;
     }
 
     /**
@@ -153,9 +130,9 @@ class CreditCardToken extends PayUModel
      *
      * @return $this
      */
-    public function setExpireYear($expire_year)
+    public function setExpireYear($expireYear)
     {
-        $this->expire_year = $expire_year;
+        $this->expireYear = $expireYear;
         return $this;
     }
 
@@ -166,6 +143,29 @@ class CreditCardToken extends PayUModel
      */
     public function getExpireYear()
     {
-        return $this->expire_year;
+        return $this->expireYear;
+    }
+
+    /**
+     * ID of credit card previously stored using `storePaymentMethod` parameter set to `true`.
+     *
+     * @param string $credit_card_id
+     *
+     * @return $this
+     */
+    public function setCreditCardId($creditCardId)
+    {
+        $this->creditCardId = $creditCardId;
+        return $this;
+    }
+
+    /**
+     * ID of credit card previously stored using `storePaymentMethod` parameter set to `true`.
+     *
+     * @return string
+     */
+    public function getCreditCardId()
+    {
+        return $this->creditCardId;
     }
 }

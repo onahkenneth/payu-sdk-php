@@ -17,7 +17,7 @@ $paymentId = $createdPayment->getId();
 // on the Payment class by passing a valid PayU reference ID
 // (See bootstrap.php for more on `ApiContext`)
 try {
-    $resource = Payment::get($paymentId, $apiContext[0]);
+    $resource = Payment::get($paymentId, $apiContext[6]);
 } catch (Exception $ex) {
     // NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY
     ResultPrinter::printError("Get Payment details", "Payment", null, null, $ex);

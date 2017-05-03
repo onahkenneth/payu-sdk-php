@@ -20,36 +20,36 @@ use PayU\Model\PayUModel;
  *
  * @package PayU\Api
  *
- * @property string payment_method
- * @property string ip_address
- * @property \PayU\Api\FundingInstrument funding_instrument
- * @property \PayU\Api\CustomerInfo customer_info
+ * @property string ipAddress
+ * @property string paymentMethod
+ * @property \PayU\Api\FundingInstrument fundingInstrument
+ * @property \PayU\Api\CustomerInfo customerInfo
  */
 class Customer extends PayUModel
 {
     /**
      * Payment method being used - Credit card, PayU Wallet payment, Eft.
-     * Valid Values: ["creditcard", "eft_pro", "ebucks", "discoverymiles", "smarteft"]
+     * Valid Values: ["CREDITCARD", "EFT_PRO", "EBUCKS", "DISCOVERYMILES", "SMARTEFT", "DEBIT_ORDER", "CREDITCARD_TOKEN", "REAL_TIME_RECURRING"]
      *
-     * @param string $payment_method
+     * @param string $paymentMethod
      *
      * @return $this
      */
-    public function setPaymentMethod($payment_method)
+    public function setPaymentMethod($paymentMethod)
     {
-        $this->payment_method = $payment_method;
+        $this->paymentMethod = $paymentMethod;
         return $this;
     }
 
     /**
      * Payment method being used - Credit card, PayU Wallet payment, Eft.
-     * Valid Values: ["creditcard", "eft_pro", "ebucks", "discoverymiles", "smarteft"]
+     * Valid Values: ["CREDITCARD", "EFT_PRO", "EBUCKS", "DISCOVERYMILES", "SMARTEFT", "DEBIT_ORDER", "CREDITCARD_TOKEN", "REAL_TIME_RECURRING"]
      *
      * @return string
      */
     public function getPaymentMethod()
     {
-        return $this->payment_method;
+        return $this->paymentMethod;
     }
 
     /**
@@ -57,9 +57,9 @@ class Customer extends PayUModel
      *
      * @return $this
      */
-    public function setIPAddress($ip_address)
+    public function setIPAddress($ipAddress)
     {
-        $this->ip_address = $ip_address;
+        $this->ipAddress = $ipAddress;
         return $this;
     }
 
@@ -70,7 +70,7 @@ class Customer extends PayUModel
      */
     public function getIPAddress()
     {
-        return $this->ip_address;
+        return $this->ipAddress;
     }
 
     /**
@@ -80,32 +80,32 @@ class Customer extends PayUModel
      */
     public function getFundingInstrument()
     {
-        return $this->funding_instrument;
+        return $this->fundingInstrument;
     }
 
     /**
      * Funding instrument to fund the payment.
      *
-     * @param \PayU\Api\FundingInstrument $funding_instrument
+     * @param \PayU\Api\FundingInstrument $fundingInstrument
      *
      * @return $this
      */
-    public function setFundingInstrument($funding_instrument)
+    public function setFundingInstrument($fundingInstrument)
     {
-        $this->funding_instrument = $funding_instrument;
+        $this->fundingInstrument = $fundingInstrument;
         return $this;
     }
 
     /**
      * Information related to the Customer.
      *
-     * @param \PayU\Api\CustomerInfo $customer_info
+     * @param \PayU\Api\CustomerInfo $customerInfo
      *
      * @return $this
      */
-    public function setCustomerInfo($customer_info)
+    public function setCustomerInfo($customerInfo)
     {
-        $this->customer_info = $customer_info;
+        $this->customerInfo = $customerInfo;
         return $this;
     }
 
@@ -116,6 +116,16 @@ class Customer extends PayUModel
      */
     public function getCustomerInfo()
     {
-        return $this->customer_info;
+        return $this->customerInfo;
+    }
+
+    /**
+     * Alias of CustomerInfo <code>getId()</code> method
+     *
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->customerInfo->customerId;
     }
 }

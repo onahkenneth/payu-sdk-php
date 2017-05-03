@@ -30,7 +30,7 @@ class DetailsTest extends \PHPUnit_Framework_TestCase
      */
     public static function getJson()
     {
-        return '{"subtotal":"12.34","shipping":"12.34","tax":"12.34","handling_fee":"12.34","shipping_discount":"12.34","insurance":"12.34","gift_wrap":"12.34","fee":"12.34"}';
+        return '{"subtotal":"12.34","shipping":"12.34","tax":"12.34","handlingFee":"12.34","shippingDiscount":"12.34","giftWrap":"12.34","fee":"12.34"}';
     }
 
     /**

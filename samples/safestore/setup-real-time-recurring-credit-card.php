@@ -98,7 +98,7 @@ $payment->setIntent(Transaction::TYPE_RESERVE)
     ->setRedirectUrls($redirectUrls);
 
 // Setting integration to `redirect` will alter the way the API behaves.
-$apiContext[0]->setAccountId('acct1')
+$apiContext[6]->setAccountId('acct7')
     ->setIntegration(ApiContext::ENTERPRISE);
 
 // For Sample Purposes Only.
@@ -109,7 +109,7 @@ $request = clone $payment;
 // with a valid ApiContext (See bootstrap.php for more on `ApiContext`)
 // The response object retrieved by calling `getReturn` on the payment object contains the state.
 try {
-    $rtr = $payment->create($apiContext[0]);
+    $rtr = $payment->create($apiContext[6]);
 } catch (Exception $ex) {
     // NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY
     ResultPrinter::printError("Setup Real-Time Recurring", "Payment", null, $request, $ex);

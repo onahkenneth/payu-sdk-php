@@ -10,7 +10,6 @@ namespace PayU\Test\Api;
 
 use PayU\Api\Address;
 
-
 class AddressTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -28,7 +27,7 @@ class AddressTest extends \PHPUnit_Framework_TestCase
      */
     public static function getJson()
     {
-        return '{"line1":"TestSample","line2":"TestSample","city":"TestSample","country_code":"TestSample","postal_code":"TestSample","state":"TestSample","phone":"TestSample","normalization_status":"TestSample","status":"TestSample","type":"TestSample"}';
+        return '{"line1":"TestSample","line2":"TestSample","city":"TestSample","countryCode":"TestSample","postalCode":"TestSample","state":"TestSample","phone":' . PhoneTest::getJson() . '}';
     }
 
     /**
@@ -62,6 +61,6 @@ class AddressTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($obj->getCountryCode(), "TestSample");
         $this->assertEquals($obj->getPostalCode(), "TestSample");
         $this->assertEquals($obj->getState(), "TestSample");
-        $this->assertEquals($obj->getPhone(), "TestSample");
+        $this->assertEquals($obj->getPhone(), PhoneTest::getObject());
     }
 }

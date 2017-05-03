@@ -451,8 +451,8 @@ class ResourceModel extends PayUModel implements Resource
     public function refund($apiContext = null, $soapCall = null)
     {
         $methodName = 'doTransaction';
-        ArgumentValidator::validate($this->getReturn()->getPayUReference(), "PayUReference");
-        ArgumentValidator::validate($this->getReturn()->getMerchantReference(), 'MerchantReference');
+        ArgumentValidator::validate($this->return->payUReference, "payUReference");
+        ArgumentValidator::validate($this->return->merchantReference, 'merchantReference');
         $payLoad = $this->request->parseReserveResource($this);
 
         $json = self::executeCall(
@@ -480,8 +480,8 @@ class ResourceModel extends PayUModel implements Resource
     public function capture($apiContext = null, $soapCall = null)
     {
         $methodName = 'doTransaction';
-        ArgumentValidator::validate($this->getPayUReference(), "PayUReference");
-        ArgumentValidator::validate($this->getMerchantReference(), "MerchantReference");
+        ArgumentValidator::validate($this->payu_reference, "payUReference");
+        ArgumentValidator::validate($this->merchant_reference, "merchantReference");
         $payLoad = $this->request->parseReserveResource($this);
 
         $json = self::executeCall(
@@ -508,8 +508,8 @@ class ResourceModel extends PayUModel implements Resource
     public function void($apiContext = null, $soapCall = null)
     {
         $methodName = 'doTransaction';
-        ArgumentValidator::validate($this->getReturn()->getPayUReference(), "PayUReference");
-        ArgumentValidator::validate($this->getReturn()->getMerchantReference(), "MerchantReference");
+        ArgumentValidator::validate($this->getReturn()->getPayUReference(), "payUReference");
+        ArgumentValidator::validate($this->getReturn()->getMerchantReference(), "merchantReference");
         $payLoad = $this->request->parseReserveResource($this);
         $json = self::executeCall(
             $methodName,

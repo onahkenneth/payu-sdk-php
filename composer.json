@@ -1,5 +1,5 @@
 {
-  "name": "netcrat-devops/payu-sdk-php",
+  "name": "netcraft-devops/payu-sdk-php",
   "description": "PayU MEA Secure Payments PHP SDK",
   "type": "library",
   "homepage": "https://payu.co.za/",

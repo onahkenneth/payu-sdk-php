@@ -52,7 +52,7 @@ class ConfigManagerTest extends \PHPUnit_Framework_TestCase
                 'acct2.password' => 'WSAUFbw6'),
             $ret
         );
-        $this->assertTrue(sizeof($ret) == 6);
+        $this->assertTrue(sizeof($ret) == 5);
 
     }
 

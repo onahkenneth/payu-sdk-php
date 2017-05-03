@@ -101,7 +101,7 @@ $payment->setIntent(Transaction::TYPE_PAYMENT)
 
 // Because default integration is redirect, setting integration to
 // `enterprise` will alter the way the API behaves.
-$apiContext[0]->setAccountId('acct1')
+$apiContext[6]->setAccountId('acct7')
     ->setIntegration(ApiContext::ENTERPRISE);
 
 // For Sample Purposes Only.
@@ -112,7 +112,7 @@ $request = clone $payment;
 // with a valid ApiContext (See bootstrap.php for more on `ApiContext`)
 // The return object contains the state.
 try {
-    $payment->create($apiContext[0]);
+    $payment->create($apiContext[6]);
 } catch (Exception $ex) {
     // NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY
     ResultPrinter::printError('Create Payment Using Credit Card. If 500 Exception, try creating a new Credit Card', 'Payment', null, $request, $ex);

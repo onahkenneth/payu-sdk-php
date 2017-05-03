@@ -19,13 +19,12 @@ use PayU\Model\PayUModel;
  * A resource representing a Customer's funding instrument.
  * An instance of this schema is valid if and only if it is valid against exactly one of these supported properties
  *
- * @property boolean store_card
- * @property \PayU\Api\CreditCard credit_card
- * @property \PayU\Api\PaymentCard payment_card
+ * @property boolean storeCard
+ * @property \PayU\Api\CreditCard creditCard
+ * @property \PayU\Api\PaymentCard paymentCard
  * @property \PayU\Api\Ebucks ebucks
  * @property \PayU\Api\EFTBase eft
- * @property \PayU\Api\CreditCardToken credit_card_token
- * @property \PayU\Api\Billing billing
+ * @property \PayU\Api\CreditCardToken creditCardToken
  *
  * @package PayU\Api
  */
@@ -34,13 +33,13 @@ class FundingInstrument extends PayUModel
     /**
      * Credit Card instrument.
      *
-     * @param \PayU\Api\CreditCard $credit_card
+     * @param \PayU\Api\CreditCard $creditCard
      *
      * @return $this
      */
-    public function setCreditCard($credit_card)
+    public function setCreditCard($creditCard)
     {
-        $this->credit_card = $credit_card;
+        $this->creditCard = $creditCard;
         return $this;
     }
 
@@ -51,19 +50,19 @@ class FundingInstrument extends PayUModel
      */
     public function getCreditCard()
     {
-        return $this->credit_card;
+        return $this->creditCard;
     }
 
     /**
      * PayU vaulted credit Card instrument.
      *
-     * @param \PayU\Api\CreditCardToken $credit_card_token
+     * @param \PayU\Api\CreditCardToken $creditCardToken
      *
      * @return $this
      */
-    public function setCreditCardToken($credit_card_token)
+    public function setCreditCardToken($creditCardToken)
     {
-        $this->credit_card_token = $credit_card_token;
+        $this->creditCardToken = $creditCardToken;
         return $this;
     }
 
@@ -74,19 +73,19 @@ class FundingInstrument extends PayUModel
      */
     public function getCreditCardToken()
     {
-        return $this->credit_card_token;
+        return $this->creditCardToken;
     }
 
     /**
      * Payment Card information.
      *
-     * @param \PayU\Api\PaymentCard $payment_card
+     * @param \PayU\Api\PaymentCard $paymentCard
      *
      * @return $this
      */
-    public function setPaymentCard($payment_card)
+    public function setPaymentCard($paymentCard)
     {
-        $this->payment_card = $payment_card;
+        $this->paymentCard = $paymentCard;
         return $this;
     }
 
@@ -97,30 +96,7 @@ class FundingInstrument extends PayUModel
      */
     public function getPaymentCard()
     {
-        return $this->payment_card;
-    }
-
-    /**
-     * Billing instrument that references pre-approval information for the payment
-     *
-     * @param \PayU\Api\Billing $billing
-     *
-     * @return $this
-     */
-    public function setBilling($billing)
-    {
-        $this->billing = $billing;
-        return $this;
-    }
-
-    /**
-     * Billing instrument that references pre-approval information for the payment
-     *
-     * @return \PayU\Api\Billing
-     */
-    public function getBilling()
-    {
-        return $this->billing;
+        return $this->paymentCard;
     }
 
     /**
@@ -130,7 +106,7 @@ class FundingInstrument extends PayUModel
      */
     public function setStoreCard($store)
     {
-        $this->store_card = $store;
+        $this->storeCard = $store;
 
         return $this;
     }
@@ -142,11 +118,13 @@ class FundingInstrument extends PayUModel
      */
     public function getStoreCard()
     {
-        return $this->store_card;
+        return $this->storeCard;
     }
 
     /**
      * eBucks payment details.
+     *
+     * @param \PayU\Api\Ebucks $ebucks
      *
      * @return $this
      */
@@ -169,6 +147,8 @@ class FundingInstrument extends PayUModel
 
     /**
      * EFT funding instrument details.
+     *
+     * @param \PayU\Api\EFTBase $eft
      *
      * @return $this
      */

@@ -21,9 +21,9 @@ use PayU\Validation\UrlValidator;
  *
  * @package PayU\Api
  *
- * @property string return_url
- * @property string cancel_url
- * @property string notify_url
+ * @property string returnUrl
+ * @property string cancelUrl
+ * @property string notifyUrl
  */
 class RedirectUrls extends PayUModel
 {
@@ -31,68 +31,68 @@ class RedirectUrls extends PayUModel
      * Url where the payer would be redirected to after approving the payment
      * Required for Redirect Payment Page
      *
-     * @param string $return_url
+     * @param string $returnUrl
      *
      * @throws \InvalidArgumentException
      * @return $this
      */
-    public function setReturnUrl($return_url)
+    public function setReturnUrl($returnUrl)
     {
-        UrlValidator::validate($return_url, "ReturnUrl");
-        $this->return_url = $return_url;
+        UrlValidator::validate($returnUrl, "ReturnUrl");
+        $this->returnUrl = $returnUrl;
         return $this;
     }
 
     /**
-     * Url where the payer would be redirected to after approving the payment
+     * Url where the customer would be redirected to after approving the payment
      * Required for Redirect Payment Page
      *
      * @return string
      */
     public function getReturnUrl()
     {
-        return $this->return_url;
+        return $this->returnUrl;
     }
 
     /**
-     * Url where the payer would be redirected to after canceling the payment.
+     * Url where the customer would be redirected to after canceling the payment.
      * Required for Redirect Payment Page
      *
-     * @param string $cancel_url
+     * @param string $cancelUrl
      *
      * @throws \InvalidArgumentException
      * @return $this
      */
-    public function setCancelUrl($cancel_url)
+    public function setCancelUrl($cancelUrl)
     {
-        UrlValidator::validate($cancel_url, "CancelUrl");
-        $this->cancel_url = $cancel_url;
+        UrlValidator::validate($cancelUrl, "CancelUrl");
+        $this->cancelUrl = $cancelUrl;
         return $this;
     }
 
     /**
-     * Url where the payer would be redirected to after canceling the payment
+     * Url where the customer would be redirected to after canceling the payment
      * Required for Redirect Payment Page
      *
      * @return string
      */
     public function getCancelUrl()
     {
-        return $this->cancel_url;
+        return $this->returnUrl;
     }
 
     /**
      * Url where the Instant Payment Notification requests are sent.
      *
-     * @param string $notify_url
+     * @param string $notifyUrl
      *
      * @throws \InvalidArgumentException
      * @return $this
      */
-    public function setNotifyUrl($notify_url)
+    public function setNotifyUrl($notifyUrl)
     {
-        UrlValidator::validate($notify_url, "NotifyUrl");
-        $this->notify_url = $notify_url;
+        UrlValidator::validate($notifyUrl, "NotifyUrl");
+        $this->notifyUrl = $notifyUrl;
         return $this;
     }
 
@@ -103,6 +103,6 @@ class RedirectUrls extends PayUModel
      */
     public function getNotifyUrl()
     {
-        return $this->notify_url;
+        return $this->notifyUrl;
     }
 }

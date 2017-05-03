@@ -21,14 +21,14 @@ use PayU\Model\PayUModel;
  * @package PayU\Api
  *
  * @property string id
- * @property string first_name
- * @property string last_name
+ * @property string firstName
+ * @property string lastName
  * @property string email
- * @property string business_name
+ * @property string businessName
  * @property string phone
  * @property string method
- * @property \PayU\Api\ShippingAddress shipping_address
- * @property \PayU\Api\ShippingCost shipping_cost
+ * @property \PayU\Api\ShippingAddress shippingAddress
+ * @property \PayU\Api\ShippingCost shippingCost
  */
 class ShippingInfo extends PayUModel
 {
@@ -58,13 +58,13 @@ class ShippingInfo extends PayUModel
     /**
      * The invoice recipient first name. Maximum length is 30 characters.
      *
-     * @param string $first_name
+     * @param string $firstName
      *
      * @return $this
      */
-    public function setFirstName($first_name)
+    public function setFirstName($firstName)
     {
-        $this->first_name = $first_name;
+        $this->firstName = $firstName;
         return $this;
     }
 
@@ -75,19 +75,19 @@ class ShippingInfo extends PayUModel
      */
     public function getFirstName()
     {
-        return $this->first_name;
+        return $this->firstName;
     }
 
     /**
      * The invoice recipient last name. Maximum length is 30 characters.
      *
-     * @param string $last_name
+     * @param string $lastName
      *
      * @return $this
      */
-    public function setLastName($last_name)
+    public function setLastName($lastName)
     {
-        $this->last_name = $last_name;
+        $this->lastName = $lastName;
         return $this;
     }
 
@@ -98,7 +98,7 @@ class ShippingInfo extends PayUModel
      */
     public function getLastName()
     {
-        return $this->last_name;
+        return $this->lastName;
     }
 
     /**
@@ -127,13 +127,13 @@ class ShippingInfo extends PayUModel
     /**
      * The invoice recipient company business name. Maximum length is 100 characters.
      *
-     * @param string $business_name
+     * @param string $businessName
      *
      * @return $this
      */
-    public function setBusinessName($business_name)
+    public function setBusinessName($businessName)
     {
-        $this->business_name = $business_name;
+        $this->businessName = $businessName;
         return $this;
     }
 
@@ -144,7 +144,7 @@ class ShippingInfo extends PayUModel
      */
     public function getBusinessName()
     {
-        return $this->business_name;
+        return $this->businessName;
     }
 
     /**
@@ -199,13 +199,13 @@ class ShippingInfo extends PayUModel
     /**
      * Shipping address of the recipient.
      *
-     * @param \PayU\Api\ShippingAddress $shipping_address
+     * @param \PayU\Api\ShippingAddress $shippingAddress
      *
      * @return $this
      */
-    public function setShippingAddress($shipping_address)
+    public function setShippingAddress($shippingAddress)
     {
-        $this->shipping_address = $shipping_address;
+        $this->shippingAddress = $shippingAddress;
         return $this;
     }
 
@@ -216,19 +216,19 @@ class ShippingInfo extends PayUModel
      */
     public function getShippingAddress()
     {
-        return $this->shipping_address;
+        return $this->shippingAddress;
     }
 
     /**
      * Shipping cost associated with the shipping option chosen by the customer.
      *
-     * @param \PayU\Api\ShippingCost $shipping_cost
+     * @param \PayU\Api\ShippingCost $shippingCost
      *
      * @return $this
      */
-    public function setShippingCost($shipping_cost)
+    public function setShippingCost($shippingCost)
     {
-        $this->shipping_cost = $shipping_cost;
+        $this->shippingCost = $shippingCost;
         return $this;
     }
 
@@ -239,6 +239,6 @@ class ShippingInfo extends PayUModel
      */
     public function getShippingCost()
     {
-        return $this->shipping_cost;
+        return $this->shippingCost;
     }
 }

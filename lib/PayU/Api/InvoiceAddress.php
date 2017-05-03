@@ -17,8 +17,6 @@ namespace PayU\Api;
  * Invoice Address object used as billing address in a payment or extended for Shipping Address.
  *
  * @package PayU\Api
- *
- * @property \PayU\Api\Phone phone
  */
 class InvoiceAddress extends Address
 {

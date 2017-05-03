@@ -31,7 +31,7 @@ use PayU\Model\PayUModel;
  * @property string firstName
  * @property string lastName
  * @property string billingCountry
- * @property \PayU\Api\Address billingAddress
+ * @property \PayU\Api\BillingAddress billingAddress
  * @property string status
  * @property string issueNumber
  * @property boolean showBudget
@@ -160,6 +160,52 @@ class PaymentCard extends PayUModel
     }
 
     /**
+     * The two-digit start month.
+     *
+     * @param string $startMonth
+     *
+     * @return $this
+     */
+    public function setStartMonth($startMonth)
+    {
+        $this->startMonth = $startMonth;
+        return $this;
+    }
+
+    /**
+     * The two-digit start month.
+     *
+     * @return string
+     */
+    public function getStartMonth()
+    {
+        return $this->startMonth;
+    }
+
+    /**
+     * The four-digit expiry year.
+     *
+     * @param string $startYear
+     *
+     * @return $this
+     */
+    public function setStartYear($startYear)
+    {
+        $this->startYear = $startYear;
+        return $this;
+    }
+
+    /**
+     * The four-digit expiry year.
+     *
+     * @return string
+     */
+    public function getStartYear()
+    {
+        return $this->startYear;
+    }
+
+    /**
      * The validation code for the card. Supported for payments but not for saving payment cards for future use.
      *
      * @param string $cvv2
@@ -264,7 +310,7 @@ class PaymentCard extends PayUModel
     /**
      * The billing address for the card.
      *
-     * @param \PayU\Api\Address $billingAddress
+     * @param \PayU\Api\BillingAddress $billingAddress
      *
      * @return $this
      */
@@ -277,11 +323,34 @@ class PaymentCard extends PayUModel
     /**
      * The billing address for the card.
      *
-     * @return \PayU\Api\Address
+     * @return \PayU\Api\BillingAddress
      */
     public function getBillingAddress()
     {
         return $this->billingAddress;
+    }
+
+    /**
+     * The issue number.
+     *
+     * @param string $issueNumber
+     *
+     * @return $this
+     */
+    public function setIssueNumber($issueNumber)
+    {
+        $this->issueNumber = $issueNumber;
+        return $this;
+    }
+
+    /**
+     * The issue number.
+     *
+     * @return string
+     */
+    public function getIssueNumber()
+    {
+        return $this->issueNumber;
     }
 
     /**

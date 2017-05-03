@@ -49,7 +49,7 @@ If you use Composer, these dependencies should be handled automatically. If you 
 Everything from SDK Wiki, to Sample Codes, to Releases. Here are few quick links to get you there faster.
 
 Please see  for up-to-date documentation.
-* [ Samples ](http://github.com/netcraft-devops/payu-sdk-php/samples/)
+* [ Samples ](https://github.com/netcraft-devops/payu-sdk-php/tree/master/samples)
 * [ PayU Developer Docs] (http://help.payu.co.za/display/developers/)
 
 ## Development

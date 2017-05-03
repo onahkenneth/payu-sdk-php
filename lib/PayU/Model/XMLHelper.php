@@ -11,6 +11,8 @@
 
 namespace PayU\Model;
 
+use PayU\Validation\JsonValidator;
+
 /**
  * Class XmlHelper
  *
@@ -18,7 +20,7 @@ namespace PayU\Model;
  *
  * @package PayU\Model
  */
-class XmlHelper
+class XMLHelper
 {
     /**
      * @param string $xml the IPN xm to parse
@@ -48,6 +50,10 @@ class XmlHelper
             }
         }
 
-        return $data;
+        $data = json_encode($data);
+        if(JsonValidator::validate($data))
+            return $data;
+
+        return false;
     }
 }

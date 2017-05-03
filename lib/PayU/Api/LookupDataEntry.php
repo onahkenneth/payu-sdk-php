@@ -50,7 +50,7 @@ class LookupDataEntry extends PayUModel
     /**
      * JSON string value
      *
-     * @param string $value
+     * @param \PayU\Api\Details $value
      * @return $this
      */
     public function setValue($value)

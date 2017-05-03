@@ -8,17 +8,17 @@
 
 namespace PayU\Test\Api;
 
-use PayU\Api\Address;
+use PayU\Api\ShippingAddress;
 
-class AddressTest extends \PHPUnit_Framework_TestCase
+class ShippingAddressTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Gets Object Instance with Json data filled in
-     * @return Address
+     * @return ShippingAddress
      */
     public static function getObject()
     {
-        return new Address(self::getJson());
+        return new ShippingAddress(self::getJson());
     }
 
     /**
@@ -27,16 +27,16 @@ class AddressTest extends \PHPUnit_Framework_TestCase
      */
     public static function getJson()
     {
-        return '{"line1":"TestSample","line2":"TestSample","city":"TestSample","countryCode":"TestSample","postalCode":"TestSample","state":"TestSample","phone":' . PhoneTest::getJson() . '}';
+        return '{"line1":"TestSample","line2":"TestSample","city":"TestSample","countryCode":"TestSample","postalCode":"TestSample","state":"TestSample","phone":' . PhoneTest::getJson() . ',"recipientName":"TestSample"}';
     }
 
     /**
      * Tests for Serialization and Deserialization Issues
-     * @return Address
+     * @return ShippingAddress
      */
     public function testSerializationDeserialization()
     {
-        $obj = new Address(self::getJson());
+        $obj = new ShippingAddress(self::getJson());
         $this->assertNotNull($obj);
         $this->assertNotNull($obj->getLine1());
         $this->assertNotNull($obj->getLine2());
@@ -45,13 +45,14 @@ class AddressTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($obj->getPostalCode());
         $this->assertNotNull($obj->getState());
         $this->assertNotNull($obj->getPhone());
+        $this->assertNotNull($obj->getRecipientName());
         $this->assertEquals(self::getJson(), $obj->toJson());
         return $obj;
     }
 
     /**
      * @depends testSerializationDeserialization
-     * @param Address $obj
+     * @param ShippingAddress $obj
      */
     public function testGetters($obj)
     {
@@ -62,5 +63,6 @@ class AddressTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($obj->getPostalCode(), "TestSample");
         $this->assertEquals($obj->getState(), "TestSample");
         $this->assertEquals($obj->getPhone(), PhoneTest::getObject());
+        $this->assertNotNull($obj->getRecipientName(), 'TestSample');
     }
 }

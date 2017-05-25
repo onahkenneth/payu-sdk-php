@@ -1,9 +1,9 @@
 # PayU MEA PHP bindings
 
 [![Build Status](https://travis-ci.org/netcraft-devops/payu-sdk-php.svg?branch=master)](https://travis-ci.org/netcraft-devops/payu-sdk-php)
-[![Latest Stable Version](https://poser.pugx.org/netcrat-devops/payu-sdk-php/v/stable)](https://packagist.org/packages/netcrat-devops/payu-sdk-php)
-[![Total Downloads](https://poser.pugx.org/netcrat-devops/payu-sdk-php/downloads)](https://packagist.org/packages/netcrat-devops/payu-sdk-php)
-[![License](https://poser.pugx.org/netcrat-devops/payu-sdk-php/license)](https://packagist.org/packages/netcrat-devops/payu-sdk-php)
+[![Latest Stable Version](https://poser.pugx.org/netcrat-devops/payu-mea-sdk-php/v/stable)](https://packagist.org/packages/netcraft-devops/payu-mea-sdk-php)
+[![Total Downloads](https://poser.pugx.org/netcraft-devops/payu-mea-sdk-php/downloads)](https://packagist.org/packages/netcraft-devops/payu-mea-sdk-php)
+[![License](https://poser.pugx.org/netcraft-devops/payu-mea-sdk-php/license)](https://packagist.org/packages/netcraft-devops/payu-mea-sdk-php)
 [![Coverage Status](https://coveralls.io/repos/github/netcraft-devops/payu-sdk-php/badge.svg?branch=master)](https://coveralls.io/github/netcraft-devops/payu-sdk-php?branch=master)
 
 __Welcome to PayU PHP SDK__. This repository contains PayU's PHP SDK and samples for both Enterprise and Redirect SOAP API.

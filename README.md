@@ -1,10 +1,4 @@
-# PayU MEA PHP bindings
-
-[![Build Status](https://travis-ci.org/netcraft-devops/payu-sdk-php.svg?branch=master)](https://travis-ci.org/netcraft-devops/payu-sdk-php)
-[![Latest Stable Version](https://poser.pugx.org/netcrat-devops/payu-mea-sdk-php/v/stable)](https://packagist.org/packages/netcraft-devops/payu-mea-sdk-php)
-[![Total Downloads](https://poser.pugx.org/netcraft-devops/payu-mea-sdk-php/downloads)](https://packagist.org/packages/netcraft-devops/payu-mea-sdk-php)
-[![License](https://poser.pugx.org/netcraft-devops/payu-mea-sdk-php/license)](https://packagist.org/packages/netcraft-devops/payu-mea-sdk-php)
-[![Coverage Status](https://coveralls.io/repos/github/netcraft-devops/payu-sdk-php/badge.svg?branch=master)](https://coveralls.io/github/netcraft-devops/payu-sdk-php?branch=master)
+# PayU MEA PHP SDK
 
 __Welcome to PayU PHP SDK__. This repository contains PayU's PHP SDK and samples for both Enterprise and Redirect SOAP API.
 
@@ -43,6 +37,10 @@ The bindings require the following extension in order to work properly:
 If you use Composer, these dependencies should be handled automatically. If you install manually, you'll want to make sure that these extensions are available.
 
 ## Documentation
+
+Please see the ``sample/doc`` directory for information on how to use this library
+and the ``samples`` directory for examples on using this library. You should
+be able to run all the examples by running ``php samples/index.php``.
 
 ## SDK Documentation
 

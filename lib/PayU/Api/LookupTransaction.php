@@ -20,7 +20,7 @@ use PayU\Transport\SoapCall;
  *
  * @package PayU\Api
  *
- * @property \PayU\Api\Response return
+ * @property Response return
  */
 class LookupTransaction extends ResourceModel
 {
@@ -51,7 +51,7 @@ class LookupTransaction extends ResourceModel
     }
 
     /**
-     *
+     * Lookup transction response
      *
      * @param array $return
      * @return $this
@@ -63,9 +63,9 @@ class LookupTransaction extends ResourceModel
     }
 
     /**
+     * Lookup transction response
      *
-     *
-     * @return \PayU\Api\Response
+     * @return Response
      */
     public function getReturn()
     {

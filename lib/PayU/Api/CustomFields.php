@@ -28,7 +28,7 @@ use PayU\Validation\JsonValidator;
 class CustomFields extends PayUModel
 {
     /**
-     * String key
+     * JSON String key
      *
      * @param string $key
      * @return $this
@@ -40,7 +40,7 @@ class CustomFields extends PayUModel
     }
 
     /**
-     * String key
+     * JSON String key
      *
      * @return string
      */

@@ -27,8 +27,8 @@ use PayU\Model\PayUModel;
  * @property string businessName
  * @property string phone
  * @property string method
- * @property \PayU\Api\ShippingAddress shippingAddress
- * @property \PayU\Api\ShippingCost shippingCost
+ * @property ShippingAddress shippingAddress
+ * @property ShippingCost shippingCost
  */
 class ShippingInfo extends PayUModel
 {
@@ -79,7 +79,7 @@ class ShippingInfo extends PayUModel
     }
 
     /**
-     * The invoice recipient last name. Maximum length is 30 characters.
+     * The recipient last name. Maximum length is 30 characters.
      *
      * @param string $lastName
      *
@@ -92,7 +92,7 @@ class ShippingInfo extends PayUModel
     }
 
     /**
-     * The invoice recipient last name. Maximum length is 30 characters.
+     * The recipient last name. Maximum length is 30 characters.
      *
      * @return string
      */
@@ -102,7 +102,7 @@ class ShippingInfo extends PayUModel
     }
 
     /**
-     * The invoice recipient email.
+     * The recipient email.
      *
      * @param string $email
      *
@@ -115,7 +115,7 @@ class ShippingInfo extends PayUModel
     }
 
     /**
-     * The invoice recipient email.
+     * The recipient email.
      *
      * @return string
      */
@@ -125,7 +125,7 @@ class ShippingInfo extends PayUModel
     }
 
     /**
-     * The invoice recipient company business name. Maximum length is 100 characters.
+     * The recipient company business name. Maximum length is 100 characters.
      *
      * @param string $businessName
      *
@@ -199,7 +199,7 @@ class ShippingInfo extends PayUModel
     /**
      * Shipping address of the recipient.
      *
-     * @param \PayU\Api\ShippingAddress $shippingAddress
+     * @param ShippingAddress $shippingAddress
      *
      * @return $this
      */
@@ -212,7 +212,7 @@ class ShippingInfo extends PayUModel
     /**
      * Shipping address of the recipient.
      *
-     * @return \PayU\Api\ShippingAddress
+     * @return ShippingAddress
      */
     public function getShippingAddress()
     {
@@ -222,7 +222,7 @@ class ShippingInfo extends PayUModel
     /**
      * Shipping cost associated with the shipping option chosen by the customer.
      *
-     * @param \PayU\Api\ShippingCost $shippingCost
+     * @param ShippingCost $shippingCost
      *
      * @return $this
      */
@@ -235,7 +235,7 @@ class ShippingInfo extends PayUModel
     /**
      * Shipping cost associated with the shipping option chosen by the customer.
      *
-     * @return \PayU\Api\ShippingCost
+     * @return ShippingCost
      */
     public function getShippingCost()
     {

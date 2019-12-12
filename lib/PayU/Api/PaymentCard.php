@@ -31,7 +31,7 @@ use PayU\Model\PayUModel;
  * @property string firstName
  * @property string lastName
  * @property string billingCountry
- * @property \PayU\Api\BillingAddress billingAddress
+ * @property BillingAddress billingAddress
  * @property string status
  * @property string issueNumber
  * @property boolean showBudget
@@ -42,6 +42,7 @@ class PaymentCard extends PayUModel
     const TYPE_VISA = 'VISA';
     const TYPE_MASTERCARD = 'MASTERCARD';
     const TYPE_MAESTRO = 'MAESTRO';
+    const TYPE_DISCOVERYMILES = 'DISCOVERYMILES';
 
     /**
      * The ID of a credit card to save for later use.
@@ -91,7 +92,7 @@ class PaymentCard extends PayUModel
 
     /**
      * The card type.
-     * Valid Values: ["VISA", "DISCOVERY", "MAESTRO",  "MASTERCARD"]
+     * Valid Values: ["VISA", "DISCOVERYMILES", "MAESTRO",  "MASTERCARD"]
      *
      * @param string $type
      *
@@ -310,7 +311,7 @@ class PaymentCard extends PayUModel
     /**
      * The billing address for the card.
      *
-     * @param \PayU\Api\BillingAddress $billingAddress
+     * @param BillingAddress $billingAddress
      *
      * @return $this
      */
@@ -323,7 +324,7 @@ class PaymentCard extends PayUModel
     /**
      * The billing address for the card.
      *
-     * @return \PayU\Api\BillingAddress
+     * @return BillingAddress
      */
     public function getBillingAddress()
     {

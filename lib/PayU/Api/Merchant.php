@@ -14,7 +14,7 @@ namespace PayU\Api;
 use PayU\Model\PayUModel;
 
 /**
- * Class Payee
+ * Class Merchant
  *
  * A resource representing a Merchant who receives the funds and fulfills the order.
  *
@@ -25,12 +25,12 @@ use PayU\Model\PayUModel;
  * @property string firstName
  * @property string lastName
  * @property string accountNumber
- * @property \PayU\Api\Phone phone
+ * @property Phone phone
  */
 class Merchant extends PayUModel
 {
     /**
-     * Email Address associated with the Payee's PayU Account.
+     * Email Address associated with the Merchant's PayU Account.
      *
      * @param string $email
      *
@@ -147,7 +147,7 @@ class Merchant extends PayUModel
     /**
      * Information related to the Payee.
      *
-     * @param \PayU\Api\Phone $phone
+     * @param Phone $phone
      *
      * @return $this
      */
@@ -160,7 +160,7 @@ class Merchant extends PayUModel
     /**
      * Information related to the Merchant.
      *
-     * @return \PayU\Api\Phone
+     * @return Phone
      */
     public function getPhone()
     {

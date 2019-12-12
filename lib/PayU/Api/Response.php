@@ -28,14 +28,14 @@ use PayU\Model\PayUModel;
  * @property boolean successful
  * @property string transactionType
  * @property string transactionState
- * @property \PayU\Api\Basket basket
- * @property \PayU\Api\Secure3D secure3D
- * @property \PayU\Api\CustomFields[] customFields
- * @property \PayU\Api\LookupData lookupData
- * @property \PayU\Api\PaymentMethod paymentMethodsUsed
- * @property \PayU\Api\RecurringDetails recurringDetails
- * @property \PayU\Api\EFTBase redirect
- * @property \PayU\Api\FmDetails fraud
+ * @property Basket basket
+ * @property Secure3D secure3D
+ * @property CustomFields[] customFields
+ * @property LookupData lookupData
+ * @property PaymentMethod paymentMethodsUsed
+ * @property RecurringDetails recurringDetails
+ * @property EFTBase redirect
+ * @property FmDetails fraud
  */
 class Response extends PayUModel
 {
@@ -60,7 +60,7 @@ class Response extends PayUModel
     }
 
     /**
-     * User friendly display message
+     * User friendly error display message
      *
      * @return string
      */
@@ -70,7 +70,7 @@ class Response extends PayUModel
     }
 
     /**
-     * User friendly display message
+     * User friendly error display message
      *
      * @param $displayMessage
      */
@@ -80,7 +80,7 @@ class Response extends PayUModel
     }
 
     /**
-     * PayU unique identifier of transaction
+     * PayU unique transaction identifier
      *
      * @return string
      */
@@ -90,7 +90,7 @@ class Response extends PayUModel
     }
 
     /**
-     * PayU unique identifier of transaction.
+     * PayU unique transaction identifier
      *
      * @param $payUReference
      */
@@ -100,7 +100,7 @@ class Response extends PayUModel
     }
 
     /**
-     * Merchant specified identifier of transaction. Maybe unique or otherwise.
+     * Merchant specified transaction identifier. Maybe unique or otherwise.
      *
      * @return string
      */
@@ -110,7 +110,7 @@ class Response extends PayUModel
     }
 
     /**
-     * Merchant specified identifier of transaction. Maybe unique or otherwise.
+     * Merchant specified transaction identifier. Maybe unique or otherwise.
      *
      * @param string $merchantReference
      * @return $this
@@ -122,7 +122,7 @@ class Response extends PayUModel
     }
 
     /**
-     * System result code
+     * Result code of transaction
      *
      * @return string
      */
@@ -132,7 +132,7 @@ class Response extends PayUModel
     }
 
     /**
-     * System result code
+     * Result code of transaction
      *
      * @param string $resultCode
      * @return $this
@@ -144,7 +144,7 @@ class Response extends PayUModel
     }
 
     /**
-     * System result message
+     * Result message of transaction
      *
      * @return string
      */
@@ -154,7 +154,7 @@ class Response extends PayUModel
     }
 
     /**
-     * System result message
+     * Result message of transaction
      *
      * @param string $resultMessage
      * @return $this
@@ -166,7 +166,7 @@ class Response extends PayUModel
     }
 
     /**
-     * Type payment transaction
+     * Type of transaction
      *
      * @return string
      */
@@ -176,7 +176,7 @@ class Response extends PayUModel
     }
 
     /**
-     * Type payment transaction
+     * Type of transaction
      *
      * @param string $transactionType
      * @return $this
@@ -212,7 +212,7 @@ class Response extends PayUModel
     /**
      * Cart summary
      *
-     * @return \PayU\Api\Basket
+     * @return Basket
      */
     public function getBasket()
     {
@@ -234,7 +234,7 @@ class Response extends PayUModel
     /**
      * Secure 3D
      *
-     * @return \PayU\Api\Secure3D
+     * @return Secure3D
      */
     public function getSecure3D()
     {
@@ -257,7 +257,7 @@ class Response extends PayUModel
     /**
      * Payment methods used by user to fund payment
      *
-     * @return \PayU\Api\PaymentMethod
+     * @return PaymentMethod
      */
     public function getPaymentMethodsUsed()
     {
@@ -280,7 +280,7 @@ class Response extends PayUModel
     /**
      * Debit order recurring payment details
      *
-     * @return \PayU\Api\RecurringDetails
+     * @return RecurringDetails
      */
     public function getRecurringDetails()
     {
@@ -300,7 +300,7 @@ class Response extends PayUModel
     /**
      * EFT funding instrument details.
      *
-     * @return \PayU\Api\EFTBase
+     * @return EFTBase
      */
     public function getRedirect()
     {
@@ -320,7 +320,7 @@ class Response extends PayUModel
     /**
      * Fraud management details.
      *
-     * @return \PayU\Api\FmDetails
+     * @return FmDetails
      */
     public function getFraud()
     {
@@ -340,7 +340,7 @@ class Response extends PayUModel
     /**
      * Append CustomFields to the list.
      *
-     * @param \PayU\Api\CustomFields $customFields
+     * @param CustomFields $customFields
      * @return $this
      */
     public function addCustomFields($customFields)
@@ -357,7 +357,7 @@ class Response extends PayUModel
     /**
      * Custom key-value pair fields.
      *
-     * @return \PayU\Api\CustomFields[]
+     * @return CustomFields[]
      */
     public function getCustomFields()
     {
@@ -377,7 +377,7 @@ class Response extends PayUModel
     /**
      * Remove CustomFields from the list.
      *
-     * @param \PayU\Api\CustomFields $customFields
+     * @param CustomFields $customFields
      * @return $this
      */
     public function removeCustomFields($customFields)
@@ -390,7 +390,7 @@ class Response extends PayUModel
     /**
      * Key-value pair fields returned from a transaction lookup.
      *
-     * @return \PayU\Api\LookupData
+     * @return LookupData
      */
     public function getLookupData()
     {
@@ -400,11 +400,10 @@ class Response extends PayUModel
     /**
      * Key-value pair fields returned from a transaction lookup.
      *
-     * @param \PayU\Api\LookupData
+     * @param LookupData
      */
     public function setLookupData($lookupData)
     {
         $this->lookupData = $lookupData;
     }
-
 }

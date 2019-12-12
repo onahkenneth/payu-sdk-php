@@ -24,8 +24,8 @@ use PayU\Validation\NumericValidator;
  *
  * @property string id
  * @property string name
- * @property \PayU\Api\Number percent
- * @property \PayU\Api\Currency amount
+ * @property float percent
+ * @property Currency amount
  */
 class Tax extends PayUModel
 {
@@ -103,7 +103,7 @@ class Tax extends PayUModel
     /**
      * The tax as a monetary amount.
      *
-     * @param \PayU\Api\Currency $amount
+     * @param Currency $amount
      *
      * @return $this
      */
@@ -116,7 +116,7 @@ class Tax extends PayUModel
     /**
      * The tax as a monetary amount.
      *
-     * @return \PayU\Api\Currency
+     * @return Currency
      */
     public function getAmount()
     {

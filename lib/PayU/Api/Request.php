@@ -60,7 +60,32 @@ class Request extends PayUModel
 
         $this->overrideDefaultParams($resource);
 
-        //var_dump($this->payload);exit;
+        return $this->payload;
+    }
+
+    /**
+     * Parse a Redirect resource into a request payload
+     *
+     * @param ResourceModel $resource the payment resource
+     *
+     * @return array $payload transaction payload for Redirect API request
+     */
+    public function parseForRedirectAPI(ResourceModel $resource)
+    {
+        $this->initDefaultParams($resource);
+
+        $this->parseRedirectUrls($resource);
+
+        $this->parseCustomerInformation($resource);
+
+        $this->parseFraudManagementParams($resource);
+
+        $this->parseTransactionRecord($resource);
+
+        $this->overrideDefaultParams($resource);
+
+        $this->parseRealTimeRecurringRedirect($resource);
+
         return $this->payload;
     }
 
@@ -266,10 +291,12 @@ class Request extends PayUModel
                 if (is_array($itemList->getItems())) {
                     foreach ($itemList->getItems() as $item) {
                         $price = $item->getPrice();
+                        $amount = $item->getAmount();
                         $price = Formatter::formatToInteger($price);
+                        $amount = Formatter::formatToInteger($amount);
 
-                        $lineItemArray = array(
-                            'amount' => $price,
+                        $lineItemArray[] = array(
+                            'amount' => $amount,
                             'costAmount' => $price,
                             'description' => $item->getDescription(),
                             'sku' => $item->getSku(),
@@ -491,33 +518,6 @@ class Request extends PayUModel
         }
 
         $this->payload = $payload;
-    }
-
-    /**
-     * Parse a Redirect resource into a request payload
-     *
-     * @param ResourceModel $resource the payment resource
-     *
-     * @return array $payload transaction payload for Redirect API request
-     */
-    public function parseForRedirectAPI(ResourceModel $resource)
-    {
-        $this->initDefaultParams($resource);
-
-        $this->parseRedirectUrls($resource);
-
-        $this->parseCustomerInformation($resource);
-
-        $this->parseFraudManagementParams($resource);
-
-        $this->parseTransactionRecord($resource);
-
-        $this->overrideDefaultParams($resource);
-
-        $this->parseRealTimeRecurringRedirect($resource);
-
-        //var_dump($this->payload);exit;
-        return $this->payload;
     }
 
     private function parseRealTimeRecurringRedirect(ResourceModel $resourceModel)

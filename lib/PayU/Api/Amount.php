@@ -1,6 +1,6 @@
 <?php
 /**
- * PayU EMEA PHP SDK
+ * PayU MEA PHP SDK
  *
  * @copyright  Copyright (c) 2016 PayU
  * @license    http://opensource.org/licenses/LGPL-3.0  Open Software License (LGPL 3.0)
@@ -24,7 +24,7 @@ use PayU\Validation\NumericValidator;
  *
  * @property string currency
  * @property string total
- * @property \PayU\Api\Details details
+ * @property Details details
  */
 class Amount extends PayUModel
 {
@@ -59,7 +59,7 @@ class Amount extends PayUModel
     }
 
     /**
-     * 3-letter [currency code]
+     * 3-letter [currency code]. PayU supports ZAR, NGN currencies only.
      *
      * @return string
      */
@@ -69,8 +69,8 @@ class Amount extends PayUModel
     }
 
     /**
-     * Total amount charged from the payer to the payee. In case of a refund,
-     * this is the refunded amount to the original payer from the payee.
+     * Total amount charged from the customer to the merchant. In case of a refund,
+     * this is the refunded amount to the original customer from the merchant.
      * 10 characters max with support for integers.
      *
      * @return string
@@ -83,7 +83,7 @@ class Amount extends PayUModel
     /**
      * Additional details of the payment amount.
      *
-     * @param \PayU\Api\Details $details
+     * @param Details $details
      *
      * @return $this
      */
@@ -96,7 +96,7 @@ class Amount extends PayUModel
     /**
      * Additional details of the payment amount.
      *
-     * @return \PayU\Api\Details
+     * @return Details
      */
     public function getDetails()
     {

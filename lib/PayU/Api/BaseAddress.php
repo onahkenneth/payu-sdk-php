@@ -27,7 +27,6 @@ use PayU\Model\PayUModel;
  * @property string countryCode
  * @property string postalCode
  * @property string state
- * @property string \PayU\Api\Phone phone
  */
 class BaseAddress extends PayUModel
 {
@@ -167,28 +166,5 @@ class BaseAddress extends PayUModel
     public function getState()
     {
         return $this->state;
-    }
-
-    /**
-     * Phone number in E.123 format.
-     *
-     * @param \PayU\Api\Phone $phone
-     *
-     * @return $this
-     */
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
-        return $this;
-    }
-
-    /**
-     * Phone number in E.123 format.
-     *
-     * @return \PayU\Api\Phone
-     */
-    public function getPhone()
-    {
-        return $this->phone;
     }
 }

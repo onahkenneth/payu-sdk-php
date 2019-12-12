@@ -27,6 +27,7 @@ use PayU\Validation\NumericValidator;
  * @property string description
  * @property string quantity
  * @property string price
+ * @property string amount
  * @property string currency
  * @property string tax
  */
@@ -140,6 +141,21 @@ class Item extends PayUModel
     }
 
     /**
+     * Item amount. 10 characters max.
+     *
+     * @param string|double $amount
+     *
+     * @return $this
+     */
+    public function setAmount($amount)
+    {
+        NumericValidator::validate($amount, "Amount");
+        $amount = Formatter::formatToPrice($amount, $this->getCurrency());
+        $this->amount = $amount;
+        return $this;
+    }
+
+    /**
      * 3-letter [currency code]
      *
      * @return string
@@ -157,6 +173,16 @@ class Item extends PayUModel
     public function getPrice()
     {
         return $this->price;
+    }
+
+    /**
+     * Item amount. 10 characters max.
+     *
+     * @return string
+     */
+    public function getAmount()
+    {
+        return $this->amount;
     }
 
     /**

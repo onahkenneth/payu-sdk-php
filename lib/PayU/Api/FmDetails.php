@@ -29,30 +29,6 @@ use PayU\Model\PayUModel;
 class FmDetails extends PayUModel
 {
     /**
-     * Type of filter.
-     * Valid Values: ["APPROVE", "DENY", "CHALLENGE"]
-     *
-     * @param string $filterType
-     *
-     * @return $this
-     */
-    public function setFilterType($filterType)
-    {
-        $this->filterType = $filterType;
-        return $this;
-    }
-
-    /**
-     * Type of filter.
-     *
-     * @return string
-     */
-    public function getFilterType()
-    {
-        return $this->filterType;
-    }
-
-    /**
      * Check Fraud Override filter.
      *
      * @param string $checkFraudOverride

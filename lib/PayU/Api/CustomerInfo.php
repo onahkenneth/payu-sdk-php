@@ -28,7 +28,7 @@ use PayU\Model\PayUModel;
  * @property string phone
  * @property string countryCode
  * @property string countryOfResidence
- * @property \PayU\Api\Address billingAddress
+ * @property Address billingAddress
  */
 class CustomerInfo extends PayUModel
 {
@@ -172,7 +172,7 @@ class CustomerInfo extends PayUModel
     }
 
     /**
-     * Registered country code of the customer.
+     * Registered phone country code of the customer.
      * @see https://countrycode.org
      *
      * @param string $countryCode
@@ -186,7 +186,7 @@ class CustomerInfo extends PayUModel
     }
 
     /**
-     * Registered country code of the customer.
+     * Registered phone country code of the customer.
      * @see https://countrycode.org
      *
      * @return string
@@ -224,7 +224,7 @@ class CustomerInfo extends PayUModel
     /**
      * Billing address of the Customer.
      *
-     * @param \PayU\Api\Address $billingAddress
+     * @param Address $billingAddress
      *
      * @return $this
      */
@@ -237,7 +237,7 @@ class CustomerInfo extends PayUModel
     /**
      * Billing address of the Customer.
      *
-     * @return \PayU\Api\Address
+     * @return Address
      */
     public function getBillingAddress()
     {

@@ -20,8 +20,8 @@ use PayU\Model\PayUModel;
  *
  * @package PayU\Api
  *
- * @property \PayU\Api\Item[] items
- * @property \PayU\Api\ShippingAddress shippingAddress
+ * @property Item[] items
+ * @property ShippingAddress shippingAddress
  * @property string shippingMethod
  * @property string shippingPhoneNumber
  */
@@ -30,7 +30,7 @@ class ItemList extends PayUModel
     /**
      * Append Items to the list.
      *
-     * @param \PayU\Api\Item $item
+     * @param Item $item
      *
      * @return $this
      */
@@ -48,7 +48,7 @@ class ItemList extends PayUModel
     /**
      * List of items.
      *
-     * @return \PayU\Api\Item[]
+     * @return Item[]
      */
     public function getItems()
     {
@@ -58,7 +58,7 @@ class ItemList extends PayUModel
     /**
      * List of items.
      *
-     * @param \PayU\Api\Item[] $items
+     * @param Item[] $items
      *
      * @return $this
      */
@@ -71,7 +71,7 @@ class ItemList extends PayUModel
     /**
      * Remove Items from the list.
      *
-     * @param \PayU\Api\Item $item
+     * @param Item $item
      *
      * @return $this
      */
@@ -85,7 +85,7 @@ class ItemList extends PayUModel
     /**
      * Shipping address.
      *
-     * @param \PayU\Api\ShippingAddress $shippingAddress
+     * @param ShippingAddress $shippingAddress
      *
      * @return $this
      */
@@ -98,7 +98,7 @@ class ItemList extends PayUModel
     /**
      * Shipping address.
      *
-     * @return \PayU\Api\ShippingAddress
+     * @return ShippingAddress
      */
     public function getShippingAddress()
     {
@@ -106,7 +106,7 @@ class ItemList extends PayUModel
     }
 
     /**
-     * Shipping method used for this payment like USPSParcel etc.
+     * Shipping method used for this payment like Courier Guy etc.
      *
      * @param string $shipping_method
      *
@@ -119,7 +119,7 @@ class ItemList extends PayUModel
     }
 
     /**
-     * Shipping method used for this payment like USPSParcel etc.
+     * Shipping method used for this payment like Courier Guy etc.
      *
      * @return string
      */
@@ -129,10 +129,9 @@ class ItemList extends PayUModel
     }
 
     /**
-     * Final contact number of payer associated with the transaction
-     * might be same as shippingPhoneNumber or different. The phone
-     * number must be represented in its canonical international format,
-     * as defined by the E.164 numbering plan
+     * Final contact number of customer associated with the transaction.
+     * The phone number must be represented in its canonical international format, as 
+     * defined by the E.164 numbering plan
      *
      * @param string $shippingPhoneNumber
      *
@@ -145,10 +144,9 @@ class ItemList extends PayUModel
     }
 
     /**
-     * Final contact number of payer associated with the transaction
-     * might be same as shippingPhoneNumber or different. The phone
-     * number must be represented in its canonical international format,
-     * as defined by the E.164 numbering plan
+     * Final contact number of customer associated with the transaction.
+     * The phone number must be represented in its canonical international format, as 
+     * defined by the E.164 numbering plan
      *
      * @return string
      */

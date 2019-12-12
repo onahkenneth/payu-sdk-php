@@ -263,7 +263,7 @@ class Ebucks extends ResourceModel
     }
 
     /**
-     * eBucks account number
+     * eBucks destination account number
      *
      * @param string $ebucksDestination
      * @return $this
@@ -275,7 +275,7 @@ class Ebucks extends ResourceModel
     }
 
     /**
-     * eBucks account number.
+     * eBucks destination account number.
      *
      * @return string
      */

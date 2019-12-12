@@ -11,6 +11,7 @@
 
 namespace PayU\Api;
 
+use InvalidArgumentException;
 use PayU\Model\PayUModel;
 use PayU\Validation\UrlValidator;
 
@@ -28,12 +29,12 @@ use PayU\Validation\UrlValidator;
 class RedirectUrls extends PayUModel
 {
     /**
-     * Url where the payer would be redirected to after approving the payment
+     * Url where the customer would be redirected to after approving the payment
      * Required for Redirect Payment Page
      *
      * @param string $returnUrl
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      * @return $this
      */
     public function setReturnUrl($returnUrl)
@@ -60,7 +61,7 @@ class RedirectUrls extends PayUModel
      *
      * @param string $cancelUrl
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      * @return $this
      */
     public function setCancelUrl($cancelUrl)
@@ -86,7 +87,7 @@ class RedirectUrls extends PayUModel
      *
      * @param string $notifyUrl
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      * @return $this
      */
     public function setNotifyUrl($notifyUrl)

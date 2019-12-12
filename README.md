@@ -9,14 +9,14 @@ You can sign up for a PayU account at https://payu.co.za.
 
 ## Requirements
 
-PHP 5.4 and later.
+PHP 7.0+ and 7.1+.
 
-## Composer
+## Installation
 
-You can install the bindings via [Composer](http://getcomposer.org/). Run the following command:
+You can install the SDK via [Composer](http://getcomposer.org/). Run the following command:
 
 ```bash
-composer require netcraft-devops/payu-sdk-php
+composer require payu-mea/payu-sdk-php
 ```
 
 To use the bindings, use Composer's [autoload](https://getcomposer.org/doc/00-intro.md#autoloading):
@@ -40,19 +40,19 @@ If you use Composer, these dependencies should be handled automatically. If you 
 
 Please see the ``sample/doc`` directory for information on how to use this library
 and the ``samples`` directory for examples on using this library. You should
-be able to run all the examples by running ``php samples/index.php``.
+be able to run all the examples by running ``php -f samples/index.php``.
 
 ## SDK Documentation
 
 Everything from SDK Wiki, to Sample Codes, to Releases. Here are few quick links to get you there faster.
 
 Please see  for up-to-date documentation.
-* [ Samples ](https://github.com/netcraft-devops/payu-sdk-php/tree/master/samples)
-* [ PayU Developer Docs] (http://help.payu.co.za/display/developers/)
+* [ Samples ](samples)
+* [ PayU Developer Docs] (https://payusahelp.atlassian.net/wiki/spaces/developers/overview)
 
 ## Development
 
-Install dependencies:
+Clone this repository and install dependencies:
 
 ``` bash
 composer install

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>redirect/payment/standard-redirect-payment</title>
+</head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="groc-relative-root" content="../../">
+<meta name="groc-document-path" content="redirect/payment/create-redirect">
+<meta name="groc-project-path" content="redirect/payment/create-redirect.php">
+<link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css">
+<script type="text/javascript" src="../../assets/behaviour.js"></script>
+<body>
+<div id="meta">
+<div class="file-path">redirect/payment/standard-redirect-payment.php</div>
+</div>
+<div id="document">
+<div class="segment">
+<div class="code">
+<div class="wrapper"><span class="hljs-preprocessor">&lt;?php</span></div>
+</div>
+</div>
+<div class="segment">
+<div class="comments ">
+<div class="wrapper"><h1 id="createredirect">Setup Redirect Payment</h1>
+<p>This sample code demonstrate how you can setup a standard redirect payment, with
+fraud management disabled.</p>
+</div>
+</div>
+<div class="code">
+<div class="wrapper"><span class="hljs-keyword">require</span> <span class="hljs-keyword">__DIR__</span> .<span class="hljs-string">'/../../bootstrap.php'</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span
+    class="hljs-title">Api</span>\<span class="hljs-title">Amount</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span
+    class="hljs-title">Api</span>\<span class="hljs-title">Address</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span
+    class="hljs-title">Api</span>\<span class="hljs-title">Customer</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span
+    class="hljs-title">Api</span>\<span class="hljs-title">CustomerInfo</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span
+    class="hljs-title">Api</span>\<span class="hljs-title">Redirect</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span
+    class="hljs-title">Api</span>\<span class="hljs-title">RedirectUrls</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span
+    class="hljs-title">Api</span>\<span class="hljs-title">Transaction</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span
+    class="hljs-title">Soap</span>\<span class="hljs-title">ApiContext</span>;
+</div>
+</div>
+</div>
+
+<div class="segment">
+<div class="comments ">
+<div class="wrapper"><h3 id="address">Address</h3><p>A resource representing a customer billing address.</p></div></div>
+<div class="code">
+<div class="wrapper"><span class="hljs-variable">$addr</span> = <span class="hljs-keyword">new</span> Address();
+    <span class="hljs-variable">$addr</span>-&gt;setLine1(<span class="hljs-string">"21 Main Road"</span>)
+    -&gt;setLine2(<span class="hljs-string">"Cape Town"</span>)
+    -&gt;setCity(<span class="hljs-string">"Cape Town"</span>)
+    -&gt;setState(<span class="hljs-string">"WC"</span>)
+    -&gt;setPostalCode(<span class="hljs-string">"8000"</span>)
+    -&gt;setCountryCode(<span class="hljs-string">"ZA"</span>);
+</div>
+</div>
+</div>
+
+<div class="segment">
+<div class="comments ">
+<div class="wrapper"><h3 id="customer-info">CustomerInfo</h3>
+    <p>Lets you specify additional information about a customer.</p></div>
+</div>
+<div class="code">
+<div class="wrapper"><span class="hljs-variable">$ci</span> = <span class="hljs-keyword">new</span> CustomerInfo();
+<span class="hljs-variable">$ci</span>-&gt;setFirstName(<span class="hljs-string">"Test"</span>)
+    -&gt;setLastName(<span class="hljs-string">"Customer"</span>)
+    -&gt;setEmail(<span class="hljs-string">"test.customer@example.com"</span>)
+    -&gt;setCountryCode(<span class="hljs-string">"27"</span>)
+    -&gt;setCountryOfResidence(<span class="hljs-string">"ZA"</span>)
+    -&gt;setPhone(<span class="hljs-string">"0748523695"</span>)
+    -&gt;setCustomerId(<span class="hljs-string">"857"</span>)
+    -&gt;setBillingAddress(<span class="hljs-variable">$addr</span>);
+</div>
+</div>
+</div>
+
+<div class="segment">
+<div class="comments ">
+<div class="wrapper"><h3 id="payer">Customer</h3>
+<p>A resource representing a Customer that funds a payment
+For direct credit card payments, set payment method
+to &#39;credit_card&#39; and add an array of funding instruments.</p></div>
+</div>
+<div class="code">
+<div class="wrapper"><span class="hljs-variable">$customer</span> = <span class="hljs-keyword">new</span> Customer();
+<span class="hljs-variable">$customer</span>-&gt;setCustomerInfo(<span class="hljs-variable">$ci</span>)
+    -&gt;setIPAddress(<span class="hljs-string">"127.0.0.1"</span>);
+</div>
+</div>
+</div>
+
+
+<div class="segment">
+<div class="comments ">
+<div class="wrapper"><h3 id="amount">Amount</h3>
+<p>Lets you specify a payment amount. You can also specify additional details such as shipping, tax.</p></div>
+</div>
+<div class="code">
+<div class="wrapper"><span class="hljs-variable">$amount</span> = <span class="hljs-keyword">new</span> Amount();
+<span class="hljs-variable">$amount</span>-&gt;setCurrency(<span class="hljs-string">"ZAR"</span>)
+    -&gt;setTotal(<span class="hljs-number">200.00</span>);
+</div>
+</div>
+</div>
+<div class="segment">
+<div class="comments ">
+<div class="wrapper"><h3 id="transaction">Transaction</h3>
+<p>A transaction defines the contract of a payment - what is the payment for and who is fulfilling it. </p></div>
+</div>
+<div class="code">
+<div class="wrapper"><span class="hljs-variable">$transaction</span> = <span class="hljs-keyword">new</span> Transaction();
+<span class="hljs-variable">$transaction</span>-&gt;setAmount(<span class="hljs-variable">$amount</span>)
+    -&gt;setDescription(<span class="hljs-string">"Payment description"</span>)
+    -&gt;setInvoiceNumber(<span class="hljs-keyword">uniqid</span>(<span class="hljs-string">"payu"</span>));
+</div>
+</div>
+</div>
+
+<div class="segment">
+<div class="comments ">
+<div class="wrapper"><h3 id="redirect-url">Redirect Urls</h3><p>Lets you specify notify, cancel and return urls. The
+    `apiContext` can be stored as a session variable instead of appending to the url.
+    Note: You must use the same apiContext for the duration of the transaction otherwise API
+    will return an error.</p></div>
+</div>
+<div class="code">
+<div class="wrapper">
+<span class="hljs-variable">$baseUrl</span> = getBaseUrl();
+<span class="hljs-variable">$redirectUrls</span> = <span class="hljs-keyword">new</span> RedirectUrls();
+<span class="hljs-variable">$redirectUrls</span>-&gt;setNotifyUrl(<span class="hljs-string">"$baseUrl/process-return"</span>)
+    -&gt;setReturnUrl(<span class="hljs-string">"$baseUrl/process-return?apiContext=1"</span>)
+    -&gt;setCancelUrl(<span class="hljs-string">"$baseUrl/process-return?cancel=true&apiContext=1"</span>);
+</div>
+</div>
+</div>
+
+<div class="segment">
+<div class="comments ">
+<div class="wrapper"><h3 id="payment">Payment</h3>
+<p>A Payment Resource; create one with intent set to &#39;payment&#39;</p></div>
+</div>
+<div class="code">
+<div class="wrapper"><span class="hljs-variable">$redirect</span> = <span class="hljs-keyword">new</span> Redirect();
+<span class="hljs-variable">$redirect</span>-&gt;setIntent(<span class="hljs-keyword">Transaction::TYPE_PAYMENT</span>)
+    -&gt;setCustomer(<span class="hljs-variable">$customer</span>)
+    -&gt;setTransaction(<span class="hljs-variable">$transaction</span>)
+    -&gt;setRedirectUrls(<span class="hljs-variable">$redirectUrls</span>);
+</div>
+</div>
+</div>
+
+<div class="segment">
+<div class="comments ">
+<div class="wrapper"><p>Redirect API integration</p></div>
+</div>
+<div class="code">
+<div class="wrapper"><span class="hljs-variable">$apiContext[<span class="hljs-number">1</span>]</span>-&gt;setAccountId(<span class="hljs-string">"acct2"</span>)
+    -&gt;setIntegration(<span class="hljs-constant">ApiContext::REDIRECT</span>);
+</div>
+</div>
+</div>
+
+<div class="segment">
+<div class="comments ">
+<div class="wrapper"><p>For Sample Purposes Only.</p></div>
+</div>
+<div class="code">
+<div class="wrapper"><span class="hljs-variable">$request</span> = <span class="hljs-keyword">clone</span><span class="hljs-variable"> $redirect</span>;
+</div>
+</div>
+</div>
+<div class="segment">
+<div class="comments ">
+<div class="wrapper"><h3 id="create-payment">Setup Redirect</h3>
+<p>Setup a redirect by calling the redirect-&gt;init() method with a valid ApiContext (See bootstrap.php for more on <code>ApiContext</code>)
+    `getPayURedirectUrl` will return the url for redirection.</p></div>
+</div>
+<div class="code"><div class="wrapper"><span class="hljs-keyword">try</span> {
+    <span class="hljs-variable">$redirect</span>-&gt;setup(<span class="hljs-variable">$apiContext[<span class="hljs-number">1</span>]</span>);
+} <span class="hljs-keyword">catch</span> (<span class="hljs-keyword">Exception</span> <span
+    class="hljs-variable">$ex</span>) {
+</div>
+</div>
+</div>
+<div class="segment">
+<div class="comments ">
+<div class="wrapper"><p>NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY</p></div>
+</div>
+<div class="code">
+    <div class="wrapper">
+    ResultPrinter::printError(<span class="hljs-string">'Setup Redirect Payment. If 500 Exception, check response for details.'</span>, <span class="hljs-string">'Redirect'</span>, <span class="hljs-keyword">null</span>, <span class="hljs-variable">$request</span>, <span class="hljs-variable">$ex</span>);
+    <span class="hljs-keyword">exit</span>(<span class="hljs-number">1</span>);
+}
+</div>
+</div>
+</div>
+<div class="segment">
+<div class="comments ">
+<div class="wrapper"><p>NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY</p></div>
+</div>
+<div class="code">
+<div class="wrapper">
+<span class="hljs-variable">$rppUrl</span> = <span class="hljs-variable">$redirect</span>-&gt;getPayURedirectUrl();
+
+ResultPrinter::printResult(<span class="hljs-string">'Setup Redirect Payment'</span>, <span class="hljs-string">'Redirect'</span>, <span class="hljs-string">"&lt;a href='$rppUrl'&gt;$rppUrl&lt;/a&gt;"</span>, <span class="hljs-variable">$request</span>, <span class="hljs-variable">$redirect</span>);
+
+<span class="hljs-keyword">return</span> <span class="hljs-variable">$redirect</span>;
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

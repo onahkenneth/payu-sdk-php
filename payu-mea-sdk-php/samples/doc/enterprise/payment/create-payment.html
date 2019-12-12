@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>enterprise/payment/create-payment</title>
+</head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="groc-relative-root" content="../../">
+<meta name="groc-document-path" content="enterprise/payment/create-payment">
+<meta name="groc-project-path" content="enterprise/payment/create-payment.php">
+<link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css">
+<script type="text/javascript" src="../../assets/behaviour.js"></script>
+<body>
+<div id="meta">
+    <div class="file-path">enterprise/payments/create-payment.php</div>
+</div>
+<div id="document">
+    <div class="segment">
+        <div class="code">
+            <div class="wrapper"><span class="hljs-preprocessor">&lt;?php</span></div>
+        </div>
+    </div>
+<div class="segment">
+<div class="comments ">
+<div class="wrapper"><h1 id="create-payment-sample">Create Payment </h1>
+<p>This sample code demonstrate how you can process
+a direct credit card payment. Please note that direct
+credit card payment and related features using the
+Enterprise API is restricted to a PAYMENT, RESERVE, CREDIT, RESERVE_CANCEL and FINALIZE transaction types.</p>
+</div>
+</div>
+<div class="code">
+<div class="wrapper"><span class="hljs-keyword">require</span> <span class="hljs-keyword">__DIR__</span> . <span class="hljs-string">'/../../bootstrap.php'</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span class="hljs-title">Api</span>\<span class="hljs-title">Amount</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span class="hljs-title">Api</span>\<span class="hljs-title">Address</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span class="hljs-title">Api</span>\<span class="hljs-title">Item</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span class="hljs-title">Api</span>\<span class="hljs-title">ItemList</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span class="hljs-title">Api</span>\<span class="hljs-title">Customer</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span class="hljs-title">Api</span>\<span class="hljs-title">Payment</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span class="hljs-title">Api</span>\<span class="hljs-title">CreditCard</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span class="hljs-title">Api</span>\<span class="hljs-title">PaymentCard</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span class="hljs-title">Api</span>\<span class="hljs-title">PaymentMethod</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span class="hljs-title">Api</span>\<span class="hljs-title">Transaction</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span class="hljs-title">Soap</span>\<span class="hljs-title">ApiContext</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">PayU</span>\<span class="hljs-title">Api</span>\<span class="hljs-title">FundingInstrument</span>;
+</div>
+</div>
+</div>
+
+<div class="segment">
+<div class="comments ">
+<div class="wrapper"><h3 id="address">Address</h3><p>A resource representing a customer billing address.</p></div></div>
+<div class="code">
+<div class="wrapper"><span class="hljs-variable">$addr</span> = <span class="hljs-keyword">new</span> Address();
+    <span class="hljs-variable">$addr</span>-&gt;setLine1(<span class="hljs-string">"80 Main Road"</span>)
+    -&gt;setLine2(<span class="hljs-string">"Cape Town"</span>)
+    -&gt;setCity(<span class="hljs-string">"Cape Town"</span>)
+    -&gt;setState(<span class="hljs-string">"WC"</span>)
+    -&gt;setPostalCode(<span class="hljs-string">"8000"</span>)
+    -&gt;setCountryCode(<span class="hljs-string">"ZA"</span>);
+</div>
+</div>
+</div>
+<div class="segment">
+<div class="comments ">
+<div class="wrapper"><h3 id="creditcard">CreditCard</h3>
+<p>A resource representing a payment card that can be used to fund a payment.</p></div>
+</div>
+<div class="code">
+<div class="wrapper"><span class="hljs-variable">$card</span> = <span class="hljs-keyword">new</span> CreditCard();
+<span class="hljs-variable">$card</span>-&gt;setType(<span class="hljs-keyword">PaymentCard::TYPE_VISA</span>)
+    -&gt;setNumber(<span class="hljs-string">"4000015372250142"</span>)
+    -&gt;setExpireMonth(<span class="hljs-string">"11"</span>)
+    -&gt;setExpireYear(<span class="hljs-string">"2019"</span>)
+    -&gt;setCvv2(<span class="hljs-string">"123"</span>)
+    -&gt;setFirstName(<span class="hljs-string">"John"</span>)
+    -&gt;setLastName(<span class="hljs-string">"Snow"</span>)
+    -&gt;setBillingAddress(<span class="hljs-variable">$addr</span>)
+    -&gt;setBillingCountry(<span class="hljs-string">"ZA"</span>);
+</div>
+</div>
+</div>
+
+<div class="segment">
+<div class="comments ">
+<div class="wrapper"><h3 id="fundinginstrument">FundingInstrument</h3>
+<p>A resource representing a Customer&#39;s funding instrument.
+    For direct credit card payments, set the PaymentCard
+    field on this object.</p></div>
+</div>
+<div class="code">
+<div class="wrapper"><span class="hljs-variable">$fi</span> = <span class="hljs-keyword">new</span> FundingInstrument();
+<span class="hljs-variable">$fi</span>-&gt;setPaymentCard(<span class="hljs-variable">$card</span>);
+</div>
+</div>
+</div>
+
+<div class="segment">
+<div class="comments ">
+<div class="wrapper"><h3 id="customer-info">CustomerInfo</h3>
+<p>Lets you specify additional information about a customer.</p></div>
+</div>
+<div class="code">
+<div class="wrapper"><span class="hljs-variable">$ci</span> = <span class="hljs-keyword">new</span> CustomerInfo();
+<span class="hljs-variable">$ci</span>-&gt;setFirstName(<span class="hljs-string">"Test"</span>)
+    -&gt;setLastName(<span class="hljs-string">"Customer"</span>)
+    -&gt;setEmail(<span class="hljs-string">"test.customer@example.com"</span>)
+    -&gt;setCountryCode(<span class="hljs-string">"27"</span>)
+    -&gt;setCountryOfResidence(<span class="hljs-string">"ZA"</span>)
+    -&gt;setPhone(<span class="hljs-string">"0748523695"</span>)
+    -&gt;setCustomerId(<span class="hljs-string">"854"</span>)
+    -&gt;setBillingAddress(<span class="hljs-variable">$addr</span>);
+</div>
+</div>
+</div>
+<!-- Customer -->
+<div class="segment">
+<div class="comments ">
+<div class="wrapper"><h3 id="payer">Customer</h3>
+<p>A resource representing a Customer that funds a payment. For direct credit card payments, set payment method
+to &#39;credit_card&#39; and the funding instrument.</p></div>
+</div>
+<div class="code">
+<div class="wrapper"><span class="hljs-variable">$customer</span> = <span class="hljs-keyword">new</span> Customer();
+<span class="hljs-variable">$customer</span>-&gt;setPaymentMethod(<span class="hljs-keyword">PaymentMethod::TYPE_CREDITCARD</span>)
+    -&gt;setCustomerInfo(<span class="hljs-variable">$ci</span>)
+    -&gt;setIPAddress(<span class="hljs-string">"127.0.0.1"</span>)
+    -&gt;setFundingInstrument(<span class="hljs-variable">$fi</span>);
+</div>
+</div>
+</div>
+<!-- /Customer -->
+
+<div class="segment">
+<div class="comments ">
+<div class="wrapper"><h3 id="amount">Amount</h3>
+    <p>Lets you specify a payment amount. You can also specify additional details such as shipping, tax.</p></div>
+</div>
+<div class="code">
+<div class="wrapper"><span class="hljs-variable">$amount</span> = <span class="hljs-keyword">new</span> Amount();
+<span class="hljs-variable">$amount</span>-&gt;setCurrency(<span class="hljs-string">"ZAR"</span>)
+    -&gt;setTotal(<span class="hljs-number">200.00</span>);
+</div>
+</div>
+</div>
+
+
+<div class="segment">
+<div class="comments ">
+<div class="wrapper"><h3 id="transaction">Transaction</h3>
+<p>A transaction defines the contract of a
+    payment - what is the payment for and who
+    is fulfilling it. </p></div>
+</div>
+<div class="code">
+<div class="wrapper"><span class="hljs-variable">$transaction</span> = <span class="hljs-keyword">new</span> Transaction();
+<span class="hljs-variable">$transaction</span>-&gt;setAmount(<span class="hljs-variable">$amount</span>)
+    -&gt;setDescription(<span class="hljs-string">"Payment description"</span>)
+    -&gt;setInvoiceNumber(uniqid(<span class="hljs-string">"payu"</span>));
+</div>
+</div>
+</div>
+
+<div class="segment">
+<div class="comments ">
+<div class="wrapper"><h3 id="redirect-url">Redirect Urls</h3><p>Lets you specify notify, cancel and return urls</p></div>
+</div>
+<div class="code">
+<div class="wrapper">
+<span class="hljs-variable">$baseUrl</span> = getBaseUrl();
+<span class="hljs-variable">$redirectUrls</span> = <span class="hljs-keyword">new</span> RedirectUrls();
+<span class="hljs-variable">$redirectUrls</span>-&gt;setNotifyUrl(<span class="hljs-string">"$baseUrl/process-ipn"</span>);
+</div>
+</div>
+</div>
+
+<div class="segment">
+<div class="comments ">
+<div class="wrapper"><h3 id="payment">Payment</h3>
+<p>A Payment Resource, create one with intent set to payment &#39;payment&#39;</p></div>
+</div>
+<div class="code">
+<div class="wrapper"><span class="hljs-variable">$payment</span> = <span class="hljs-keyword">new</span> Payment();
+<span class="hljs-variable">$payment</span>-&gt;setIntent(<span class="hljs-keyword">Transaction::TYPE_PAYMENT</span>)
+    -&gt;setCustomer(<span class="hljs-variable">$customer</span>)
+    -&gt;setTransaction(<span class="hljs-variable">$transaction</span>)
+    -&gt;setRedirectUrls(<span class="hljs-variable">$redirectUrls</span>);
+</div>
+</div>
+</div>
+
+<div class="segment">
+<div class="comments ">
+<div class="wrapper"><p>Enterprise API integration</p></div>
+</div>
+<div class="code">
+<div class="wrapper"><span class="hljs-variable">$apiContext[<span class="hljs-number">0</span>]</span>-&gt;setAccountId(<span class="hljs-string">"acct1"</span>)
+    -&gt;setIntegration(<span class="hljs-constant">ApiContext::ENTERPRISE</span>);
+</div>
+</div>
+</div>
+
+<div class="segment">
+<div class="comments ">
+    <div class="wrapper"><p>For Sample Purposes Only.</p></div>
+</div>
+<div class="code">
+<div class="wrapper"><span class="hljs-variable">$request</span> = <span class="hljs-keyword">clone</span> <span class="hljs-variable">$payment</span>;
+    </div>
+</div>
+</div>
+
+
+<div class="segment">
+<div class="comments ">
+    <div class="wrapper"><h3 id="create-payment">Create Payment</h3>
+        <p>Create a payment by calling the payment-&gt;create() method
+            with a valid ApiContext (See bootstrap.php for more on <code>ApiContext</code>)
+            The response object retrieved by calling `getReturn()` on the payment resource contains the result.</p></div>
+</div>
+<div class="code"><div class="wrapper"><span class="hljs-keyword">try</span> {
+    <span class="hljs-variable">$payment</span>-&gt;create(<span class="hljs-variable">$apiContext[<span class="hljs-number">0</span>]</span>);
+} <span class="hljs-keyword">catch</span> (<span class="hljs-keyword">Exception</span> <span class="hljs-variable">$ex</span>) {
+    </div>
+</div>
+</div>
+
+
+<div class="segment">
+<div class="comments ">
+    <div class="wrapper"><p>NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE
+        ONLY</p></div>
+</div>
+<div class="code">
+    <div class="wrapper"> ResultPrinter::printError(<span class="hljs-string">'Create Payment Using Credit Card. If 500 Exception, check the response for details.'</span>, <span class="hljs-string">'Payment'</span>, <span class="hljs-keyword">null</span>, <span class="hljs-variable">$request</span>, <span class="hljs-variable">$ex</span>);
+        <span class="hljs-keyword">exit</span>(<span class="hljs-number">1</span>);
+}
+    </div>
+</div>
+</div>
+<div class="segment">
+<div class="comments ">
+    <div class="wrapper"><p>NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE
+        ONLY</p></div>
+</div>
+<div class="code">
+<div class="wrapper"> ResultPrinter::printResult(<span class="hljs-string">'Create Payment Using Credit Card'</span>, <span class="hljs-string">'Payment'</span>, <span class="hljs-variable">$payment</span>-&gt;getId(), <span class="hljs-variable">$request</span>, <span class="hljs-variable">$payment</span>);
+<span class="hljs-keyword">return</span> <span class="hljs-variable">$payment</span>;
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

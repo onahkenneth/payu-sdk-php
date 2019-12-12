@@ -16,7 +16,7 @@ PHP 7.0+ and 7.1+.
 You can install the SDK via [Composer](http://getcomposer.org/). Run the following command:
 
 ```bash
-composer require payu-mea/payu-sdk-php
+composer require payu-mea/payu-mea-sdk-php
 ```
 
 To use the bindings, use Composer's [autoload](https://getcomposer.org/doc/00-intro.md#autoloading):

@@ -37,7 +37,7 @@ class Config
         'trace' => true,
         'exceptions' => true,
         'keep_alive' => false,
-        'ssl_method' => SOAP_SSL_METHOD_TLS
+        'ssl_method' => SOAP_SSL_METHOD_SSLv23
     );
 
     private $headers = array();
